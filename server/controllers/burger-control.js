@@ -91,8 +91,38 @@ deleteBurger = async (req, res) => {
   }).catch((err) => console.log(err));
 };
 
+getBurgerById = async (req, res) => {
+  await Burger.findOne({ _id: req.params.id }, (err, burger) => {
+    if (err) {
+      return res.status(400).json({ ssuccess: false, error: err });
+    }
+    if (!burger) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Burger not found" });
+    }
+    return res.status(200).json({ success: true, data: burger });
+  }).catch((err) => console.log(err));
+};
+
+getBurgers = async (req, res) => {
+  await Burger.find({}, (err, burgers) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+    if (!burgers.length) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Burgers not found " });
+    }
+    return res.status(200).json({ success: true, data: movies });
+  }).catch((err) => console.log(err));
+};
+
 module.exports = {
   createBurger,
   updateBurger,
   deleteBurger,
+  getBurgerById,
+  getBurgers,
 };
