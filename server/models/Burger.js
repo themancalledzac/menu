@@ -6,20 +6,25 @@ const BurgerSchema = new Schema({
   name: {
     type: String,
     trim: true,
-    required: "Enter name of Burgerl",
+    required: "Enter name of Burger",
   },
-  toppings: {
-    type: Schema.Types.ObjectId,
-    ref: "Topping",
-  },
+  toppings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Topping",
+    }
+  ],
   proteins: {
     type: Schema.Types.ObjectId,
     ref: "Protein",
   },
-  condiments: {
-    type: Schema.Types.ObjectId,
-    ref: "Condiment",
-  },
+  condiments: 
+  [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Condiment",
+    }
+  ],
   price: {
     type: Number,
   },
@@ -28,3 +33,9 @@ const BurgerSchema = new Schema({
 const Burger = mongoose.model("Burger", BurgerSchema);
 
 module.exports = Burger;
+
+
+
+{
+  "name": "Plain Burger",
+}

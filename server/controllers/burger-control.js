@@ -15,6 +15,7 @@ createBurger = ({ body }, res) => {
   }
   burger.name = body.name;
   burger.toppings = body.toppings;
+  // TODO need this topping to link to it's _ID
   burger.proteiins = body.proteins;
   burger.condiments = body.condiments;
 
@@ -30,7 +31,7 @@ createBurger = ({ body }, res) => {
     .catch((error) => {
       return res.status(400).json({
         error,
-        message: "Movie not created.",
+        message: "Burger not created.",
       });
     });
 };
@@ -115,7 +116,7 @@ getBurgers = async (req, res) => {
         .status(404)
         .json({ success: false, error: "Burgers not found " });
     }
-    return res.status(200).json({ success: true, data: movies });
+    return res.status(200).json({ success: true, data: burgers });
   }).catch((err) => console.log(err));
 };
 
