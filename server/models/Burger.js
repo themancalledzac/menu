@@ -12,18 +12,17 @@ const BurgerSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Topping",
-    }
+    },
   ],
   proteins: {
     type: Schema.Types.ObjectId,
     ref: "Protein",
   },
-  condiments: 
-  [
+  condiments: [
     {
       type: Schema.Types.ObjectId,
       ref: "Condiment",
-    }
+    },
   ],
   price: {
     type: Number,
@@ -33,9 +32,3 @@ const BurgerSchema = new Schema({
 const Burger = mongoose.model("Burger", BurgerSchema);
 
 module.exports = Burger;
-
-
-
-{
-  "name": "Plain Burger",
-}
