@@ -8,6 +8,12 @@ const CondimentSchema = new Schema({
     unique: true,
     required: true,
   },
+  price: {
+    type: Number,
+  },
+  stock: {
+    type: Number,
+  },
 });
 
 const Condiment = mongoose.model("Condiment", CondimentSchema);
