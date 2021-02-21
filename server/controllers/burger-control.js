@@ -14,9 +14,11 @@ createBurger = ({ body }, res) => {
     return res.status(400).json({ success: false, error: err });
   }
   burger.name = body.name;
-  burger.toppings = body.toppings;
   // TODO need this topping to link to it's _ID
-  burger.proteiins = body.proteins;
+  burger.toppings = body.toppings;
+  // TODO need this protein to link to it's _ID
+  burger.proteins = body.proteins;
+  // TODO need this comdiment` to link to it's _ID
   burger.condiments = body.condiments;
 
   burger
@@ -63,7 +65,7 @@ updateBurger = async ({ body }, rest) => {
         .then(() => {
           return res.status(200).json({
             success: true,
-            id: MSPointerEvent._id,
+            id: burger._id,
             message: "Burger Update!",
           });
         })
