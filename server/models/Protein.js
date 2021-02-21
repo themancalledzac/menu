@@ -12,6 +12,14 @@ const ProteinSchema = new Schema({
     type: Number,
     required: true,
   },
+  stock: {
+    type: Number,
+    required: true,
+  },
+  vegitarian: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Protein = mongoose.model("Protein", ProteinSchema);
