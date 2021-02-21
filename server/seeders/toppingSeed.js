@@ -6,47 +6,71 @@ mongoose.connect("mongodb://localhost/menu", {
   useFindAndModify: false,
 });
 
-let proteinSeed = [
+let toppingSeed = [
   {
-    name: "beef",
-    price: 2.5,
-    stock: 60,
-    vegitarian: false,
+    name: "bun",
+    price: 0.5,
+    stock: 100,
   },
   {
-    name: "chicken",
-    price: 3.0,
-    stock: 40,
-    vegitarian: false,
+    name: "onion",
+    price: 0.2,
+    stock: 100,
   },
   {
-    name: "pork katsu",
-    price: 5.0,
-    stock: 30,
-    vegitarian: false,
+    name: "pickle",
+    price: 0.1,
+    stock: 100,
   },
   {
-    name: "beef katsu",
-    price: 5.0,
-    stock: 30,
-    vegitarian: false,
+    name: "lettuce",
+    price: 0.2,
+    stock: 100,
   },
   {
-    name: "Impossible",
-    price: 5.0,
-    stock: 30,
-    vegitarian: true,
+    name: "coleslaw",
+    price: 0.2,
+    stock: 100,
   },
   {
-    name: "Impossible katsu",
-    price: 5.0,
-    stock: 30,
-    vegitarian: true,
+    name: "kimchi",
+    price: 0.2,
+    stock: 100,
+  },
+  {
+    name: "arugula",
+    price: 0.2,
+    stock: 100,
+  },
+  {
+    name: "tomato",
+    price: 0.3,
+    stock: 100,
+  },
+  {
+    name: "avocado",
+    price: 1.0,
+    stock: 100,
+  },
+  {
+    name: "bacon",
+    price: 1.2,
+    stock: 100,
+  },
+  {
+    name: "mushrooms",
+    price: 0.3,
+    stock: 100,
+  },
+  {
+    name: "egg",
+    price: 0.8,
+    stock: 100,
   },
 ];
 
-db.Protein.deleteMany({})
-  .then(() => db.Protein.collection.insertMany(proteinSeed))
+db.Topping.deleteMany({})
+  .then(() => db.Topping.collection.insertMany(toppingSeed))
   .then((data) => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);

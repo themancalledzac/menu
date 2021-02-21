@@ -1,13 +1,13 @@
 {
-  "name": "server",
+  "name": "menu",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "seed": "node seeders"
+    "seed": "node seeders/burgerSeed.js"
   },
   "keywords": [],
   "author": "",
