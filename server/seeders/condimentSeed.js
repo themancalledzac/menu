@@ -44,8 +44,8 @@ let condimentSeed = [
   },
 ];
 
-db.Condiment.collection
-  .insertMany(condimentSeed)
+db.Condiment.deleteMany({})
+  .then(() => db.Condiment.collection.insertMany(condimentSeed))
   .then((data) => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);

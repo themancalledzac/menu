@@ -10,7 +10,6 @@ router.put("/burger/:id", BurgerController.updateBurger);
 router.delete("/burger/:id", BurgerController.deleteBurger);
 router.get("/burger/:id", BurgerController.getBurgerById);
 router.get("/burgers", BurgerController.getBurgers);
-
 router.get("/toppings", ToppingController.getToppings);
 
 module.exports = router;

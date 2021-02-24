@@ -11,16 +11,16 @@ let burgerSeed = [
     name: "Plain Jane",
     toppings: [
       {
-        _id: ObjectID("6032c1c571839c62fc2c50b8"),
+        type: "6032c1c571839c62fc2c50b8",
         $ref: "Topping",
       },
     ],
     proteins: {
-      _id: ObjectID("6032c1689ed1df5314d42010"),
+      type: "6032c1689ed1df5314d42010",
       $ref: "Protein",
     },
     condiments: {
-      _id: ObjectID("6032c29f8f6d874908d9d2f6"),
+      type: "6032c29f8f6d874908d9d2f6",
       $ref: "Condiment",
     },
   },
