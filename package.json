@@ -1,0 +1,12 @@
+{
+    "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "concurrently \"backend/node server.js",
+    "start:dev": "concurrently \"node front_end/ next -p 7777\" \"backend/cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
+    }
+}
