@@ -26,8 +26,7 @@ export default function Nav() {
           // all of our links that only work when a user is logged in, or if user exists
       // ) */}
       <Link href='/favorites'>Favorites</Link>
-      <Link href='/about'>About</Link>
-      <Link href='/login'>Login</Link>
+      <Link href='/cart'>Cart</Link>
     </NavStyles>
   );
 }
