@@ -12,9 +12,14 @@
 
 - I am looking at combining styled-components with Material-UI
 
-- Seems like they should work in tamdem with each other, where Material-UI gives us components to use,
+  - Seems like they should work in tamdem with each other, where Material-UI gives us components to use, and styled-components lets us customize them to our will.
 
-- and styled-components lets us customize them to our will.
+- White background, high contrast slightly off black secondary.
+  - Color scheme is an interesting thought that we can come back to later
+  - would be cool to have a 'dark mode' switch.
+    - I say this as the future (of css, android, etc) seems to be sites with prefered colors, dark/light/highcontrast, etc... would be nice to have that as an option from the start.
+      - would basically be a bit of state from the start that specifies what mode the site is in.
+- Sick Fits style loading animation, and hover animations for buttons would be great.
 
 ### Page Layout
 
@@ -69,6 +74,16 @@
           - Ordering items takes x number of days to get back into stock, or:
           - organizing by out of stock, or most ordered, or auto-order when getting low
 
+- Mobile View
+  - Top logo - title name on top, full width
+  - Nav (if we stick with the 3 tabs) can stay full width, 33% each
+    - Thoughts on scrolling down hides the top bar? But as soon as you scroll up again it pops up? That way we get more full screen coverage when looking at items
+  - Main Body
+    - 90% width, we really want to maximize coverage
+  - Footer
+    - designed by Us
+    - Links to our respective portfolios
+
 ## Backend
 
 - The seed files are just a super rough estimate from a month ago so take that with a grain of salt. BUT...
@@ -86,6 +101,7 @@
 - Customer creation are simple CREATE_PRODUCT graphQL strings with ingredient associations.
 - Admin ingredient ordering would simply be an 'update product' style graphQL string to update stock.
 - Customer ordering of items would be another 'update product' graphQL string to lower stock of each ingredient ordered.
+- I guess we don't really need to worry about users on the backend?
 
 ## Graphics
 
