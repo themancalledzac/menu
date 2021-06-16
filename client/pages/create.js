@@ -1,6 +1,10 @@
-import React from 'react';
-import Page from '../components/Page';
+import React from "react";
+import Body from "../components/CreateBody";
 
-const Create = () => <p>Create your own custom burger</p>;
-
-export default Create;
+export default function Create() {
+  return (
+    <Body>
+      <p>create</p>
+    </Body>
+  );
+}
