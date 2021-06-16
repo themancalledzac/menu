@@ -1,12 +1,27 @@
 {
-    "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "concurrently \"backend/node server.js",
-    "start:dev": "concurrently \"node front_end/ next -p 7777\" \"backend/cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev\"",
+  "name": "@keystonejs/example-projects-starter",
+  "description": "An example KeystoneJS project with a User list and Authentication.",
+  "private": true,
+  "version": "6.0.3",
+  "author": "The KeystoneJS Development Team",
+  "repository": "https://github.com/themancalledzac/menu",
+  "homepage": "https://github.com/themancalledzac/menu",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "build": "concurrently \"cd server && npm run build\" \"cd client && npm run build\"",
+    "start": "concurrently \"cd server && npm run start\" \"cd client && npm run start\"",
     "client": "cd client && npm run start",
-    "seed": "node scripts/seedDB.js",
-    "install": "cd client && npm install",
-    "build": "cd client && npm run build",
+    "seed": "cd server && node seeders",
+    "install": "concurrently \"cd server && npm i\" \"cd client && npm i\"",
     "heroku-postbuild": "npm run build"
-    }
+  },
+  "dependencies": {
+    "dotenv": "^8.6.0",
+    "concurrently": "^6.2.0"
+  },
+  "devDependencies": {}
 }
