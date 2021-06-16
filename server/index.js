@@ -1,22 +1,27 @@
-const { Keystone } = require('@keystonejs/keystone');
-const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
-const { Text, Checkbox, Password } = require('@keystonejs/fields');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
-const initialiseData = require('./initial-data');
+require("dotenv").config();
+const { Keystone } = require("@keystonejs/keystone");
+const { PasswordAuthStrategy } = require("@keystonejs/auth-password");
+const { Text, Checkbox, Password } = require("@keystonejs/fields");
+const { GraphQLApp } = require("@keystonejs/app-graphql");
+const { AdminUIApp } = require("@keystonejs/app-admin-ui");
+const initialiseData = require("./initial-data");
 
-const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
-const PROJECT_NAME = 'backend';
-const adapterConfig = { mongoUri: 'mongodb://localhost/backend' };
-
+const { MongooseAdapter: Adapter } = require("@keystonejs/adapter-mongoose");
+const PROJECT_NAME = "backend";
+const adapterConfig = {
+  mongoUri:
+    "mongodb+srv://taani-bravo:11IWgvaCGmsIIkhW@cluster0.27nwi.mongodb.net/forked-menu?retryWrites=true&w=majority"
+};
 
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
-  onConnect: process.env.CREATE_TABLES !== 'true' && initialiseData,
+  onConnect: process.env.CREATE_TABLES !== "true" && initialiseData,
+  cookieSecret: "wassuhDude"
 });
 
 // Access control functions
-const userIsAdmin = ({ authentication: { item: user } }) => Boolean(user && user.isAdmin);
+const userIsAdmin = ({ authentication: { item: user } }) =>
+  Boolean(user && user.isAdmin);
 const userOwnsItem = ({ authentication: { item: user } }) => {
   if (!user) {
     return false;
@@ -35,24 +40,24 @@ const userIsAdminOrOwner = auth => {
 
 const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
 
-keystone.createList('User', {
+keystone.createList("User", {
   fields: {
     name: { type: Text },
     email: {
       type: Text,
-      isUnique: true,
+      isUnique: true
     },
     isAdmin: {
       type: Checkbox,
       // Field-level access controls
       // Here, we set more restrictive field access so a non-admin cannot make themselves admin.
       access: {
-        update: access.userIsAdmin,
-      },
+        update: access.userIsAdmin
+      }
     },
     password: {
-      type: Password,
-    },
+      type: Password
+    }
   },
   // List-level access controls
   access: {
@@ -60,14 +65,14 @@ keystone.createList('User', {
     update: access.userIsAdminOrOwner,
     create: access.userIsAdmin,
     delete: access.userIsAdmin,
-    auth: true,
-  },
+    auth: true
+  }
 });
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
-  list: 'User',
-  config: { protectIdentities: process.env.NODE_ENV === 'production' },
+  list: "User",
+  config: { protectIdentities: process.env.NODE_ENV === "production" }
 });
 
 module.exports = {
@@ -77,7 +82,7 @@ module.exports = {
     new AdminUIApp({
       name: PROJECT_NAME,
       enableDefaultRoute: true,
-      authStrategy,
-    }),
-  ],
+      authStrategy
+    })
+  ]
 };
