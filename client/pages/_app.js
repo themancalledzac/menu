@@ -1,14 +1,44 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
-import Page from "../components/Page";
-import "../styles/globals.css";
+import { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import theme from '../src/theme';
+import Page from '../components/Page';
+import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp(props) {
+  const { Component, pageProps } = props;
+
+  useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
+
   return (
-    <Page>
-      <Component {...pageProps} />
-    </Page>
+    <Fragment>
+      <Head>
+        <title>Menu: Restaurant Order System</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+      </ThemeProvider>
+    </Fragment>
   );
 }
 
-export default MyApp;
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  pageProps: PropTypes.object.isRequired
+};
