@@ -1,6 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 
-export function Home() {
+const Home = () => {
   return (
     <main>
       <Grid>
@@ -14,4 +14,6 @@ export function Home() {
       </Grid>
     </main>
   );
-}
+};
+
+export default Home;

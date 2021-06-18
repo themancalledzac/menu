@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled, { createGlobalStyle } from "styled-components";
-import Header from "./Header";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled, { createGlobalStyle } from 'styled-components';
+import Header from './Header';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: normal;
   }
   html {
-    maxWidth: 1000px;
+    max-width: 1000px;
     --bs: 0 112px 24px 0 rgba(0,0,0,0.09);
   }
     body {
@@ -40,7 +40,7 @@ export default function Page({ children }) {
 
 // don't relaly NEED to use propTypes
 Page.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.any
 };
 
 // children: PropTypes.any
