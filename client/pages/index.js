@@ -26,7 +26,7 @@ const Home = () => {
     <main>
       <Grid container>
         <Jumbotron
-          backgroundImage="url(./images/restaurant.jpg"
+          backgroundImage="url(./images/restaurant.jpg)"
           title="Menu is a online restaurant management system."
           subtitle="Build your system and have customer build their own items with your
         ingredients or have them pick for your Menu."

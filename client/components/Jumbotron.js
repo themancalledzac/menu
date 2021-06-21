@@ -22,6 +22,8 @@ const Jumbotron = ({
 }) => {
   const classes = useStyles();
 
+  console.log(backgroundImage);
+
   const styles = {
     color: textColor,
     background:
