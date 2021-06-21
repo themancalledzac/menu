@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Jumbotron = ({
+  children,
   backgroundImage,
   title,
   subtitle,
@@ -22,13 +23,9 @@ const Jumbotron = ({
 }) => {
   const classes = useStyles();
 
-  console.log(backgroundImage);
-
   const styles = {
     color: textColor,
-    background:
-      'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), ' +
-      backgroundImage,
+    background: `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${backgroundImage})`,
     backgroundSize: 'cover'
   };
 
@@ -42,6 +39,7 @@ const Jumbotron = ({
     >
       <h2>{title}</h2>
       <h3>{subtitle}</h3>
+      {children}
     </Grid>
   );
 };
