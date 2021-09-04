@@ -9,7 +9,7 @@ const initialiseData = require("./initial-data");
 const { MongooseAdapter: Adapter } = require("@keystonejs/adapter-mongoose");
 const PROJECT_NAME = "backend";
 const adapterConfig = {
-  mongoUri: process.env.MONGODB_URI,
+  mongoUri: process.env.MONGODB_URI || "mongodb://localhost/menu",
 };
 
 const keystone = new Keystone({
