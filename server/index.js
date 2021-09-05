@@ -5,6 +5,8 @@ const { Text, Checkbox, Password } = require("@keystonejs/fields");
 const { GraphQLApp } = require("@keystonejs/app-graphql");
 const { AdminUIApp } = require("@keystonejs/app-admin-ui");
 const initialiseData = require("./initial-data");
+import { User } from "./schemas/User";
+import { Burger } from "./schemas/Burger";
 
 const { MongooseAdapter: Adapter } = require("@keystonejs/adapter-mongoose");
 const PROJECT_NAME = "backend";
@@ -39,34 +41,36 @@ const userIsAdminOrOwner = (auth) => {
 
 const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
 
-keystone.createList("User", {
-  fields: {
-    name: { type: Text },
-    email: {
-      type: Text,
-      isUnique: true,
-    },
-    isAdmin: {
-      type: Checkbox,
-      // Field-level access controls
-      // Here, we set more restrictive field access so a non-admin cannot make themselves admin.
-      access: {
-        update: access.userIsAdmin,
-      },
-    },
-    password: {
-      type: Password,
-    },
-  },
-  // List-level access controls
-  access: {
-    read: access.userIsAdminOrOwner,
-    update: access.userIsAdminOrOwner,
-    create: access.userIsAdmin,
-    delete: access.userIsAdmin,
-    auth: true,
-  },
-});
+keystone.createList("User", User);
+keystone.createList("Burger", Burger);
+// {
+//   fields: {
+//     name: { type: Text },
+//     email: {
+//       type: Text,
+//       isUnique: true,
+//     },
+//     isAdmin: {
+//       type: Checkbox,
+//       // Field-level access controls
+//       // Here, we set more restrictive field access so a non-admin cannot make themselves admin.
+//       access: {
+//         update: access.userIsAdmin,
+//       },
+//     },
+//     password: {
+//       type: Password,
+//     },
+//   },
+//   // List-level access controls
+//   access: {
+//     read: access.userIsAdminOrOwner,
+//     update: access.userIsAdminOrOwner,
+//     create: access.userIsAdmin,
+//     delete: access.userIsAdmin,
+//     auth: true,
+//   },
+// });
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
