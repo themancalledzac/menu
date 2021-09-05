@@ -7,6 +7,10 @@ const { AdminUIApp } = require("@keystonejs/app-admin-ui");
 const initialiseData = require("./initial-data");
 import { User } from "./schemas/User";
 import { Burger } from "./schemas/Burger";
+import { Protein } from "./schemas/Protein";
+import { Topping } from "./schemas/Topping";
+import { Cheese } from "./schemas/Cheese";
+import { Condiment } from "./schemas/Condiment";
 
 const { MongooseAdapter: Adapter } = require("@keystonejs/adapter-mongoose");
 const PROJECT_NAME = "backend";
@@ -43,6 +47,11 @@ const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
 
 keystone.createList("User", User);
 keystone.createList("Burger", Burger);
+keystone.createList("Protein", Protein);
+keystone.createList("Topping", Topping);
+keystone.createList("Cheese", Cheese);
+keystone.createList("Condiment", Condiment);
+
 // {
 //   fields: {
 //     name: { type: Text },
