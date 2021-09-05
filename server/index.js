@@ -5,12 +5,12 @@ const { Text, Checkbox, Password } = require("@keystonejs/fields");
 const { GraphQLApp } = require("@keystonejs/app-graphql");
 const { AdminUIApp } = require("@keystonejs/app-admin-ui");
 const initialiseData = require("./initial-data");
-import { User } from "./schemas/User";
-import { Burger } from "./schemas/Burger";
-import { Protein } from "./schemas/Protein";
-import { Topping } from "./schemas/Topping";
-import { Cheese } from "./schemas/Cheese";
-import { Condiment } from "./schemas/Condiment";
+const User = require("./schemas/User");
+const Burger = require("./schemas/Burger");
+const Protein = require("./schemas/Protein");
+const Topping = require("./schemas/Topping");
+const Cheese = require("./schemas/Cheese");
+const Condiment = require("./schemas/Condiment");
 
 const { MongooseAdapter: Adapter } = require("@keystonejs/adapter-mongoose");
 const PROJECT_NAME = "backend";

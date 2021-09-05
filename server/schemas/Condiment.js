@@ -1,4 +1,4 @@
-const { Text, Checkbox } = require("@keystonejs/fields");
+const { Text, Decimal } = require("@keystonejs/fields");
 
 module.exports = {
   fields: {

@@ -1,6 +1,4 @@
-const { Text, Checkbox, Relationship } = require("@keystonejs/fields");
-import { Protein } from "./Protein";
-import { Topping } from "./Topping";
+const { Text, Decimal, Relationship } = require("@keystonejs/fields");
 
 module.exports = {
   fields: {
