@@ -6,10 +6,15 @@ module.exports = {
     price: { type: Float },
     // https://v5.keystonejs.com/api/create-list#plugins
     // Looking at creating a plugin for calculating price of burger by the price of each of it's associated toppings
+    description: Text({
+      ui: {
+        displayMode: "textarea",
+      },
+    }),
     protein: {
       type: Relationship,
       ref: "Protein",
-      many: true,
+      many: false,
     },
     topping: {
       type: Relationship,

@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "@keystonejs/example-projects-starter",
   "description": "An example KeystoneJS project with a User list and Authentication.",
   "private": true,
