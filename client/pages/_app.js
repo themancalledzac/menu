@@ -8,8 +8,10 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
 import Page from "../components/Page";
-import "../styles/globals.css";
+import "../components/styles/globals.css";
 import withData from "../lib/withData";
+import "nprogress/nprogress.css";
+import "../components/styles/nprogress.css";
 
 Router.events.on("routeChangeStart", () => nProgress.start());
 Router.events.on("routeChangeComplete", () => nProgress.done());
