@@ -1,9 +1,9 @@
-const { Text, Float, Relationship } = require("@keystonejs/fields");
+const { Text, Integer, Relationship } = require("@keystonejs/fields");
 
 module.exports = {
   fields: {
     name: { type: Text },
-    price: { type: Float },
+    price: { type: Integer },
     // https://v5.keystonejs.com/api/create-list#plugins
     // Looking at creating a plugin for calculating price of burger by the price of each of it's associated toppings
     // description: Text({
