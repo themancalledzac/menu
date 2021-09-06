@@ -15,7 +15,7 @@ const Cheese = require("./schemas/Cheese");
 const Condiment = require("./schemas/Condiment");
 
 const { MongooseAdapter: Adapter } = require("@keystonejs/adapter-mongoose");
-const { createPartiallyEmittedExpression } = require("typescript");
+// const { createPartiallyEmittedExpression } = require("typescript");
 const PROJECT_NAME = "backend";
 const adapterConfig = {
   mongoUri: process.env.MONGODB_URI || "mongodb://localhost/menu",
