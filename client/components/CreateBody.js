@@ -10,7 +10,7 @@ export default function CreateBody() {
     /* border: 1px solid black; */
   `;
   return (
-    <BodyStyle>
+    <div>
       <Grid container xs={12}>
         <Grid item xs={12}>
           <h1>Ingredients available</h1>
@@ -83,6 +83,6 @@ export default function CreateBody() {
         </Grid>
       </Grid>
       <hr></hr>
-    </BodyStyle>
+    </div>
   );
 }

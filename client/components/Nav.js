@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
+import { useUser } from "./User";
 
 export default function Nav() {
   const NavStyles = styled.ul`
@@ -19,6 +20,8 @@ export default function Nav() {
     }
   `;
 
+  const user = useUser();
+
   return (
     <NavStyles>
       <Link href='/create'>Create</Link>
@@ -27,6 +30,11 @@ export default function Nav() {
       // ) */}
       <Link href='/favorites'>Favorites</Link>
       <Link href='/cart'>Cart</Link>
+      {!user && (
+        <>
+          <Link href='/signin'>Sign In</Link>
+        </>
+      )}
     </NavStyles>
   );
 }
