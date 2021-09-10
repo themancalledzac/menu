@@ -1,3 +1,9 @@
+import Burgers from "../components/Burgers";
+
 export default function Favorites() {
-  return <p>Here are our favorites</p>;
+  return (
+    <div>
+      <Burgers />
+    </div>
+  );
 }

@@ -28,7 +28,7 @@ export default function Nav() {
       {/* Here we do a <user && (
           // all of our links that only work when a user is logged in, or if user exists
       // ) */}
-      <Link href='/favorites'>Favorites</Link>
+      <Link href='/favorites'>Burgers</Link>
       <Link href='/cart'>Cart</Link>
       {!user && (
         <>

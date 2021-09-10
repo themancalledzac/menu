@@ -17,16 +17,21 @@
     "create-tables": "cross-env CREATE_TABLES=true keystone create-tables"
   },
   "dependencies": {
-    "@keystonejs/keystone": "^19.3.2",
-    "@keystonejs/adapter-mongoose": "^11.2.1",
-    "@keystonejs/app-graphql": "^6.3.1",
-    "@keystonejs/fields": "^22.1.2",
-    "@keystonejs/app-admin-ui": "^7.5.1",
-    "@keystonejs/auth-password": "^6.1.1",
+    "@keystone-next/admin-ui": "^8.0.1",
+    "@keystone-next/auth": "^14.0.0",
+    "@keystone-next/cloudinary": "^2.0.9",
+    "@keystone-next/fields": "^4.1.1",
+    "@keystone-next/keystone": "^9.3.0",
+    "@keystone-next/types": "^12.0.0",
+    "@keystonejs/server-side-graphql-client": "^1.1.2",
     "cross-env": "^7.0.3",
+    "next": "^10.0.5",
     "dotenv": "^8.6.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "nodemailer": "^6.4.17",
+    "@types/nodemailer": "^6.4.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "stripe": "^8.130.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.9.0",

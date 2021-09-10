@@ -1,6 +1,8 @@
 {
   "type": "module",
-  "cacheDirectories": ["client/.next/cache"],
+  "cacheDirectories": [
+    "client/.next/cache"
+  ],
   "name": "@keystonejs/example-projects-starter",
   "description": "An example KeystoneJS project with a User list and Authentication.",
   "private": true,
@@ -22,8 +24,8 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "@keystonejs/server-side-graphql-client": "^2.1.2",
     "concurrently": "^6.2.0",
-    "dotenv": "^8.6.0"
+    "dotenv": "^8.6.0",
+    "eslint": "^7.32.0"
   }
 }

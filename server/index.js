@@ -6,6 +6,7 @@ const { Text, Checkbox, Password } = require("@keystonejs/fields");
 const { GraphQLApp } = require("@keystonejs/app-graphql");
 const { AdminUIApp } = require("@keystonejs/app-admin-ui");
 const initialiseData = require("./initial-data");
+const { NextApp } = require("@keystonejs/app-next");
 // const seedData = require("./seeders/index");
 const User = require("./schemas/User");
 const Burger = require("./schemas/Burger");
@@ -380,5 +381,6 @@ module.exports = {
       enableDefaultRoute: true,
       authStrategy,
     }),
+    new NextApp({ dir: "../client" }),
   ],
 };
