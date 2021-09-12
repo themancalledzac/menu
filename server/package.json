@@ -1,18 +1,14 @@
 {
   "name": "@keystonejs/example-projects-starter",
   "description": "An example KeystoneJS project with a User list and Authentication.",
-  "type": "module",
   "private": true,
-  "version": "6.0.3",
-  "author": "The KeystoneJS Development Team",
+  "author": "Zechariah Edens",
   "repository": "https://github.com/themancalledzac/menu",
   "homepage": "https://github.com/themancalledzac/menu",
   "license": "MIT",
-  "engines": {
-    "node": ">=10.0.0"
-  },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev",
+    "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true keystone-next",
+    "seed-data": "keystone-next --seed-data",
     "build": "cross-env NODE_ENV=production keystone build",
     "start": "cross-env NODE_ENV=production keystone start",
     "create-tables": "cross-env CREATE_TABLES=true keystone create-tables"

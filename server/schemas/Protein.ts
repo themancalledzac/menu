@@ -13,7 +13,7 @@ export const Protein = list({
     }),
     price: integer(),
     stock: integer(),
-    burger: relationship({ ref: 'Burger.protein '}),
+    // burger: relationship({ ref: 'Burger.protein '}),
     vegitarian: select({
       options: [
         { label: 'Vegitarian', value: 'VEGITARIAN' },

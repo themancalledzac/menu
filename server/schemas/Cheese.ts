@@ -10,7 +10,7 @@ export const Cheese = list({
         displayMode: 'textarea',
       },
     }),
-    burger: relationship({ ref: 'Cheese.topping' }),
+    // burger: relationship({ ref: 'Cheese.topping' }),
     price: integer(),
     stock: integer(),
   },

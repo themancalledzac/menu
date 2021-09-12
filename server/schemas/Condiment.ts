@@ -10,6 +10,7 @@ export const Condiment = list({
         displayMode: "textarea",
       },
     }),
+    // burger: relationship({ ref: 'Condiment.topping' }),
     price: integer(),
     stock: integer(),
   },

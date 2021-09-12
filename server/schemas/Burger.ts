@@ -12,19 +12,18 @@ export const Burger = list({
     }),
     price: integer(),
     protein: relationship({
-      ref: 'Protein.burger',
-      many: true,
+      ref: 'Protein',
     }),
     topping: relationship({
-      ref: 'Topping.burger',
+      ref: 'Topping',
       many: true,
     }),
     cheese: relationship({
-      ref: 'Cheese.burger',
+      ref: 'Cheese',
       many: true,
     }),
     condiment: relationship({
-      ref: 'Condiment.burger',
+      ref: 'Condiment',
       many: true,
     }),
   },

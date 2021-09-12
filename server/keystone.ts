@@ -5,14 +5,14 @@ import {
   withItemData,
   statelessSessions,
 } from "@keystone-next/keystone/session";
-const User = require("./schemas/User");
-const Burger = require("./schemas/Burger");
-const Protein = require("./schemas/Protein");
-const Topping = require("./schemas/Topping");
-const Cheese = require("./schemas/Cheese");
-const Condiment = require("./schemas/Condiment");
+import { User } from "./schemas/User";
+import  {Burger} from "./schemas/Burger";
+import {Protein} from "./schemas/Protein";
+import {Topping} from "./schemas/Topping";
+import {Cheese} from "./schemas/Cheese";
+import {Condiment} from "./schemas/Condiment";
 import { insertSeedData } from "./seed-data";
-import { sendPasswordResetEmail } from "./lib/mail";
+// import { sendPasswordResetEmail } from "./lib/mail";
 
 const databaseURL = process.env.DATABASE_URL || "mongodb://localhost/menu";
 
@@ -37,12 +37,13 @@ const { withAuth } = createAuth({
     // TODO: Add in initial roles here
     // when we do add roles we should give this person every single role because they will be the admin
   },
-  passwordResetLink: {
-    async sendToken(args) {
-      // send the email
-      await sendPasswordResetEmail(args.token, args.identity);
-    },
-  },
+  // TODO: password reset
+  // passwordResetLink: {
+  //   async sendToken(args) {
+  //     // send the email
+  //     await sendPasswordResetEmail(args.token, args.identity);
+  //   },
+  // },
 });
 
 export default withAuth(

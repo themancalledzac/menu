@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const randomString = () => crypto.randomBytes(6).hexSlice();
-const seedData = require("./seeders/index");
+const seedData = require("./seed-data/data");
 
 module.exports = async (keystone) => {
   // Count existing users

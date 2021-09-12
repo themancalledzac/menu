@@ -1,6 +1,5 @@
 import { integer, relationship, select, text } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
-import { Burger } from './Burger';
 
 export const Topping = list({
   fields: {
@@ -11,7 +10,7 @@ export const Topping = list({
         displayMode: 'textarea',
       }
     }),
-    burger: relationship({ ref: 'Burger.topping' }),
+    // burger: relationship({ ref: 'Burger.topping' }),
     price: integer(),
     stock: integer(),
   },
