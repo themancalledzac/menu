@@ -11,6 +11,9 @@ const GridStyles = styled.div`
 const signIn = () => {
   return (
     <GridStyles>
+      <div>
+        <p>hello there</p>
+      </div>
       <SignIn />
       <SignUp />
       <RequestReset />

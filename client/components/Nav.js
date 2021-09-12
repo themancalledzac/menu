@@ -30,10 +30,10 @@ export default function Nav() {
       // ) */}
       <Link href='/favorites'>Burgers</Link>
       <Link href='/cart'>Cart</Link>
-      {!user && (
-        <>
-          <Link href='/signin'>Sign In</Link>
-        </>
+      {!user ? (
+        <Link href='/signin'>Sign In</Link>
+      ) : (
+        <Link href='/signout'>Sign Out</Link>
       )}
     </NavStyles>
   );
