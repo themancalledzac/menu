@@ -2,28 +2,27 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useUser } from "./User";
 
-export default function NavButton() {
-  const NavStyled = styled.ul`
-    margin: 0;
-    padding: 0;
+const NavStyled = styled.ul`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2rem;
+  a,
+  button {
+    padding: 1rem 3rem;
     display: flex;
-    justify-content: flex-end;
-    font-size: 2rem;
-    a,
-    button {
-      padding: 1rem 3rem;
-      display: flex;
-      align-items: flex-end;
-      position: relative;
-      text-transform: uppercase;
-      font-weight: 900;
-    }
+    align-items: flex-end;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
 
-    @media (max-width: 1051px) {
-      font-size: 1.5rem;
-    }
-  `;
-
+  @media (max-width: 1051px) {
+    font-size: 1.5rem;
+  }
+`;
+export default function NavButton() {
   const user = useUser();
 
   return (

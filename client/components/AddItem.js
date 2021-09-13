@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export default function AddItem({
@@ -8,12 +7,6 @@ export default function AddItem({
   stock,
   vegitarian,
 }) {
-  const ingredientStyle = styled.div`
-    // grid display?
-    // eventually add an image
-    // checkbox for yes no?
-    // split each category into their own component?
-  `;
   return (
     <div container xs={12}>
       <div item xs={12}>
