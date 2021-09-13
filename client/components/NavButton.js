@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useUser } from "./User";
 
 export default function NavButton() {
-  const NavStyles = styled.ul`
+  const NavStyled = styled.ul`
     margin: 0;
     padding: 0;
     display: flex;
@@ -27,7 +27,7 @@ export default function NavButton() {
   const user = useUser();
 
   return (
-    <NavStyles>
+    <NavStyled>
       <Link href='/create'>Create</Link>
       {/* Here we do a <user && (
           // all of our links that only work when a user is logged in, or if user exists
@@ -39,6 +39,6 @@ export default function NavButton() {
       ) : (
         <Link href='/signout'>Sign Out</Link>
       )}
-    </NavStyles>
+    </NavStyled>
   );
 }

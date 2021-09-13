@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import gql from "graphql-tag";
 import AddItem from "./AddItem";
-import { Grid } from "@material-ui/core";
 import fakeBurgerData from "../src/fakeBurgerData";
 
 export const ALL_TOPPINGS_QUERY = gql`
@@ -38,8 +37,8 @@ export const ALL_CHEESE_QUERY = gql`
 export default function CreateBody() {
   return (
     <div>
-      <Grid container xs={12}>
-        <Grid item xs={12}>
+      <div container xs={12}>
+        <div item xs={12}>
           <h1>Ingredients available</h1>
           <h4>
             Choose what ya'll want. At the very bottom would be an 'add to cart'
@@ -91,11 +90,11 @@ export default function CreateBody() {
             maybe what season it's in, or perhaps calories of that item.
             depending on how in depth, or what our client would want.
           </p>
-        </Grid>
-        <Grid item xs={12}>
+        </div>
+        <div item xs={12}>
           {fakeBurgerData.map(
             ({ name, price, description, stock, vegitarian }) => (
-              <Grid key={name} item xs={12}>
+              <div key={name} item xs={12}>
                 <AddItem
                   key={name}
                   name={name}
@@ -104,11 +103,11 @@ export default function CreateBody() {
                   stock={stock}
                   vegitarian={vegitarian}
                 />
-              </Grid>
+              </div>
             )
           )}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
       <hr></hr>
     </div>
   );

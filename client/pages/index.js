@@ -1,9 +1,9 @@
-import Grid from '@material-ui/core/Grid';
+
 
 const Home = () => {
   return (
     <main>
-      <Grid>
+      <div>
         <div id="jumbotron-banner">
           <h2>Menu is a online restaurant management system.</h2>
           <h3>
@@ -11,7 +11,7 @@ const Home = () => {
             ingredients or have them pick for your Menu.
           </h3>
         </div>
-      </Grid>
+      </div>
     </main>
   );
 };

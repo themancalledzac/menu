@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+
 import styled from "styled-components";
 
 export default function AddItem({
@@ -15,20 +15,20 @@ export default function AddItem({
     // split each category into their own component?
   `;
   return (
-    <Grid container xs={12}>
-      <Grid item xs={12}>
-        <Grid container xs={12}>
-          <Grid item xs={4}>
+    <div container xs={12}>
+      <div item xs={12}>
+        <div container xs={12}>
+          <div item xs={4}>
             <h1>{name}</h1>
-          </Grid>
-          <Grid item xs={4}>
+          </div>
+          <div item xs={4}>
             <p>{description}</p>
-          </Grid>
-          <Grid item xs={4}>
+          </div>
+          <div item xs={4}>
             <h6>{price}</h6>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

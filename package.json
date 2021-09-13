@@ -7,7 +7,7 @@
   "description": "An example KeystoneJS project with a User list and Authentication.",
   "private": true,
   "version": "6.0.3",
-  "author": "The KeystoneJS Development Team",
+  "author": "Zechariah Edens",
   "repository": "https://github.com/themancalledzac/menu",
   "homepage": "https://github.com/themancalledzac/menu",
   "license": "MIT",
@@ -19,14 +19,13 @@
     "build": "concurrently \"cd server && npm run build\" \"cd client && npm run build\"",
     "start": "concurrently \"cd server && npm run start\" \"cd client && npm run start\"",
     "client": "cd client && npm run start",
-    "seed": "cd server && node seeders",
+    "seed": "cd server && npm seed-data",
     "install": "concurrently \"cd server && npm i\" \"cd client && npm i\"",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "concurrently": "^6.2.0",
-    "dotenv": "^8.6.0",
-    "eslint": "^7.32.0"
+    "dotenv": "^8.6.0"
   },
   "optionalDependencies": {
     "fsevents": "*"
