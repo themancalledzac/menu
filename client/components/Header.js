@@ -1,6 +1,8 @@
 import Link from "next/link";
 import styled from "styled-components";
 import Nav from "./Nav";
+import React from "react";
+import NavButton from "./NavButton";
 
 export default function Header() {
   const HeaderStyles = styled.header`
@@ -13,13 +15,16 @@ export default function Header() {
         align-items: stretch;
         background-color: blueviolet;
       }
+      .title {
+        margin-left: 3rem;
+      }
     }
     @media (max-width: 1051px) {
       .bar {
         border-bottom: 10px solid black;
-        display: grid;
+        display: flex;
         grid-template-columns: auto 1fr;
-        justify-content: space-between;
+        justify-content: center;
         align-items: stretch;
         background-color: blueviolet;
       }
@@ -31,10 +36,16 @@ export default function Header() {
         display: flex;
       }
     }
-    .title {
-      margin-left: 3rem;
+    @media (max-width: 780px) {
     }
   `;
+
+  const [width, setWidth] = React.useState(0);
+  const breakpoint = 780;
+
+  React.useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, []);
 
   return (
     <HeaderStyles>
@@ -45,7 +56,7 @@ export default function Header() {
           </h1>
         </div>
         <div className='sub-bar'>
-          <Nav />
+          {width > breakpoint ? <Nav /> : <NavButton />}
         </div>
       </div>
     </HeaderStyles>

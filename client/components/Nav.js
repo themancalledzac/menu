@@ -18,6 +18,10 @@ export default function Nav() {
       text-transform: uppercase;
       font-weight: 900;
     }
+
+    @media (max-width: 1051px) {
+      font-size: 1.5rem;
+    }
   `;
 
   const user = useUser();
