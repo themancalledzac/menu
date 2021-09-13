@@ -1,14 +1,41 @@
 import styled from "styled-components";
-import Paper from "@material-ui/core/Paper";
+import gql from "graphql-tag";
 import AddItem from "./AddItem";
 import { Grid } from "@material-ui/core";
 import fakeBurgerData from "../src/fakeBurgerData";
 
+export const ALL_TOPPINGS_QUERY = gql`
+  query ALL_TOPPINGS_QUERY {
+    allToppings {
+      id
+      desciption
+      name
+      price
+    }
+  }
+`;
+export const ALL_PROTEINS_QUERY = gql`
+  query ALL_PROTEINS_QUERY {
+    allProteins {
+      id
+      desciption
+      name
+      price
+    }
+  }
+`;
+export const ALL_CHEESE_QUERY = gql`
+  query ALL_Cheese_QUERY {
+    allCheese {
+      id
+      desciption
+      name
+      price
+    }
+  }
+`;
+
 export default function CreateBody() {
-  const BodyStyle = styled(Paper)`
-    /* width: 90%; */
-    /* border: 1px solid black; */
-  `;
   return (
     <div>
       <Grid container xs={12}>

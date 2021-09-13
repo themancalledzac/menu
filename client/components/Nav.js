@@ -7,13 +7,13 @@ export default function Nav() {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-self: end;
+    justify-content: flex-end;
     font-size: 2rem;
     a,
     button {
       padding: 1rem 3rem;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       position: relative;
       text-transform: uppercase;
       font-weight: 900;
