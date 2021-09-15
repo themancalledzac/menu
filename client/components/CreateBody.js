@@ -2,7 +2,10 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/client";
 import AddItem from "./AddItem";
-import fakeBurgerData from "../src/fakeBurgerData";
+import ChooseTopping from "./ChooseToppings";
+import ChooseProtein from "./ChooseProtein";
+import ChooseCheese from "./ChooseCheese";
+import ChooseCondiments from "./ChooseCondiments";
 
 export const BUILD_BURGER_QUERY = gql`
   query BUILD_BURGER_QUERY {
@@ -58,7 +61,7 @@ export default function CreateBody() {
   return (
     <div>
       <div>
-        <div>
+        {/* <div>
           <h1>Ingredients available</h1>
           <h4>
             Choose what ya'll want. At the very bottom would be an 'add to cart'
@@ -68,16 +71,6 @@ export default function CreateBody() {
             the initial prompts(beef protein and a bun?)
           </h4>
           <p>
-            A couple of rules thus far. We need to split up the ingredientData
-            into 3 or more separate portions. First we look at the protein. Once
-            separated, we can have a special rule for this group that when one
-            is selected, the others are greyed out. It will still let you select
-            another, but it will deselect the previous selection.
-          </p>
-          <p>
-            We should decide whether to put cheese on its own section or not.
-          </p>
-          <p>
             ALSO! Very important. we should try and get this so that each
             section, on selection, could minimize, in an acordian style menu.
             that way more is visible when in mobile view. So perhaps on opening,
@@ -86,87 +79,50 @@ export default function CreateBody() {
             to false, setting the next menu's state to be true.
           </p>
           <p>
-            We should have a 'double the meat' button? some sort of option since
-            some people like a double. would have to be accessible outside the
-            menu, if we stick with the acordian style.
-          </p>
-          <p>
             We should have items greyed out, and unclickable if they are out of
             stock. maybe even a line through them?
           </p>
+        </div> */}
+        <div>
+          <h1>Create a burger</h1>
           <p>
-            Do we want checkboxes for each item selected? With this we could
-            still click the entire box, but the checkmark would be located on
-            the far right next to the price. We could also have each item
-            selected be sort of 'indented', an inner drop shadow.
-          </p>
-          <p>
-            Styling should be for mobile: full width. will need to remove all
-            css global styling
-          </p>
-          <p>
-            Description section could go away, it could also be a link to a pop
-            out modul that has a little paragraph of where we source that item,
-            maybe what season it's in, or perhaps calories of that item.
-            depending on how in depth, or what our client would want.
+            Please go through the required selections below to create a burger
           </p>
         </div>
-        <IngredientTitle>Toppings</IngredientTitle>
-        <ItemGrid>
-          {data.allToppings.map(({ id, description, name, price, stock }) => (
-            <div>
-              <AddItem
-                key={id}
-                name={name}
-                price={price}
-                description={description}
-                stock={stock}
-              />
-            </div>
-          ))}
-        </ItemGrid>
         <IngredientTitle>Protein</IngredientTitle>
-        <ItemGrid>
-          {data.allProteins.map(({ id, description, name, price, stock }) => (
+        <div>
+          {data.allProteins.map(({ name, id, description, price, stock }) => (
             <div>
-              <AddItem
-                key={id}
-                name={name}
-                price={price}
-                description={description}
-                stock={stock}
-              />
+              <ChooseProtein key={id} name={name} />
             </div>
           ))}
-        </ItemGrid>
+        </div>
+        <IngredientTitle>Toppings</IngredientTitle>
+        <div>
+          {data.allToppings.map(({ name, id, description, price, stock }) => (
+            <div>
+              <ChooseTopping key={id} name={name} />
+            </div>
+          ))}
+        </div>
+
         <IngredientTitle>Cheese</IngredientTitle>
-        <ItemGrid>
-          {data.allCheeses.map(({ id, description, name, price, stock }) => (
+        <div>
+          {data.allCheeses.map(({ name, id, description, price, stock }) => (
             <div>
-              <AddItem
-                key={id}
-                name={name}
-                price={price}
-                description={description}
-                stock={stock}
-              />
+              <ChooseCheese key={id} name={name} />
             </div>
           ))}
-        </ItemGrid>
+        </div>
+
         <IngredientTitle>Condiments</IngredientTitle>
-        <ItemGrid>
-          {data.allCondiments.map(({ id, description, name, price, stock }) => (
+        <div>
+          {data.allCondiments.map(({ name, id, description, price, stock }) => (
             <div>
-              <AddItem
-                key={id}
-                name={name}
-                price={price}
-                description={description}
-                stock={stock}
-              />
+              <ChooseCondiments key={id} name={name} />
             </div>
           ))}
-        </ItemGrid>
+        </div>
       </div>
       <hr></hr>
     </div>

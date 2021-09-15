@@ -51,3 +51,8 @@ export default function Header() {
     </header>
   );
 }
+
+// TODO: On width change, add a 'transition' to the movement of the Logo Location
+// TODO: on width change, add a 'transition' to the font-size for the rest of the header
+
+// https://www.w3schools.com/css/tryit.asp?filename=trycss3_transition_speed

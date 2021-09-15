@@ -24,6 +24,7 @@
 
 - [Description](#description)
 - [Progress](#how-i-am-working-on-this-project)
+- [Challenges](#challenges)
 - [Navigating this project](#navigating-this-project)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -52,6 +53,17 @@
   - future images of designs: \_\_\_
   - Working with Trello task board: **_screenshot?_**
   - Will be using Travis CI for testing on deployment.
+
+---
+
+## Challenges
+
+---
+
+- Doing an entire application on my own can seem daunting, but breaking it into smaller bite size chunks has been the best path towards success. A few of the challenges I've been facing are:
+
+  - Moving towards custom CSS instead of using a framework.
+    - I really wanted to challenge myself on this project by removing all framework code, and forcing myself to problem solve each little bit. This has/will include Hover effects, loading animation, screen resizing, menu change based on width, page components looking modern, accordian style functionality for the creation page, and many many more.
 
 ---
 
