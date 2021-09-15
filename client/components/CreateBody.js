@@ -4,8 +4,8 @@ import { useQuery } from "@apollo/client";
 import AddItem from "./AddItem";
 import fakeBurgerData from "../src/fakeBurgerData";
 
-export const ALL_TOPPINGS_QUERY = gql`
-  query ALL_TOPPINGS_QUERY {
+export const BUILD_BURGER_QUERY = gql`
+  query BUILD_BURGER_QUERY {
     allToppings {
       id
       description
@@ -13,10 +13,6 @@ export const ALL_TOPPINGS_QUERY = gql`
       price
       stock
     }
-  }
-`;
-export const ALL_PROTEINS_QUERY = gql`
-  query ALL_PROTEINS_QUERY {
     allProteins {
       id
       description
@@ -24,10 +20,6 @@ export const ALL_PROTEINS_QUERY = gql`
       price
       stock
     }
-  }
-`;
-export const ALL_CHEESE_QUERY = gql`
-  query ALL_CHEESE_QUERY {
     allCheeses {
       id
       description
@@ -35,10 +27,6 @@ export const ALL_CHEESE_QUERY = gql`
       price
       stock
     }
-  }
-`;
-export const ALL_CONDIMENTS_QUERY = gql`
-  query ALL_CONDIMENTS_QUERY {
     allCondiments {
       id
       description
@@ -62,30 +50,10 @@ const IngredientTitle = styled.h1`
 export default function CreateBody() {
   // use hook to fetch data
 
-  const {
-    data: toppingData,
-    error: toppingError,
-    loading: toppingLoading,
-  } = useQuery(ALL_TOPPINGS_QUERY);
-  const {
-    data: proteinData,
-    error: proteinError,
-    loading: proteinLoading,
-  } = useQuery(ALL_PROTEINS_QUERY);
-  const {
-    data: cheeseData,
-    error: cheeseError,
-    loading: cheeseLoading,
-  } = useQuery(ALL_CHEESE_QUERY);
-  const {
-    data: condimentData,
-    error: condimentError,
-    loading: condimentLoading,
-  } = useQuery(ALL_CONDIMENTS_QUERY);
+  const { data, error, loading } = useQuery(BUILD_BURGER_QUERY);
 
   // loading
-  if (toppingLoading) return <p>Loading...</p>;
-  if (proteinLoading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div>
@@ -145,67 +113,59 @@ export default function CreateBody() {
         </div>
         <IngredientTitle>Toppings</IngredientTitle>
         <ItemGrid>
-          {toppingData.allToppings.map(
-            ({ id, description, name, price, stock }) => (
-              <div>
-                <AddItem
-                  key={id}
-                  name={name}
-                  price={price}
-                  description={description}
-                  stock={stock}
-                />
-              </div>
-            )
-          )}
+          {data.allToppings.map(({ id, description, name, price, stock }) => (
+            <div>
+              <AddItem
+                key={id}
+                name={name}
+                price={price}
+                description={description}
+                stock={stock}
+              />
+            </div>
+          ))}
         </ItemGrid>
         <IngredientTitle>Protein</IngredientTitle>
         <ItemGrid>
-          {proteinData.allProteins.map(
-            ({ id, description, name, price, stock }) => (
-              <div>
-                <AddItem
-                  key={id}
-                  name={name}
-                  price={price}
-                  description={description}
-                  stock={stock}
-                />
-              </div>
-            )
-          )}
+          {data.allProteins.map(({ id, description, name, price, stock }) => (
+            <div>
+              <AddItem
+                key={id}
+                name={name}
+                price={price}
+                description={description}
+                stock={stock}
+              />
+            </div>
+          ))}
         </ItemGrid>
         <IngredientTitle>Cheese</IngredientTitle>
         <ItemGrid>
-          {cheeseData.allCheeses.map(
-            ({ id, description, name, price, stock }) => (
-              <div>
-                <AddItem
-                  key={id}
-                  name={name}
-                  price={price}
-                  description={description}
-                  stock={stock}
-                />
-              </div>
-            )
-          )}
+          {data.allCheeses.map(({ id, description, name, price, stock }) => (
+            <div>
+              <AddItem
+                key={id}
+                name={name}
+                price={price}
+                description={description}
+                stock={stock}
+              />
+            </div>
+          ))}
         </ItemGrid>
         <IngredientTitle>Condiments</IngredientTitle>
         <ItemGrid>
-          {condimentData.allCondiments.map(
-            ({ id, description, name, price, stock }) => (
-              <div>
-                <AddItem
-                  key={id}
-                  name={name}
-                  price={price}
-                  description={description}
-                  stock={stock}
-                />
-              </div>
-            )
-          )}
+          {data.allCondiments.map(({ id, description, name, price, stock }) => (
+            <div>
+              <AddItem
+                key={id}
+                name={name}
+                price={price}
+                description={description}
+                stock={stock}
+              />
+            </div>
+          ))}
         </ItemGrid>
       </div>
       <hr></hr>
