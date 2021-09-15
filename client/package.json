@@ -64,14 +64,9 @@
       "./jest.setup.js"
     ]
   },
-  "plugins": [
-    [
-      "babel-plugin-styled-components",
-      {
-        "ssr": false
-      }
-    ]
-  ],
+  
+  "presets": ["next/babel"],
+  "plugins": [["styled-components", { "ssr": true }]],
   "//": "This is our babel config, I prefer this over a .babelrc file",
   "babel": {
     "env": {

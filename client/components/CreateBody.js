@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import gql from "graphql-tag";
+import { useQuery } from "@apollo/client";
 import AddItem from "./AddItem";
 import fakeBurgerData from "../src/fakeBurgerData";
 
@@ -7,9 +8,10 @@ export const ALL_TOPPINGS_QUERY = gql`
   query ALL_TOPPINGS_QUERY {
     allToppings {
       id
-      desciption
+      description
       name
       price
+      stock
     }
   }
 `;
@@ -17,28 +19,78 @@ export const ALL_PROTEINS_QUERY = gql`
   query ALL_PROTEINS_QUERY {
     allProteins {
       id
-      desciption
+      description
       name
       price
+      stock
     }
   }
 `;
 export const ALL_CHEESE_QUERY = gql`
-  query ALL_Cheese_QUERY {
-    allCheese {
+  query ALL_CHEESE_QUERY {
+    allCheeses {
       id
-      desciption
+      description
       name
       price
+      stock
+    }
+  }
+`;
+export const ALL_CONDIMENTS_QUERY = gql`
+  query ALL_CONDIMENTS_QUERY {
+    allCondiments {
+      id
+      description
+      name
+      price
+      stock
     }
   }
 `;
 
+const ItemGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 60px;
+`;
+
+const IngredientTitle = styled.h1`
+  text-align: center;
+`;
+
 export default function CreateBody() {
+  // use hook to fetch data
+
+  const {
+    data: toppingData,
+    error: toppingError,
+    loading: toppingLoading,
+  } = useQuery(ALL_TOPPINGS_QUERY);
+  const {
+    data: proteinData,
+    error: proteinError,
+    loading: proteinLoading,
+  } = useQuery(ALL_PROTEINS_QUERY);
+  const {
+    data: cheeseData,
+    error: cheeseError,
+    loading: cheeseLoading,
+  } = useQuery(ALL_CHEESE_QUERY);
+  const {
+    data: condimentData,
+    error: condimentError,
+    loading: condimentLoading,
+  } = useQuery(ALL_CONDIMENTS_QUERY);
+
+  // loading
+  if (toppingLoading) return <p>Loading...</p>;
+  if (proteinLoading) return <p>Loading...</p>;
+
   return (
     <div>
-      <div container xs={12}>
-        <div item xs={12}>
+      <div>
+        <div>
           <h1>Ingredients available</h1>
           <h4>
             Choose what ya'll want. At the very bottom would be an 'add to cart'
@@ -91,22 +143,70 @@ export default function CreateBody() {
             depending on how in depth, or what our client would want.
           </p>
         </div>
-        <div item xs={12}>
-          {fakeBurgerData.map(
-            ({ name, price, description, stock, vegitarian }) => (
-              <div key={name} item xs={12}>
+        <IngredientTitle>Toppings</IngredientTitle>
+        <ItemGrid>
+          {toppingData.allToppings.map(
+            ({ id, description, name, price, stock }) => (
+              <div>
                 <AddItem
-                  key={name}
+                  key={id}
                   name={name}
                   price={price}
                   description={description}
                   stock={stock}
-                  vegitarian={vegitarian}
                 />
               </div>
             )
           )}
-        </div>
+        </ItemGrid>
+        <IngredientTitle>Protein</IngredientTitle>
+        <ItemGrid>
+          {proteinData.allProteins.map(
+            ({ id, description, name, price, stock }) => (
+              <div>
+                <AddItem
+                  key={id}
+                  name={name}
+                  price={price}
+                  description={description}
+                  stock={stock}
+                />
+              </div>
+            )
+          )}
+        </ItemGrid>
+        <IngredientTitle>Cheese</IngredientTitle>
+        <ItemGrid>
+          {cheeseData.allCheeses.map(
+            ({ id, description, name, price, stock }) => (
+              <div>
+                <AddItem
+                  key={id}
+                  name={name}
+                  price={price}
+                  description={description}
+                  stock={stock}
+                />
+              </div>
+            )
+          )}
+        </ItemGrid>
+        <IngredientTitle>Condiments</IngredientTitle>
+        <ItemGrid>
+          {condimentData.allCondiments.map(
+            ({ id, description, name, price, stock }) => (
+              <div>
+                <AddItem
+                  key={id}
+                  name={name}
+                  price={price}
+                  description={description}
+                  stock={stock}
+                />
+              </div>
+            )
+          )}
+        </ItemGrid>
       </div>
       <hr></hr>
     </div>

@@ -324,24 +324,24 @@ export type ProteinWhereInput = {
   readonly name_not_ends_with_i?: Scalars['String'] | null;
   readonly name_in?: ReadonlyArray<Scalars['String'] | null> | null;
   readonly name_not_in?: ReadonlyArray<Scalars['String'] | null> | null;
-  readonly desciption?: Scalars['String'] | null;
-  readonly desciption_not?: Scalars['String'] | null;
-  readonly desciption_contains?: Scalars['String'] | null;
-  readonly desciption_not_contains?: Scalars['String'] | null;
-  readonly desciption_starts_with?: Scalars['String'] | null;
-  readonly desciption_not_starts_with?: Scalars['String'] | null;
-  readonly desciption_ends_with?: Scalars['String'] | null;
-  readonly desciption_not_ends_with?: Scalars['String'] | null;
-  readonly desciption_i?: Scalars['String'] | null;
-  readonly desciption_not_i?: Scalars['String'] | null;
-  readonly desciption_contains_i?: Scalars['String'] | null;
-  readonly desciption_not_contains_i?: Scalars['String'] | null;
-  readonly desciption_starts_with_i?: Scalars['String'] | null;
-  readonly desciption_not_starts_with_i?: Scalars['String'] | null;
-  readonly desciption_ends_with_i?: Scalars['String'] | null;
-  readonly desciption_not_ends_with_i?: Scalars['String'] | null;
-  readonly desciption_in?: ReadonlyArray<Scalars['String'] | null> | null;
-  readonly desciption_not_in?: ReadonlyArray<Scalars['String'] | null> | null;
+  readonly description?: Scalars['String'] | null;
+  readonly description_not?: Scalars['String'] | null;
+  readonly description_contains?: Scalars['String'] | null;
+  readonly description_not_contains?: Scalars['String'] | null;
+  readonly description_starts_with?: Scalars['String'] | null;
+  readonly description_not_starts_with?: Scalars['String'] | null;
+  readonly description_ends_with?: Scalars['String'] | null;
+  readonly description_not_ends_with?: Scalars['String'] | null;
+  readonly description_i?: Scalars['String'] | null;
+  readonly description_not_i?: Scalars['String'] | null;
+  readonly description_contains_i?: Scalars['String'] | null;
+  readonly description_not_contains_i?: Scalars['String'] | null;
+  readonly description_starts_with_i?: Scalars['String'] | null;
+  readonly description_not_starts_with_i?: Scalars['String'] | null;
+  readonly description_ends_with_i?: Scalars['String'] | null;
+  readonly description_not_ends_with_i?: Scalars['String'] | null;
+  readonly description_in?: ReadonlyArray<Scalars['String'] | null> | null;
+  readonly description_not_in?: ReadonlyArray<Scalars['String'] | null> | null;
   readonly price?: Scalars['Int'] | null;
   readonly price_not?: Scalars['Int'] | null;
   readonly price_lt?: Scalars['Int'] | null;
@@ -387,8 +387,8 @@ export type SortProteinsBy =
   | 'id_DESC'
   | 'name_ASC'
   | 'name_DESC'
-  | 'desciption_ASC'
-  | 'desciption_DESC'
+  | 'description_ASC'
+  | 'description_DESC'
   | 'price_ASC'
   | 'price_DESC'
   | 'stock_ASC'
@@ -398,7 +398,7 @@ export type SortProteinsBy =
 
 export type ProteinUpdateInput = {
   readonly name?: Scalars['String'] | null;
-  readonly desciption?: Scalars['String'] | null;
+  readonly description?: Scalars['String'] | null;
   readonly price?: Scalars['Int'] | null;
   readonly stock?: Scalars['Int'] | null;
   readonly vegitarian?: Scalars['String'] | null;
@@ -411,7 +411,7 @@ export type ProteinsUpdateInput = {
 
 export type ProteinCreateInput = {
   readonly name?: Scalars['String'] | null;
-  readonly desciption?: Scalars['String'] | null;
+  readonly description?: Scalars['String'] | null;
   readonly price?: Scalars['Int'] | null;
   readonly stock?: Scalars['Int'] | null;
   readonly vegitarian?: Scalars['String'] | null;
@@ -852,11 +852,11 @@ export type BurgerListFn = (
 
 export type ProteinListTypeInfo = {
   key: 'Protein';
-  fields: 'id' | 'name' | 'desciption' | 'price' | 'stock' | 'vegitarian';
+  fields: 'id' | 'name' | 'description' | 'price' | 'stock' | 'vegitarian';
   backing: {
     readonly id: string;
     readonly name?: string | null;
-    readonly desciption?: string | null;
+    readonly description?: string | null;
     readonly price?: number | null;
     readonly stock?: number | null;
     readonly vegitarian?: string | null;

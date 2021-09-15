@@ -4,6 +4,8 @@ import { useUser } from "./User";
 
 const NavStyles = styled.ul`
   margin: 0;
+  margin-top: auto;
+  margin-bottom: auto;
   padding: 0;
   display: flex;
   justify-content: flex-end;

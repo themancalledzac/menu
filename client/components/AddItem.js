@@ -1,24 +1,22 @@
 import styled from "styled-components";
+import formatMoney from "../lib/formatMoney";
 
-export default function AddItem({
-  name,
-  price,
-  description,
-  stock,
-  vegitarian,
-}) {
+export default function AddItem({ name, price, description, stock }) {
   return (
-    <div container xs={12}>
-      <div item xs={12}>
-        <div container xs={12}>
-          <div item xs={4}>
+    <div>
+      <div>
+        <div>
+          <div>
             <h1>{name}</h1>
           </div>
-          <div item xs={4}>
+          <div>
             <p>{description}</p>
           </div>
-          <div item xs={4}>
-            <h6>{price}</h6>
+          <div>
+            <h6>{formatMoney(price)}</h6>
+          </div>
+          <div>
+            <h6>{stock}</h6>
           </div>
         </div>
       </div>

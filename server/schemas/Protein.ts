@@ -5,7 +5,7 @@ import { list } from '@keystone-next/keystone/schema';
 export const Protein = list({
   fields: {
     name: text({ isRequired: true }),
-    desciption: text({ 
+    description: text({ 
       isRequired: true, 
       ui: {
       displayMode: 'textarea',

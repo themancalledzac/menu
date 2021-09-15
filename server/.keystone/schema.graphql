@@ -327,7 +327,7 @@ input BurgersCreateInput {
 type Protein {
   id: ID!
   name: String
-  desciption: String
+  description: String
   price: Int
   stock: Int
   vegitarian: String
@@ -358,24 +358,24 @@ input ProteinWhereInput {
   name_not_ends_with_i: String
   name_in: [String]
   name_not_in: [String]
-  desciption: String
-  desciption_not: String
-  desciption_contains: String
-  desciption_not_contains: String
-  desciption_starts_with: String
-  desciption_not_starts_with: String
-  desciption_ends_with: String
-  desciption_not_ends_with: String
-  desciption_i: String
-  desciption_not_i: String
-  desciption_contains_i: String
-  desciption_not_contains_i: String
-  desciption_starts_with_i: String
-  desciption_not_starts_with_i: String
-  desciption_ends_with_i: String
-  desciption_not_ends_with_i: String
-  desciption_in: [String]
-  desciption_not_in: [String]
+  description: String
+  description_not: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_i: String
+  description_not_i: String
+  description_contains_i: String
+  description_not_contains_i: String
+  description_starts_with_i: String
+  description_not_starts_with_i: String
+  description_ends_with_i: String
+  description_not_ends_with_i: String
+  description_in: [String]
+  description_not_in: [String]
   price: Int
   price_not: Int
   price_lt: Int
@@ -421,8 +421,8 @@ enum SortProteinsBy {
   id_DESC
   name_ASC
   name_DESC
-  desciption_ASC
-  desciption_DESC
+  description_ASC
+  description_DESC
   price_ASC
   price_DESC
   stock_ASC
@@ -433,7 +433,7 @@ enum SortProteinsBy {
 
 input ProteinUpdateInput {
   name: String
-  desciption: String
+  description: String
   price: Int
   stock: Int
   vegitarian: String
@@ -446,7 +446,7 @@ input ProteinsUpdateInput {
 
 input ProteinCreateInput {
   name: String
-  desciption: String
+  description: String
   price: Int
   stock: Int
   vegitarian: String
