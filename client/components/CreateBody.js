@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/client";
 import AddItem from "./AddItem";
 import SelectionComponent from "./SelectionComponent";
+import { useState } from "react";
 
 export const BUILD_BURGER_QUERY = gql`
   query BUILD_BURGER_QUERY {
@@ -43,7 +44,7 @@ const ButtonHolder = styled.div`
   align-items: center;
   background-color: aquamarine;
   border-radius: 5px 5px 5px 5px;
-  margin: 0 1rem 0 1rem;
+  margin: 0 1rem 2rem 1rem;
   padding: 0.5rem 0 0.5rem 0;
 `;
 
@@ -63,8 +64,12 @@ const IngredientTitle = styled.button`
 const openAccordian = () => {};
 
 export default function CreateBody() {
-  // use hook to fetch data
+  const [proteinActive, setProteinActive] = useState(true);
+  const [toppingActive, setToppingActive] = useState(false);
+  const [cheeseActive, setCheeseActive] = useState(false);
+  const [condimentActive, setCondimentActive] = useState(false);
 
+  // use hook to fetch data
   const { data, error, loading } = useQuery(BUILD_BURGER_QUERY);
 
   // loading
@@ -80,71 +85,96 @@ export default function CreateBody() {
           </p>
         </div>
         <ButtonHolder>
-          <IngredientTitle onClick={openAccordian}>Protein</IngredientTitle>
+          <IngredientTitle
+            onClick={() => setProteinActive((prevCheck) => !prevCheck)}
+          >
+            Protein
+          </IngredientTitle>
         </ButtonHolder>
-        <div>
-          {data.allProteins.map(({ name, id, description, price, stock }) => (
-            <div>
-              <SelectionComponent
-                key={id}
-                name={name}
-                price={price}
-                description={description}
-                multiple={false}
-              />
-            </div>
-          ))}
-        </div>
+        {proteinActive ? (
+          <div>
+            {data.allProteins.map(({ name, id, description, price, stock }) => (
+              <div>
+                <SelectionComponent
+                  key={id}
+                  name={name}
+                  price={price}
+                  description={description}
+                  multiple={false}
+                />
+              </div>
+            ))}
+          </div>
+        ) : null}
         <ButtonHolder>
-          <IngredientTitle>Toppings</IngredientTitle>
+          <IngredientTitle
+            onClick={() => setToppingActive((prevCheck) => !prevCheck)}
+          >
+            Toppings
+          </IngredientTitle>
         </ButtonHolder>
-        <div>
-          {data.allToppings.map(({ name, id, description, price, stock }) => (
-            <div>
-              <SelectionComponent
-                key={id}
-                name={name}
-                price={price}
-                description={description}
-                multiple={true}
-              />
-            </div>
-          ))}
-        </div>
+        {toppingActive ? (
+          <div>
+            {data.allToppings.map(({ name, id, description, price, stock }) => (
+              <div>
+                <SelectionComponent
+                  key={id}
+                  name={name}
+                  price={price}
+                  description={description}
+                  multiple={true}
+                />
+              </div>
+            ))}
+          </div>
+        ) : null}
         <ButtonHolder>
-          <IngredientTitle>Cheese</IngredientTitle>
+          <IngredientTitle
+            onClick={() => setCheeseActive((prevCheck) => !prevCheck)}
+          >
+            Cheese
+          </IngredientTitle>
         </ButtonHolder>
-        <div>
-          {data.allCheeses.map(({ name, id, description, price, stock }) => (
-            <div>
-              <SelectionComponent
-                key={id}
-                name={name}
-                price={price}
-                description={description}
-                multiple={true}
-              />
-            </div>
-          ))}
-        </div>
+        {cheeseActive ? (
+          <div>
+            {data.allCheeses.map(({ name, id, description, price, stock }) => (
+              <div>
+                <SelectionComponent
+                  key={id}
+                  name={name}
+                  price={price}
+                  description={description}
+                  multiple={true}
+                />
+              </div>
+            ))}
+          </div>
+        ) : null}
         <ButtonHolder>
-          <IngredientTitle>Condiments</IngredientTitle>
+          <IngredientTitle
+            onClick={() => setCondimentActive((prevCheck) => !prevCheck)}
+          >
+            Condiments
+          </IngredientTitle>
         </ButtonHolder>
-        <div>
-          {data.allCondiments.map(({ name, id, description, price, stock }) => (
-            <div>
-              <SelectionComponent
-                key={id}
-                name={name}
-                price={price}
-                description={description}
-                multiple={true}
-              />
-            </div>
-          ))}
-        </div>
+        {condimentActive ? (
+          <div>
+            {data.allCondiments.map(
+              ({ name, id, description, price, stock }) => (
+                <div>
+                  <SelectionComponent
+                    key={id}
+                    name={name}
+                    price={price}
+                    description={description}
+                    multiple={true}
+                  />
+                </div>
+              )
+            )}
+          </div>
+        ) : null}
       </div>
-      <hr></hr>
     </div>
   );
 }
