@@ -64,6 +64,11 @@
 
   - Moving towards custom CSS instead of using a framework.
     - I really wanted to challenge myself on this project by removing all framework code, and forcing myself to problem solve each little bit. This has/will include Hover effects, loading animation, screen resizing, menu change based on width, page components looking modern, accordian style functionality for the creation page, and many many more.
+    - With the release of MUI next, the new version of material-ui, I will be migrating over to save time. ha.
+  - Looks like Keystone-next, or v6 of KeystoneJS is not currently compatible with MongoDB, and as such I will need to migrate over to and learn, Prisma - PostgreSQL. Since I've already used MySQL in the past this shouldn't be too difficult of a transition.
+  - docs:
+    - https://www.prisma.io/
+    - https://keystonejs.com/docs/walkthroughs/embedded-mode-with-sqlite-nextjs
 
 ---
 
