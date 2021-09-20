@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/client";
-import styled from "styled-components";
 import Burger from "./Burger";
 
 export const ALL_BURGERS_QUERY = gql`
@@ -33,12 +32,6 @@ export const ALL_BURGERS_QUERY = gql`
   }
 `;
 
-const BurgersListStyles = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 60px;
-`;
-
 export default function Burgers() {
   // use hook to fetch data
   const { data, error, loading } = useQuery(ALL_BURGERS_QUERY);
@@ -46,10 +39,10 @@ export default function Burgers() {
   // loading
   if (loading) return <p>Loading...</p>;
   return (
-    <BurgersListStyles>
+    <div>
       {data.allBurgers.map((burger) => (
         <Burger key={burger.id} burger={burger} />
       ))}
-    </BurgersListStyles>
+    </div>
   );
 }

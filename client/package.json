@@ -13,6 +13,12 @@
   "dependencies": {
     "@apollo/client": "^3.4.11",
     "@apollo/react-ssr": "^4.0.0",
+    "@emotion/cache": "^11.4.0",
+    "@emotion/react": "^11.4.1",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "@fontsource/roboto": "^4.5.0",
+    "@mui/material": "^5.0.0",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.17.1",
     "apollo-link-error": "^1.1.13",
@@ -38,13 +44,13 @@
   "devDependencies": {
     "@apollo/react-testing": "^4.0.0",
     "@babel/core": "^7.15.5",
-    "babel-plugin-styled-components": "^1.13.2",
     "@babel/preset-env": "^7.15.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.0",
     "@testing-library/user-event": "^13.2.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.2.0",
+    "babel-plugin-styled-components": "^1.13.2",
     "casual": "^1.6.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -64,9 +70,17 @@
       "./jest.setup.js"
     ]
   },
-  
-  "presets": ["next/babel"],
-  "plugins": [["styled-components", { "ssr": true }]],
+  "presets": [
+    "next/babel"
+  ],
+  "plugins": [
+    [
+      "styled-components",
+      {
+        "ssr": true
+      }
+    ]
+  ],
   "//": "This is our babel config, I prefer this over a .babelrc file",
   "babel": {
     "env": {

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import formatMoney from "../lib/formatMoney";
 
 export default function AddItem({ name, price, description, stock }) {
