@@ -1,7 +1,7 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-const PriceTag = styled.span`
-  background: ;
-`;
+// const PriceTag = styled.span`
+//   background: ;
+// `;
 
-export default PriceTag;
+// export default PriceTag;
