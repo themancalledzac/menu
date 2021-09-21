@@ -4,7 +4,7 @@ import React from "react";
 import NavButton from "./NavButton";
 import MainBar from "./styles/MainBar";
 
-export default function Header() {
+export default function MobileHeader() {
   const [width, setWidth] = React.useState(0);
   const breakpoint = 780;
 
