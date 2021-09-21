@@ -5,11 +5,11 @@ import ItemGrid from "./ItemGrid";
 
 const ChooseProtein = ({ name, id, price, description }) => {
   return (
-    <ItemGrid key={id}>
+    <div key={id}>
       <div>{name}</div>
       <div> {formatMoney(price)}</div>
       <div>{description}</div>
-    </ItemGrid>
+    </div>
   );
 };
 

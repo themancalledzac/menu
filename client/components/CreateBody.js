@@ -90,14 +90,10 @@ export default function CreateBody() {
         {toppingActive ? (
           <div>
             {data.allToppings.map(({ name, id, description, price, stock }) => (
-              <ClickGrid>
-                <CheckBoxContainer>
-                  <CheckBox
-                    type='radio'
-                    checked='unchecked'
-                    name='radio'
-                  ></CheckBox>
-                </CheckBoxContainer>
+              <div>
+                <div>
+                  <input type='radio' checked='unchecked' name='radio'></input>
+                </div>
                 <SelectionComponent
                   key={id}
                   name={name}
@@ -105,7 +101,7 @@ export default function CreateBody() {
                   description={description}
                   multiple={true}
                 />
-              </ClickGrid>
+              </div>
             ))}
           </div>
         ) : null}

@@ -5,10 +5,10 @@ import ItemGrid from "./ItemGrid";
 
 export default function Burger({ burger, id, description }) {
   return (
-    <ItemGrid key={id}>
+    <div key={id}>
       <h1>{burger.name}</h1>
       <h2> {formatMoney(burger.price)}</h2>
       <h2>{description}</h2>
-    </ItemGrid>
+    </div>
   );
 }
