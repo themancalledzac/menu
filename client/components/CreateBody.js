@@ -1,3 +1,4 @@
+import * as React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/client";
 import AddItem from "./AddItem";
@@ -7,6 +8,13 @@ import ItemGrid from "./ItemGrid";
 import ClickGrid from "./ClickGrid";
 import { CheckBox } from "./CheckBox";
 import { CheckBoxContainer } from "./CheckBoxContainer";
+import { Typography } from "@mui/material";
+import { styled } from "@mui/system";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "./AccordianStyles";
 
 export const BUILD_BURGER_QUERY = gql`
   query BUILD_BURGER_QUERY {
@@ -41,11 +49,23 @@ export const BUILD_BURGER_QUERY = gql`
   }
 `;
 
+const Header = styled("div")({
+  alignContent: "center",
+  alignItems: "center",
+  position: "flex",
+  textAlign: "center",
+});
+const StyledTypo = styled(Typography)({
+  marginLeft: "auto",
+  marginRight: "auto",
+  paddingTop: "4rem",
+});
+
 export default function CreateBody() {
-  const [proteinActive, setProteinActive] = useState(true);
-  const [toppingActive, setToppingActive] = useState(false);
-  const [cheeseActive, setCheeseActive] = useState(false);
-  const [condimentActive, setCondimentActive] = useState(false);
+  const [expanded, setExpanded] = React.useState("panel1");
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   // use hook to fetch data
   const { data, error, loading } = useQuery(BUILD_BURGER_QUERY);
@@ -56,101 +76,136 @@ export default function CreateBody() {
   return (
     <div>
       <div>
-        <div>
-          <h1>Create a burger</h1>
+        <Header>
+          <StyledTypo variant='h4' component='div' gutterBottom>
+            Create a burger
+          </StyledTypo>
           <p>
             Please go through the required selections below to create a burger
           </p>
-        </div>
+        </Header>
         <div>
-          <button onClick={() => setProteinActive((prevCheck) => !prevCheck)}>
-            Protein
-          </button>
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
+          >
+            <AccordionSummary
+              aria-controls={"panel1d-content"}
+              id={"panel1d-header"}
+            >
+              <Typography>Protein</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {data.allProteins.map(
+                ({ name, id, description, price, stock }) => (
+                  <div>
+                    <SelectionComponent
+                      key={id}
+                      name={name}
+                      price={price}
+                      description={description}
+                      multiple={false}
+                    />
+                  </div>
+                )
+              )}
+            </AccordionDetails>
+          </Accordion>
         </div>
-        {proteinActive ? (
-          <div>
-            {data.allProteins.map(({ name, id, description, price, stock }) => (
-              <div>
-                <SelectionComponent
-                  key={id}
-                  name={name}
-                  price={price}
-                  description={description}
-                  multiple={false}
-                  panel={"panel1"}
-                />
-              </div>
-            ))}
-          </div>
-        ) : null}
+
         <div>
-          <button onClick={() => setToppingActive((prevCheck) => !prevCheck)}>
-            Toppings
-          </button>
+          <Accordion
+            expanded={expanded === "panel2"}
+            onChange={handleChange("panel2")}
+          >
+            <AccordionSummary
+              aria-controls={"panel2d-content"}
+              id={"panel2d-header"}
+            >
+              <Typography>Topping</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {data.allToppings.map(
+                ({ name, id, description, price, stock }) => (
+                  <div>
+                    <div>
+                      <input
+                        type='radio'
+                        checked='unchecked'
+                        name='radio'
+                      ></input>
+                    </div>
+                    <SelectionComponent
+                      key={id}
+                      name={name}
+                      price={price}
+                      description={description}
+                      multiple={true}
+                    />
+                  </div>
+                )
+              )}
+            </AccordionDetails>
+          </Accordion>
         </div>
-        {toppingActive ? (
-          <div>
-            {data.allToppings.map(({ name, id, description, price, stock }) => (
-              <div>
-                <div>
-                  <input type='radio' checked='unchecked' name='radio'></input>
-                </div>
-                <SelectionComponent
-                  key={id}
-                  name={name}
-                  price={price}
-                  description={description}
-                  multiple={true}
-                  panel={"panel2"}
-                />
-              </div>
-            ))}
-          </div>
-        ) : null}
+
         <div>
-          <button onClick={() => setCheeseActive((prevCheck) => !prevCheck)}>
-            Cheese
-          </button>
+          <Accordion
+            expanded={expanded === "panel3"}
+            onChange={handleChange("panel3")}
+          >
+            <AccordionSummary
+              aria-controls={"panel3d-content"}
+              id={"panel3d-header"}
+            >
+              <Typography>Cheese</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {data.allCheeses.map(
+                ({ name, id, description, price, stock }) => (
+                  <div>
+                    <SelectionComponent
+                      key={id}
+                      name={name}
+                      price={price}
+                      description={description}
+                      multiple={true}
+                    />
+                  </div>
+                )
+              )}
+            </AccordionDetails>
+          </Accordion>
         </div>
-        {cheeseActive ? (
-          <div>
-            {data.allCheeses.map(({ name, id, description, price, stock }) => (
-              <div>
-                <SelectionComponent
-                  key={id}
-                  name={name}
-                  price={price}
-                  description={description}
-                  multiple={true}
-                  panel={"panel3"}
-                />
-              </div>
-            ))}
-          </div>
-        ) : null}
+
         <div>
-          <button onClick={() => setCondimentActive((prevCheck) => !prevCheck)}>
-            Condiments
-          </button>
+          <Accordion
+            expanded={expanded === "panel3"}
+            onChange={handleChange("panel3")}
+          >
+            <AccordionSummary
+              aria-controls={"panel3d-content"}
+              id={"panel3d-header"}
+            >
+              <Typography>Condiments</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {data.allCondiments.map(
+                ({ name, id, description, price, stock }) => (
+                  <div>
+                    <SelectionComponent
+                      key={id}
+                      name={name}
+                      price={price}
+                      description={description}
+                      multiple={true}
+                    />
+                  </div>
+                )
+              )}
+            </AccordionDetails>
+          </Accordion>
         </div>
-        {condimentActive ? (
-          <div>
-            {data.allCondiments.map(
-              ({ name, id, description, price, stock }) => (
-                <div>
-                  <SelectionComponent
-                    key={id}
-                    name={name}
-                    price={price}
-                    description={description}
-                    multiple={true}
-                    panel={"panel4"}
-                  />
-                </div>
-              )
-            )}
-          </div>
-        ) : null}
       </div>
     </div>
   );
