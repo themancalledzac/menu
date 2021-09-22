@@ -77,6 +77,7 @@ export default function CreateBody() {
                   price={price}
                   description={description}
                   multiple={false}
+                  panel={"panel1"}
                 />
               </div>
             ))}
@@ -100,6 +101,7 @@ export default function CreateBody() {
                   price={price}
                   description={description}
                   multiple={true}
+                  panel={"panel2"}
                 />
               </div>
             ))}
@@ -120,6 +122,7 @@ export default function CreateBody() {
                   price={price}
                   description={description}
                   multiple={true}
+                  panel={"panel3"}
                 />
               </div>
             ))}
@@ -141,6 +144,7 @@ export default function CreateBody() {
                     price={price}
                     description={description}
                     multiple={true}
+                    panel={"panel4"}
                   />
                 </div>
               )

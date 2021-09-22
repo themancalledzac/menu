@@ -7,12 +7,23 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Box } from "@mui/system";
+import { Box, styled } from "@mui/system";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
+import homeTheme from "../src/homeTheme";
 
 export default function MobileHeader() {
   const [value, setValue] = React.useState(0);
   const ref = React.useRef(null);
+  const iconColor = homeTheme.palette.background.default;
+
+  const StyledNav = styled(BottomNavigation)({
+    backgroundColor: homeTheme.palette.primary.dark,
+  });
+
+  const NavIcon = styled(BottomNavigationAction)({
+    color: iconColor,
+    paddingTop: "20px",
+  });
 
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
@@ -20,7 +31,7 @@ export default function MobileHeader() {
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
         elevation={3}
       >
-        <BottomNavigation
+        <StyledNav
           showLabels
           value={value}
           onChange={(event, newValue) => {
@@ -28,18 +39,18 @@ export default function MobileHeader() {
           }}
         >
           <Link href='/' passHref>
-            <BottomNavigationAction label='Home' icon={<HomeIcon />} />
+            <NavIcon label='Home' icon={<HomeIcon />} />
           </Link>
           <Link href='/create' label='Create'>
-            <BottomNavigationAction label='Create' icon={<AddBoxIcon />} />
+            <NavIcon label='Create' icon={<AddBoxIcon />} />
           </Link>
           <Link href='/favorites' label='Create'>
-            <BottomNavigationAction label='Burgers' icon={<FastfoodIcon />} />
+            <NavIcon label='Burgers' icon={<FastfoodIcon />} />
           </Link>
           <Link href='/cart' label='Create'>
-            <BottomNavigationAction label='Cart' icon={<ShoppingCartIcon />} />
+            <NavIcon label='Cart' icon={<ShoppingCartIcon />} />
           </Link>
-        </BottomNavigation>
+        </StyledNav>
       </Paper>
     </Box>
   );

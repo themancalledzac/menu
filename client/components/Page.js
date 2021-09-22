@@ -7,7 +7,7 @@ import ScrollTitle from "./ScrollTitle";
 import { Paper } from "@mui/material";
 import { styled } from "@mui/system";
 
-const MainPageDiv = styled("div")(({ theme }) => ({
+const MainPageDiv = styled("div")({
   maxWidth: "95%",
   marginLeft: "auto",
   marginRight: "auto",
@@ -15,20 +15,20 @@ const MainPageDiv = styled("div")(({ theme }) => ({
   alignContent: "center",
   display: "flex",
   justifyContent: "center",
-}));
+});
 
 const MainPaper = styled(Paper)(({ theme }) => ({
+  alignContent: "center",
+  marginTop: "2rem",
+  width: "50rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   [theme.breakpoints.up("sm")]: {
-    alignContent: "center",
     maxWidth: "85%",
-    marginTop: "2rem",
-    width: "50rem",
   },
   [theme.breakpoints.down("sm")]: {
-    alignContent: "center",
     maxWidth: "97%",
-    marginTop: "2rem",
-    width: "50rem",
   },
 }));
 
@@ -37,13 +37,13 @@ export default function Page({ children }) {
   const [isMobile, setIsMobile] = useState(true);
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   return (
-    <div>
+    <>
       {/* {!matches && <ScrollTitle />} */}
       <DesktopHeader />
       <MainPageDiv>
         <MainPaper>{children}</MainPaper>
       </MainPageDiv>
       {!matches && <MobileHeader />}
-    </div>
+    </>
   );
 }
