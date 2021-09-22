@@ -10,6 +10,8 @@ import { CheckBox } from "./CheckBox";
 import { CheckBoxContainer } from "./CheckBoxContainer";
 import { Typography } from "@mui/material";
 import { styled } from "@mui/system";
+import Grid from "@mui/material/Grid";
+
 import {
   Accordion,
   AccordionSummary,
@@ -61,6 +63,10 @@ const StyledTypo = styled(Typography)({
   paddingTop: "4rem",
 });
 
+const ItemContainerGrid = styled(Grid)({
+  marginBottom: "2rem",
+});
+
 export default function CreateBody() {
   const [expanded, setExpanded] = React.useState("panel1");
   const handleChange = (panel) => (event, newExpanded) => {
@@ -98,7 +104,15 @@ export default function CreateBody() {
             <AccordionDetails>
               {data.allProteins.map(
                 ({ name, id, description, price, stock }) => (
-                  <div>
+                  <ItemContainerGrid container spacing={2}>
+                    <Grid item xs={2}>
+                      <input
+                        type='radio'
+                        id={id}
+                        checked='unchecked'
+                        name='radio'
+                      ></input>
+                    </Grid>
                     <SelectionComponent
                       key={id}
                       name={name}
@@ -106,7 +120,7 @@ export default function CreateBody() {
                       description={description}
                       multiple={false}
                     />
-                  </div>
+                  </ItemContainerGrid>
                 )
               )}
             </AccordionDetails>
@@ -127,14 +141,15 @@ export default function CreateBody() {
             <AccordionDetails>
               {data.allToppings.map(
                 ({ name, id, description, price, stock }) => (
-                  <div>
-                    <div>
+                  <ItemContainerGrid container spacing={2}>
+                    <Grid item xs={2}>
                       <input
                         type='radio'
+                        id={id}
                         checked='unchecked'
                         name='radio'
                       ></input>
-                    </div>
+                    </Grid>
                     <SelectionComponent
                       key={id}
                       name={name}
@@ -142,7 +157,7 @@ export default function CreateBody() {
                       description={description}
                       multiple={true}
                     />
-                  </div>
+                  </ItemContainerGrid>
                 )
               )}
             </AccordionDetails>
@@ -163,7 +178,15 @@ export default function CreateBody() {
             <AccordionDetails>
               {data.allCheeses.map(
                 ({ name, id, description, price, stock }) => (
-                  <div>
+                  <ItemContainerGrid container spacing={2}>
+                    <Grid item xs={2}>
+                      <input
+                        type='radio'
+                        id={id}
+                        checked='unchecked'
+                        name='radio'
+                      ></input>
+                    </Grid>
                     <SelectionComponent
                       key={id}
                       name={name}
@@ -171,7 +194,7 @@ export default function CreateBody() {
                       description={description}
                       multiple={true}
                     />
-                  </div>
+                  </ItemContainerGrid>
                 )
               )}
             </AccordionDetails>
@@ -180,19 +203,27 @@ export default function CreateBody() {
 
         <div>
           <Accordion
-            expanded={expanded === "panel3"}
-            onChange={handleChange("panel3")}
+            expanded={expanded === "panel4"}
+            onChange={handleChange("panel4")}
           >
             <AccordionSummary
-              aria-controls={"panel3d-content"}
-              id={"panel3d-header"}
+              aria-controls={"panel4d-content"}
+              id={"panel4d-header"}
             >
               <Typography>Condiments</Typography>
             </AccordionSummary>
             <AccordionDetails>
               {data.allCondiments.map(
                 ({ name, id, description, price, stock }) => (
-                  <div>
+                  <ItemContainerGrid container spacing={2}>
+                    <Grid item xs={2}>
+                      <input
+                        type='radio'
+                        id={id}
+                        checked='unchecked'
+                        name='radio'
+                      ></input>
+                    </Grid>
                     <SelectionComponent
                       key={id}
                       name={name}
@@ -200,7 +231,7 @@ export default function CreateBody() {
                       description={description}
                       multiple={true}
                     />
-                  </div>
+                  </ItemContainerGrid>
                 )
               )}
             </AccordionDetails>

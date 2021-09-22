@@ -6,6 +6,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import formatMoney from "../lib/formatMoney";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import { Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 export default function SelectionComponent({
   name,
@@ -20,10 +21,19 @@ export default function SelectionComponent({
   };
 
   return (
-    <div key={id}>
-      <div>{name}</div>
-      <div> {formatMoney(price)}</div>
-      <div>{description}</div>
-    </div>
+    <Grid item xs={10} key={id}>
+      <Grid container xs={12}>
+        <Grid item xs={4}>
+          {name}
+        </Grid>
+        <Grid item xs={4}>
+          {" "}
+          {formatMoney(price)}
+        </Grid>
+        <Grid item xs={4}>
+          {description}
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
