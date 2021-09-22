@@ -17,24 +17,17 @@ import Menu from "@mui/material/Menu";
 import { useUser } from "./User";
 import { styled } from "@mui/material/styles";
 import DropDownMenu from "./DropDownMenu";
+import homeTheme from "../src/homeTheme";
+import LargeHeader from "./LargeHeader";
 
-export default function DesktopHeader({ title }) {
+export default function DesktopHeader() {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
-  const user = useUser();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const large = useMediaQuery(theme.breakpoints.down("md"));
+  const medium = useMediaQuery(theme.breakpoints.between("sm", "md"));
 
   const StyledToolbar = styled(Toolbar)({
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: homeTheme.palette.primary.dark,
   });
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -43,58 +36,10 @@ export default function DesktopHeader({ title }) {
           <Typography variant='h4' component='div' sx={{ flexGrow: 1 }}>
             <Link href='/'>Menu</Link>
           </Typography>
-          {!matches && (
-            <>
-              <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                <Link href='/create'>Create</Link>
-              </Typography>
-              <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                <Link href='/favorites'>Burgers</Link>
-              </Typography>
-              <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                <Link href='/cart'>Cart</Link>
-              </Typography>
-              {user && (
-                <div>
-                  <IconButton
-                    size='large'
-                    aria-label='account of current user'
-                    aria-controls='menu-appbar'
-                    aria-haspopup='true'
-                    onClick={handleMenu}
-                    color='inherit'
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id='menu-appbar'
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                  </Menu>
-                </div>
-              )}
-              {!user && (
-                <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                  'Sign In'
-                </Typography>
-              )}
-            </>
-          )}
 
-          {matches && <DropDownMenu />}
+          {!large && <LargeHeader />}
+
+          {medium && <DropDownMenu />}
         </StyledToolbar>
       </AppBar>
     </Box>

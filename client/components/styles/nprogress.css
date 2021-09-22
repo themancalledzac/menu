@@ -4,14 +4,14 @@
 }
 
 #nprogress .bar {
-  background: violet;
+  background: #19857b;
   position: fixed;
   z-index: 1031;
   top: 0;
   left: 0;
 
   width: 100%;
-  height: 87.5px;
+  height: 64px;
 }
 
 #nprogress .peg {
