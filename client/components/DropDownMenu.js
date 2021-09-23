@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
+import { useUser } from "./User";
 
 export default function DropDownMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const user = useUser();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -54,6 +56,15 @@ export default function DropDownMenu() {
         <MenuItem onClick={handleClose}>
           <Link href='/cart'>Cart</Link>
         </MenuItem>
+        {!user ? (
+          <MenuItem onClick={handleClose}>
+            <Link href='/signin'>Sign In</Link>
+          </MenuItem>
+        ) : (
+          <MenuItem onClick={handleClose}>
+            <Link href='/profile'>Profile</Link>
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

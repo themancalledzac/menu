@@ -8,7 +8,7 @@ import { Paper } from "@mui/material";
 import { styled } from "@mui/system";
 
 const MainPageDiv = styled("div")({
-  maxWidth: "95%",
+  maxWidth: "100%",
   marginLeft: "auto",
   marginRight: "auto",
   backgroundColor: "rgba(255, 255, 255, .5)",
@@ -28,7 +28,7 @@ const MainPaper = styled(Paper)(({ theme }) => ({
     maxWidth: "85%",
   },
   [theme.breakpoints.down("sm")]: {
-    maxWidth: "97%",
+    width: "100%",
   },
 }));
 
