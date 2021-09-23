@@ -27,6 +27,7 @@ export default function DesktopHeader() {
 
   const StyledToolbar = styled(Toolbar)({
     backgroundColor: homeTheme.palette.primary.dark,
+    height: "64px",
   });
 
   return (
