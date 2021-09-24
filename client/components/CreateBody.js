@@ -19,8 +19,8 @@ import {
   AccordionDetails,
 } from "./AccordianStyles";
 
-export const BUILD_BURGER_QUERY = gql`
-  query BUILD_BURGER_QUERY {
+export const DISPLAY_TOPPINGS_QUERY = gql`
+  query DISPLAY_TOPPINGS_QUERY {
     allToppings {
       id
       description
@@ -69,6 +69,11 @@ const ItemContainerGrid = styled(Grid)({
 });
 
 export default function CreateBody() {
+  // use hook to fetch data
+  const { data, error, loading } = useQuery(DISPLAY_TOPPINGS_QUERY);
+  // loading
+  if (loading) return <p>Loading...</p>;
+
   // Here we have the Panel Accordion logic
   const [expanded, setExpanded] = React.useState("panel1");
   const handleChange = (panel) => (event, newExpanded) => {
@@ -76,26 +81,59 @@ export default function CreateBody() {
   };
 
   // Our Checkbox Logic
+
+  // Protein Logit
   const [proteinState, setProteinState] = React.useState(null);
-  const [toppingChecked, setToppingChecked] = React.useState([]);
+  const handleProtein = (id) => (event, newExpanded) => {
+    setProteinState(newExpanded ? id : null);
+  };
+
+  // Topping Logic
+  const [toppingChecked, setToppingChecked] = React.useState(
+    new Array(data.allToppings.length).fill(null)
+  );
+
+  const handlToppingChange = (position, id) => {
+    const updatedCheckedToppingState = toppingChecked.map(
+      (item, index) => {
+        if (index === position) {
+          if (item === null) {
+            return id;
+          } else {
+            return null;
+          }
+        } else {
+          return item;
+        }
+      }
+      // (index === position ? !item : item)
+      // index === position ? id : null
+    );
+
+    setToppingChecked(updatedCheckedToppingState);
+    console.log(toppingChecked);
+
+    const totalPrice = updatedCheckedToppingState.reduce(
+      (sum, currentState, index) => {
+        if (currentState === true) {
+          return sum + data.allToppings[index].price;
+        }
+        return sum;
+      },
+      0
+    );
+
+    setTotal(totalPrice);
+  };
+
+  // Cheese Logic
   const [cheeseChecked, setCheeseChecked] = React.useState([]);
+
+  // Condiment Logic
   const [condimentChecked, setCondimentChecked] = React.useState([]);
 
-  const handleProtein = (name) => (event, newExpanded) => {
-    setProteinState(newExpanded ? name : false);
-  };
-  // const handleProtein = (event) => {
-  //   if (!proteinState) {
-  //     setProteinState(event.target.checked);
-  //     console.log(proteinState);
-  //   }
-  // };
-
-  // use hook to fetch data
-  const { data, error, loading } = useQuery(BUILD_BURGER_QUERY);
-
-  // loading
-  if (loading) return <p>Loading...</p>;
+  // Total Cost Logic
+  const [total, setTotal] = useState(0);
 
   return (
     <div>
@@ -125,8 +163,8 @@ export default function CreateBody() {
                   <ItemContainerGrid container spacing={2}>
                     <Grid item xs={2}>
                       <Checkbox
-                        checked={proteinState === `${name}`}
-                        onChange={handleProtein(name, id)}
+                        checked={proteinState === `${id}`}
+                        onChange={handleProtein(id)}
                         id={id}
                         name={name}
                         value={price}
@@ -159,15 +197,16 @@ export default function CreateBody() {
             </AccordionSummary>
             <AccordionDetails>
               {data.allToppings.map(
-                ({ name, id, description, price, stock }) => (
+                ({ name, id, description, price, stock }, index) => (
                   <ItemContainerGrid container spacing={2}>
                     <Grid item xs={2}>
-                      <input
-                        type='radio'
+                      <Checkbox
+                        checked={toppingChecked[index]}
+                        onChange={() => handlToppingChange(index, id)}
                         id={id}
-                        checked='unchecked'
-                        name='radio'
-                      ></input>
+                        name={name}
+                        value={price}
+                      />
                     </Grid>
                     <SelectionComponent
                       key={id}
