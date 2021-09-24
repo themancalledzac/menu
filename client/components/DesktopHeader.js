@@ -28,6 +28,9 @@ export default function DesktopHeader() {
   const StyledToolbar = styled(Toolbar)({
     backgroundColor: homeTheme.palette.primary.dark,
     height: "64px",
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "24px",
+    },
   });
 
   return (

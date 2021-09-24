@@ -11,6 +11,7 @@ import { CheckBoxContainer } from "./CheckBoxContainer";
 import { Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Grid from "@mui/material/Grid";
+import Checkbox from "@mui/material/Checkbox";
 
 import {
   Accordion,
@@ -68,10 +69,27 @@ const ItemContainerGrid = styled(Grid)({
 });
 
 export default function CreateBody() {
+  // Here we have the Panel Accordion logic
   const [expanded, setExpanded] = React.useState("panel1");
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
+  // Our Checkbox Logic
+  const [proteinState, setProteinState] = React.useState(null);
+  const [toppingChecked, setToppingChecked] = React.useState([]);
+  const [cheeseChecked, setCheeseChecked] = React.useState([]);
+  const [condimentChecked, setCondimentChecked] = React.useState([]);
+
+  const handleProtein = (name) => (event, newExpanded) => {
+    setProteinState(newExpanded ? name : false);
+  };
+  // const handleProtein = (event) => {
+  //   if (!proteinState) {
+  //     setProteinState(event.target.checked);
+  //     console.log(proteinState);
+  //   }
+  // };
 
   // use hook to fetch data
   const { data, error, loading } = useQuery(BUILD_BURGER_QUERY);
@@ -106,12 +124,13 @@ export default function CreateBody() {
                 ({ name, id, description, price, stock }) => (
                   <ItemContainerGrid container spacing={2}>
                     <Grid item xs={2}>
-                      <input
-                        type='radio'
+                      <Checkbox
+                        checked={proteinState === `${name}`}
+                        onChange={handleProtein(name, id)}
                         id={id}
-                        checked='unchecked'
-                        name='radio'
-                      ></input>
+                        name={name}
+                        value={price}
+                      />
                     </Grid>
                     <SelectionComponent
                       key={id}
