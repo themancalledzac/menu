@@ -167,7 +167,42 @@ export default function CreateBody() {
   };
 
   // Condiment Logic
-  const [condimentChecked, setCondimentChecked] = React.useState([]);
+  const [condimentChecked, setCondimentChecked] = React.useState(
+    new Array(data.allCondiments.length).fill(null)
+  );
+
+  const handleCondimentChange = (position, id) => {
+    const updatedCheckedCondimentState = condimentChecked.map(
+      (item, index) => {
+        if (index === position) {
+          if (item === null) {
+            return id;
+          } else {
+            return null;
+          }
+        } else {
+          return item;
+        }
+      }
+      // (index === position ? !item : item)
+      // index === position ? id : null
+    );
+
+    setCondimentChecked(updatedCheckedCondimentState);
+    console.log(condimentChecked);
+
+    const totalPrice = updatedCheckedCondimentState.reduce(
+      (sum, currentState, index) => {
+        if (currentState === true) {
+          return sum + data.allCondiments[index].price;
+        }
+        return sum;
+      },
+      0
+    );
+
+    //   setTotal(totalPrice);
+  };
 
   // Total Cost Logic
   const [total, setTotal] = useState(0);
@@ -310,15 +345,16 @@ export default function CreateBody() {
             </AccordionSummary>
             <AccordionDetails>
               {data.allCondiments.map(
-                ({ name, id, description, price, stock }) => (
+                ({ name, id, description, price, stock }, index) => (
                   <ItemContainerGrid container spacing={2}>
                     <Grid item xs={2}>
-                      <input
-                        type='radio'
+                      <Checkbox
+                        checked={condimentChecked[index]}
+                        onChange={() => handleCondimentChange(index, id)}
                         id={id}
-                        checked='unchecked'
-                        name='radio'
-                      ></input>
+                        name={name}
+                        value={price}
+                      />
                     </Grid>
                     <SelectionComponent
                       key={id}
