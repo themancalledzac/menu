@@ -89,6 +89,7 @@ export default function CreateBody() {
   const [proteinState, setProteinState] = React.useState(null);
   const handleProtein = (id) => (event, newExpanded) => {
     setProteinState(newExpanded ? id : null);
+    expanded === "panel1" && setExpanded("panel2");
   };
 
   // Topping Logic
