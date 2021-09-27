@@ -1,9 +1,9 @@
-import Body from "../components/CreateBody";
+import CreateBody from "../components/CreateBody";
 
 export default function Create() {
   return (
     <>
-      <Body />
+      <CreateBody />
     </>
   );
 }

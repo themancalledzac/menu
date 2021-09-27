@@ -22,7 +22,7 @@ export default function SelectionComponent({
 
   return (
     <Grid item xs={10} key={id}>
-      <Grid container xs={12}>
+      <Grid container>
         <Grid item xs={4}>
           {name}
         </Grid>

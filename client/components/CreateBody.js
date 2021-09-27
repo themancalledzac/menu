@@ -1,6 +1,6 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import AddItem from "./AddItem";
 import SelectionComponent from "./SelectionComponent";
 import { useState } from "react";
@@ -8,10 +8,11 @@ import ItemGrid from "./ItemGrid";
 import ClickGrid from "./ClickGrid";
 import { CheckBox } from "./CheckBox";
 import { CheckBoxContainer } from "./CheckBoxContainer";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import Checkbox from "@mui/material/Checkbox";
+import { ALL_PRODUCTS_QUERY } from "./graph_ql_queries/ALL_PRODUCTS_QUERY";
 // Will import these later when I figure out how to export everything from file to file
 // import handleToppingChange from "./CheckboxHandleChanges/HandleToppingChange";
 // import handleCheeseChange from "./CheckboxHandleChanges/HandleCheeseChange";
@@ -21,39 +22,40 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "./AccordianStyles";
+import removeNull from "../lib/removeNull";
 
-export const DISPLAY_TOPPINGS_QUERY = gql`
-  query DISPLAY_TOPPINGS_QUERY {
-    allToppings {
+export const CREATE_BURGER_MUTATION = gql`
+  mutation CREATE_BURGER_MUTATION(
+    $id: ID!
+    $name: String!
+    $description: String!
+    $price: Int!
+    $protein: Protein
+    $topping: Topping
+    $cheese: Cheese
+    $condiment: Cheese
+  ) {
+    createBurger(
+      data: { name: $name, description: $description, price: $price }
+    ) {
       id
-      description
       name
-      price
-      stock
-    }
-    allProteins {
-      id
       description
-      name
       price
-      stock
-    }
-    allCheeses {
-      id
-      description
-      name
-      price
-      stock
-    }
-    allCondiments {
-      id
-      description
-      name
-      price
-      stock
+      protein
+      topping
+      cheese
+      condiment
     }
   }
 `;
+// mutation AddNewPet ($name: String!, $petType: PetType) {
+//   addPet(name: $name, petType: $petType) {
+//     id
+//     name
+//     petType
+//   }
+// }
 
 const Header = styled("div")({
   alignContent: "center",
@@ -72,14 +74,46 @@ const ItemContainerGrid = styled(Grid)({
 });
 
 export default function CreateBody() {
+  /* 
+  ------------------------------------------------------
+  Here lies our create, or handle burger creation logic. 
+  Need to 
+  ------------------------------------------------------
+  */
+
+  const initial = {
+    name: "",
+    description: "",
+    price: 0,
+    protein: "",
+    topping: [],
+    cheese: [],
+    condiment: [],
+  };
+
+  const [currentValues, setCurrentValues] = useState(initial);
+  const initialValues = Object.values(initial).join("");
+
+  React.useEffect(() => {
+    // this function runs when the things we are watching change
+  }, [initialValues]);
+
+  console.log(currentValues);
+
+  const [createBurger, { createLoading, createError, createData }] =
+    useMutation(CREATE_BURGER_MUTATION, {
+      variables: currentValues,
+      refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
+    });
+
   // use hook to fetch data
-  const { data, error, loading } = useQuery(DISPLAY_TOPPINGS_QUERY);
+  const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);
   // loading
   if (loading) return <p>Loading...</p>;
 
   // Here we have the Panel Accordion logic
   const [expanded, setExpanded] = React.useState("panel1");
-  const handleChange = (panel) => (event, newExpanded) => {
+  const handleAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
@@ -90,6 +124,14 @@ export default function CreateBody() {
   const handleProtein = (id) => (event, newExpanded) => {
     setProteinState(newExpanded ? id : null);
     expanded === "panel1" && setExpanded("panel2");
+
+    setCurrentValues(
+      {
+        ...currentValues,
+        ["protein"]: proteinState,
+      },
+      console.log(currentValues)
+    );
   };
 
   // Topping Logic
@@ -115,6 +157,14 @@ export default function CreateBody() {
 
     setToppingChecked(updatedCheckedToppingState);
     console.log(toppingChecked);
+    const removedNullArray = removeNull(toppingChecked);
+    setCurrentValues(
+      {
+        ...currentValues,
+        ["topping"]: removedNullArray,
+      },
+      console.log(currentValues)
+    );
 
     const totalPrice = updatedCheckedToppingState.reduce(
       (sum, currentState, index) => {
@@ -153,6 +203,14 @@ export default function CreateBody() {
 
     setCheeseChecked(updatedCheckedCheeseState);
     console.log(cheeseChecked);
+    const removedNullArray = removeNull(cheeseChecked);
+    setCurrentValues(
+      {
+        ...currentValues,
+        ["cheese"]: removedNullArray,
+      },
+      console.log(currentValues)
+    );
 
     const totalPrice = updatedCheckedCheeseState.reduce(
       (sum, currentState, index) => {
@@ -191,6 +249,14 @@ export default function CreateBody() {
 
     setCondimentChecked(updatedCheckedCondimentState);
     console.log(condimentChecked);
+    const removedNullArray = removeNull(condimentChecked);
+    setCurrentValues(
+      {
+        ...currentValues,
+        ["condiment"]: removedNullArray,
+      },
+      console.log(currentValues)
+    );
 
     const totalPrice = updatedCheckedCondimentState.reduce(
       (sum, currentState, index) => {
@@ -222,7 +288,7 @@ export default function CreateBody() {
         <div>
           <Accordion
             expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
+            onChange={handleAccordion("panel1")}
           >
             <AccordionSummary
               aria-controls={"panel1d-content"}
@@ -233,7 +299,7 @@ export default function CreateBody() {
             <AccordionDetails>
               {data.allProteins.map(
                 ({ name, id, description, price, stock }) => (
-                  <ItemContainerGrid container spacing={2}>
+                  <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
                         checked={proteinState === `${id}`}
@@ -260,7 +326,7 @@ export default function CreateBody() {
         <div>
           <Accordion
             expanded={expanded === "panel2"}
-            onChange={handleChange("panel2")}
+            onChange={handleAccordion("panel2")}
           >
             <AccordionSummary
               aria-controls={"panel2d-content"}
@@ -271,13 +337,13 @@ export default function CreateBody() {
             <AccordionDetails>
               {data.allToppings.map(
                 ({ name, id, description, price, stock }, index) => (
-                  <ItemContainerGrid container spacing={2}>
+                  <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
                         checked={toppingChecked[index]}
                         onChange={() => handleToppingChange(index, id)}
                         id={id}
-                        name={name}
+                        name='name'
                         value={price}
                       />
                     </Grid>
@@ -298,7 +364,7 @@ export default function CreateBody() {
         <div>
           <Accordion
             expanded={expanded === "panel3"}
-            onChange={handleChange("panel3")}
+            onChange={handleAccordion("panel3")}
           >
             <AccordionSummary
               aria-controls={"panel3d-content"}
@@ -309,7 +375,7 @@ export default function CreateBody() {
             <AccordionDetails>
               {data.allCheeses.map(
                 ({ name, id, description, price, stock }, index) => (
-                  <ItemContainerGrid container spacing={2}>
+                  <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
                         checked={cheeseChecked[index]}
@@ -336,7 +402,7 @@ export default function CreateBody() {
         <div>
           <Accordion
             expanded={expanded === "panel4"}
-            onChange={handleChange("panel4")}
+            onChange={handleAccordion("panel4")}
           >
             <AccordionSummary
               aria-controls={"panel4d-content"}
@@ -347,7 +413,7 @@ export default function CreateBody() {
             <AccordionDetails>
               {data.allCondiments.map(
                 ({ name, id, description, price, stock }, index) => (
-                  <ItemContainerGrid container spacing={2}>
+                  <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
                         checked={condimentChecked[index]}
@@ -369,6 +435,21 @@ export default function CreateBody() {
               )}
             </AccordionDetails>
           </Accordion>
+        </div>
+        <div>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography>
+                Submit Burger, while also adding it to your cart
+              </Typography>
+              <Button
+                onSubmit={async (e) => {
+                  // submit input fields to the backend.
+                  await createBurger();
+                }}
+              ></Button>
+            </Grid>
+          </Grid>
         </div>
       </div>
     </div>
