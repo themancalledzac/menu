@@ -41,7 +41,6 @@ export const CREATE_BURGER_MUTATION = gql`
         topping: { connect: $topping }
         cheese: { connect: $cheese }
         condiment: { connect: $condiment }
-        price: $price
       }
     ) {
       id
@@ -98,7 +97,6 @@ export default function CreateBody() {
   const initial = {
     name: "",
     description: "",
-    price: 0,
     protein: "",
     topping: [],
     cheese: [],
@@ -119,7 +117,6 @@ export default function CreateBody() {
         id: "61367bfc4b1b1b9fdf6e7772",
       },
     ],
-    // topping: {id: ["234234", "23434"]}
     cheese: [
       {
         id: "61367bff4b1b1b9fdf6e7798",
@@ -131,20 +128,20 @@ export default function CreateBody() {
       },
     ],
   };
-  console.log(test);
 
   const [currentValues, setCurrentValues] = useState(initial);
-  const initialValues = Object.values(initial).join("");
+  // const initialValues = Object.values(currentValues).join("");
 
   React.useEffect(() => {
     // this function runs when the things we are watching change
-  }, [initialValues]);
+  }, [currentValues]);
 
+  console.log(test);
   console.log(currentValues);
 
   const [createBurger, { createLoading, createError, createData }] =
     useMutation(CREATE_BURGER_MUTATION, {
-      variables: test,
+      variables: currentValues,
       refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
     });
 
@@ -207,11 +204,11 @@ export default function CreateBody() {
     setToppingChecked(updatedCheckedToppingState);
     console.log(toppingChecked);
     const removedNullArray = removeNull(toppingChecked);
-    const testing = removedNullArray.map((value) => ({ ["key"]: value }));
+    // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
     setCurrentValues(
       {
         ...currentValues,
-        ["topping"]: testing,
+        ["topping"]: removedNullArray,
       },
       console.log(currentValues)
     );

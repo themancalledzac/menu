@@ -1,3 +1,4 @@
 export default function removeNull(array) {
-  return array.filter((x) => x !== null);
+  const removedNullArray = array.filter((x) => x !== null);
+  return removedNullArray.map((value) => ({ ["id"]: value }));
 }
