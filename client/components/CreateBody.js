@@ -119,6 +119,7 @@ export default function CreateBody() {
         id: "61367bfc4b1b1b9fdf6e7772",
       },
     ],
+    // topping: {id: ["234234", "23434"]}
     cheese: [
       {
         id: "61367bff4b1b1b9fdf6e7798",
@@ -201,14 +202,16 @@ export default function CreateBody() {
       // (index === position ? !item : item)
       // index === position ? id : null
     );
+    console.log(toppingChecked);
 
     setToppingChecked(updatedCheckedToppingState);
     console.log(toppingChecked);
     const removedNullArray = removeNull(toppingChecked);
+    const testing = removedNullArray.map((value) => ({ ["key"]: value }));
     setCurrentValues(
       {
         ...currentValues,
-        ["topping"]: removedNullArray,
+        ["topping"]: testing,
       },
       console.log(currentValues)
     );
