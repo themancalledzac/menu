@@ -8,7 +8,7 @@ import ItemGrid from "./ItemGrid";
 import ClickGrid from "./ClickGrid";
 import { CheckBox } from "./CheckBox";
 import { CheckBoxContainer } from "./CheckBoxContainer";
-import { Button, Typography } from "@mui/material";
+import { Button, inputClasses, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import Checkbox from "@mui/material/Checkbox";
@@ -26,26 +26,40 @@ import removeNull from "../lib/removeNull";
 
 export const CREATE_BURGER_MUTATION = gql`
   mutation CREATE_BURGER_MUTATION(
-    $id: ID!
-    $name: String!
-    $description: String!
-    $price: Int!
-    $protein: Protein
-    $topping: Topping
-    $cheese: Cheese
-    $condiment: Cheese
+    $name: String
+    $description: String
+    $protein: ProteinWhereUniqueInput
+    $topping: [ToppingWhereUniqueInput]
+    $cheese: [CheeseWhereUniqueInput]
+    $condiment: [CondimentWhereUniqueInput]
   ) {
     createBurger(
-      data: { name: $name, description: $description, price: $price }
+      data: {
+        name: $name
+        description: $description
+        protein: { connect: $protein }
+        topping: { connect: $topping }
+        cheese: { connect: $cheese }
+        condiment: { connect: $condiment }
+        price: $price
+      }
     ) {
       id
       name
       description
       price
-      protein
-      topping
-      cheese
-      condiment
+      protein {
+        id
+      }
+      topping {
+        id
+      }
+      cheese {
+        id
+      }
+      condiment {
+        id
+      }
     }
   }
 `;
@@ -91,6 +105,33 @@ export default function CreateBody() {
     condiment: [],
   };
 
+  const test = {
+    name: "burgerName",
+    description: "burgerDescript",
+    protein: {
+      id: "61367bfe4b1b1b9fdf6e778b",
+    },
+    topping: [
+      {
+        id: "61367bfc4b1b1b9fdf6e776f",
+      },
+      {
+        id: "61367bfc4b1b1b9fdf6e7772",
+      },
+    ],
+    cheese: [
+      {
+        id: "61367bff4b1b1b9fdf6e7798",
+      },
+    ],
+    condiment: [
+      {
+        id: "61367c004b1b1b9fdf6e77a5",
+      },
+    ],
+  };
+  console.log(test);
+
   const [currentValues, setCurrentValues] = useState(initial);
   const initialValues = Object.values(initial).join("");
 
@@ -102,9 +143,15 @@ export default function CreateBody() {
 
   const [createBurger, { createLoading, createError, createData }] =
     useMutation(CREATE_BURGER_MUTATION, {
-      variables: currentValues,
+      variables: test,
       refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
     });
+
+  // const submitBurger = (e) => {
+  //   e.preventDefault();
+  //   createBurger();
+  //   }
+  // };
 
   // use hook to fetch data
   const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);
@@ -128,7 +175,7 @@ export default function CreateBody() {
     setCurrentValues(
       {
         ...currentValues,
-        ["protein"]: proteinState,
+        ["protein"]: { id: proteinState },
       },
       console.log(currentValues)
     );
@@ -271,6 +318,14 @@ export default function CreateBody() {
     //   setTotal(totalPrice);
   };
 
+  function handleChange(e) {
+    let { value, name } = e.target;
+    setCurrentValues({
+      ...currentValues,
+      [name]: value,
+    });
+  }
+
   // Total Cost Logic
   const [total, setTotal] = useState(0);
 
@@ -284,6 +339,22 @@ export default function CreateBody() {
           <p>
             Please go through the required selections below to create a burger
           </p>
+          <input
+            type='text'
+            id='name'
+            name='name'
+            placeholder='Burger Name'
+            value={currentValues.name}
+            onChange={handleChange}
+          />
+          <input
+            type='text'
+            id='description'
+            name='description'
+            placeholder='Burger Description'
+            value={currentValues.description}
+            onChange={handleChange}
+          />
         </Header>
         <div>
           <Accordion
@@ -443,11 +514,14 @@ export default function CreateBody() {
                 Submit Burger, while also adding it to your cart
               </Typography>
               <Button
-                onSubmit={async (e) => {
+                onClick={async (e) => {
+                  e.preventDefault();
                   // submit input fields to the backend.
                   await createBurger();
                 }}
-              ></Button>
+              >
+                Submit
+              </Button>
             </Grid>
           </Grid>
         </div>

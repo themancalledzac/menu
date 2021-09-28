@@ -5,7 +5,6 @@ export const Burger = list({
   fields: {
     name: text({ isRequired: true }),
     description: text({ 
-      isRequired: true,
     ui: {
       displayMode: 'textarea',
       }, 
