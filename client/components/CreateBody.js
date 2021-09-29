@@ -97,8 +97,20 @@ export default function CreateBody() {
   const initial = {
     name: "",
     description: "",
-    protein: "",
-    topping: [],
+    protein: {
+      id: "61367bfe4b1b1b9fdf6e7787",
+    },
+    topping: [
+      {
+        id: "61367bfc4b1b1b9fdf6e776f",
+      },
+      {
+        id: "61367bfc4b1b1b9fdf6e7772",
+      },
+      {
+        id: "61367bfc4b1b1b9fdf6e7776",
+      },
+    ],
     cheese: [],
     condiment: [],
   };
@@ -136,8 +148,11 @@ export default function CreateBody() {
     // this function runs when the things we are watching change
   }, [currentValues]);
 
-  console.log(test);
+  // console.log(test);
   console.log(currentValues);
+
+  // Mutation to create the burger
+  // I believe we need to change the logic, that when we actually click SUBMIT, our logic will state that we need to AT THAT POINT update our main state that contains our whole burger. all state on the page is basically local state via each respective topping/protein/etc, UNTIL we hit SUBMIT, and then we update our 'currentValues' state, and THEN push that state with our useMutation.
 
   const [createBurger, { createLoading, createError, createData }] =
     useMutation(CREATE_BURGER_MUTATION, {
@@ -167,7 +182,17 @@ export default function CreateBody() {
   // Protein Logic
   const [proteinState, setProteinState] = React.useState(null);
   const handleProtein = (id) => (event, newExpanded) => {
-    setProteinState(newExpanded ? id : null);
+    setProteinState(id);
+    // const handleProtein = (id) => {
+    //   const proteinFinal = (id) => {
+    //     if (id === proteinState) {
+    //       return null;
+    //     } else {
+    //       return id;
+    //     }
+    //   };
+    //   setProteinState(proteinFinal);
+
     expanded === "panel1" && setExpanded("panel2");
 
     setCurrentValues(
