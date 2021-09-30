@@ -23,6 +23,7 @@ import {
   AccordionDetails,
 } from "./AccordianStyles";
 import removeNull from "../lib/removeNull";
+import createForm from "../lib/createForm";
 
 export const CREATE_BURGER_MUTATION = gql`
   mutation CREATE_BURGER_MUTATION(
@@ -89,12 +90,11 @@ const ItemContainerGrid = styled(Grid)({
 export default function CreateBody() {
   /* 
   ------------------------------------------------------
-  Here lies our create, or handle burger creation logic. 
-  Need to 
+  Here lies our connection to our createForm
   ------------------------------------------------------
   */
 
-  const initial = {
+  const { inputs, handleChange, clearForm, resetForm } = createForm({
     name: "",
     description: "",
     protein: {
@@ -113,52 +113,55 @@ export default function CreateBody() {
     ],
     cheese: [],
     condiment: [],
-  };
-
-  const test = {
-    name: "burgerName",
-    description: "burgerDescript",
-    protein: {
-      id: "61367bfe4b1b1b9fdf6e778b",
-    },
-    topping: [
-      {
-        id: "61367bfc4b1b1b9fdf6e776f",
-      },
-      {
-        id: "61367bfc4b1b1b9fdf6e7772",
-      },
-    ],
-    cheese: [
-      {
-        id: "61367bff4b1b1b9fdf6e7798",
-      },
-    ],
-    condiment: [
-      {
-        id: "61367c004b1b1b9fdf6e77a5",
-      },
-    ],
-  };
-
-  const [currentValues, setCurrentValues] = useState(initial);
-  // const initialValues = Object.values(currentValues).join("");
-
-  React.useEffect(() => {
-    // this function runs when the things we are watching change
-  }, [currentValues]);
-
-  // console.log(test);
-  console.log(currentValues);
+  });
 
   // Mutation to create the burger
   // I believe we need to change the logic, that when we actually click SUBMIT, our logic will state that we need to AT THAT POINT update our main state that contains our whole burger. all state on the page is basically local state via each respective topping/protein/etc, UNTIL we hit SUBMIT, and then we update our 'currentValues' state, and THEN push that state with our useMutation.
+  // Let's look into using the useForm file, ONLY for our actual submit function. keeping all that jazz in there will be nice.
 
   const [createBurger, { createLoading, createError, createData }] =
     useMutation(CREATE_BURGER_MUTATION, {
       variables: currentValues,
       refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
     });
+
+  // -------------------------------- OLD LOGIC ----------------------------------
+  // const test = {
+  //   name: "burgerName",
+  //   description: "burgerDescript",
+  //   protein: {
+  //     id: "61367bfe4b1b1b9fdf6e778b",
+  //   },
+  //   topping: [
+  //     {
+  //       id: "61367bfc4b1b1b9fdf6e776f",
+  //     },
+  //     {
+  //       id: "61367bfc4b1b1b9fdf6e7772",
+  //     },
+  //   ],
+  //   cheese: [
+  //     {
+  //       id: "61367bff4b1b1b9fdf6e7798",
+  //     },
+  //   ],
+  //   condiment: [
+  //     {
+  //       id: "61367c004b1b1b9fdf6e77a5",
+  //     },
+  //   ],
+  // };
+
+  // const [currentValues, setCurrentValues] = useState(initial);
+  // // const initialValues = Object.values(currentValues).join("");
+
+  // React.useEffect(() => {
+  //   // this function runs when the things we are watching change
+  // }, [currentValues]);
+
+  // console.log(test);
+  // console.log(currentValues);
+  // ---------------------------------------------------------------------------------
 
   // const submitBurger = (e) => {
   //   e.preventDefault();
@@ -343,13 +346,13 @@ export default function CreateBody() {
     //   setTotal(totalPrice);
   };
 
-  function handleChange(e) {
-    let { value, name } = e.target;
-    setCurrentValues({
-      ...currentValues,
-      [name]: value,
-    });
-  }
+  // function handleChange(e) {
+  //   let { value, name } = e.target;
+  //   setCurrentValues({
+  //     ...currentValues,
+  //     [name]: value,
+  //   });
+  // }
 
   // Total Cost Logic
   const [total, setTotal] = useState(0);
@@ -399,9 +402,10 @@ export default function CreateBody() {
                     <Grid item xs={2}>
                       <Checkbox
                         checked={proteinState === `${id}`}
-                        onChange={handleProtein(id)}
+                        onChange={handleChange}
+                        type='protein'
                         id={id}
-                        name={name}
+                        name='protein'
                         value={price}
                       />
                     </Grid>
@@ -437,9 +441,11 @@ export default function CreateBody() {
                     <Grid item xs={2}>
                       <Checkbox
                         checked={toppingChecked[index]}
-                        onChange={() => handleToppingChange(index, id)}
+                        onChange={handleChange}
+                        index={index}
                         id={id}
-                        name='name'
+                        name='topping'
+                        type='multi'
                         value={price}
                       />
                     </Grid>
@@ -475,9 +481,11 @@ export default function CreateBody() {
                     <Grid item xs={2}>
                       <Checkbox
                         checked={cheeseChecked[index]}
-                        onChange={() => handleCheeseChange(index, id)}
+                        onChange={handleChange}
+                        index={index}
                         id={id}
-                        name={name}
+                        name='cheese'
+                        type='multi'
                         value={price}
                       />
                     </Grid>
@@ -513,9 +521,11 @@ export default function CreateBody() {
                     <Grid item xs={2}>
                       <Checkbox
                         checked={condimentChecked[index]}
-                        onChange={() => handleCondimentChange(index, id)}
+                        onChange={handleChange}
+                        index={index}
                         id={id}
-                        name={name}
+                        name='condiment'
+                        type='multi'
                         value={price}
                       />
                     </Grid>
