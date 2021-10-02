@@ -121,7 +121,7 @@ export default function CreateBody() {
 
   const [createBurger, { createLoading, createError, createData }] =
     useMutation(CREATE_BURGER_MUTATION, {
-      variables: currentValues,
+      variables: inputs,
       refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
     });
 
@@ -372,7 +372,7 @@ export default function CreateBody() {
             id='name'
             name='name'
             placeholder='Burger Name'
-            value={currentValues.name}
+            value={inputs.name}
             onChange={handleChange}
           />
           <input
@@ -380,7 +380,7 @@ export default function CreateBody() {
             id='description'
             name='description'
             placeholder='Burger Description'
-            value={currentValues.description}
+            value={inputs.description}
             onChange={handleChange}
           />
         </Header>
