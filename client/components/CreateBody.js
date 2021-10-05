@@ -101,6 +101,8 @@ export default function CreateBody() {
     condimentState,
     handleChange,
     handleToppingChange,
+    handleCheeseChange,
+    handleCondimentChange,
     ifExists,
   } = createForm({
     name: "",
@@ -119,7 +121,11 @@ export default function CreateBody() {
         id: "61367bfc4b1b1b9fdf6e7776",
       },
     ],
-    cheese: [],
+    cheese: [
+      {
+        id: "61367bff4b1b1b9fdf6e779a",
+      },
+    ],
     condiment: [],
   });
 
@@ -453,7 +459,7 @@ export default function CreateBody() {
                     <Grid item xs={2}>
                       <Checkbox
                         checked={ifExists(id, inputs.topping)}
-                        onChange={() => handleToppingChange(index, id, name)}
+                        onChange={() => handleToppingChange(id)}
                         position={index}
                         index={index}
                         id={id}
@@ -492,8 +498,8 @@ export default function CreateBody() {
                   <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
-                        checked={cheeseState[index]}
-                        onChange={handleChange}
+                        checked={ifExists(id, inputs.cheese)}
+                        onChange={() => handleCheeseChange(id)}
                         index={index}
                         id={id}
                         name='cheese'
@@ -531,8 +537,8 @@ export default function CreateBody() {
                   <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
-                        checked={condimentState[index]}
-                        onChange={handleChange}
+                        checked={ifExists(id, inputs.condiment)}
+                        onChange={() => handleCondimentChange(id)}
                         index={index}
                         id={id}
                         name='condiment'

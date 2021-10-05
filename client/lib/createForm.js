@@ -40,7 +40,6 @@ export default function createForm(initial = {}) {
   function ifExists(id, array) {
     return array.some(function (el) {
       return el.id === id;
-      console.log("success");
     });
   }
 
@@ -135,7 +134,7 @@ export default function createForm(initial = {}) {
   // It seems that handleToppingChange is updating our position or location of whatever item is in the array, forcing a refresh loop.
   // let's look into why the position, or the item keeps refreshing it should only be called once, and update and RETURN maybe? maybe we need to return to exit the loop?
 
-  function handleToppingChange(index, id, name) {
+  function handleToppingChange(id) {
     // let { id, index, name, value } = e.target;
     let toppingState = inputs.topping;
     console.log(toppingState);
@@ -153,7 +152,57 @@ export default function createForm(initial = {}) {
         });
   }
 
-  function handleCheeseChange(id) {}
+  function handleCheeseChange(id) {
+    // let { id, index, name, value } = e.target;
+    let cheeseState = inputs.cheese;
+    console.log(cheeseState);
+    ifExists(id, cheeseState)
+      ? setInputs(
+          {
+            ...inputs,
+            ["cheese"]: ifExistsFilter(id, cheeseState),
+          },
+          console.log(`Updated cheese State: Removed ${id} from state.`)
+        )
+      : setInputs({
+          ...inputs,
+          ["cheese"]: addItem(id, cheeseState),
+        });
+  }
+
+  function handleCondimentChange(id) {
+    // let { id, index, name, value } = e.target;
+    let condimentState = inputs.condiment;
+    console.log(condimentState);
+    ifExists(id, condimentState)
+      ? setInputs(
+          {
+            ...inputs,
+            ["condiment"]: ifExistsFilter(id, condimentState),
+          },
+          console.log(`Updated condiment State: Removed ${id} from state.`)
+        )
+      : setInputs({
+          ...inputs,
+          ["condiment"]: addItem(id, condimentState),
+        });
+  }
+
+  // function handleCheeseChange(index, id, name) {
+  //   let cheeseState = inputs.cheese;
+  //   ifExists(id, cheeseState)
+  //     ? setInputs(
+  //         {
+  //           ...inputs,
+  //           ["cheese"]: ifExistsFilter(id, cheeseState),
+  //         },
+  //         console.log(`Updated cheese: Removed ${id} from state`)
+  //       )
+  //     : setInputs({
+  //         ...inputs,
+  //         ["cheese"]: addItem(id, cheeseState),
+  //       });
+  // }
 
   // console.log(toppingState);
   // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
@@ -171,6 +220,8 @@ export default function createForm(initial = {}) {
     condimentState,
     resetForm,
     handleToppingChange,
+    handleCheeseChange,
+    handleCondimentChange,
     ifExists,
   };
 }
