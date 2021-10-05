@@ -23,62 +23,63 @@ export default function createForm(initial = {}) {
   const initialValues = Object.values(initial).join("");
 
   useEffect(() => {
-    // function that runs when we change our inputs
+    // function that runs when we change our inputs]
+    console.log(toppingState);
     // console.log(inputs);
     // console.log(initialValues);
-  }, [initialValues]);
+  }, [toppingState]);
+  useEffect(() => {
+    console.log(inputs);
+  }, [inputs]);
+  useEffect(() => {
+    console.log(proteinState);
+  }, [proteinState]);
 
-  // function handleProteinChange(e) {
-  //   let { name, id } = e.target;
-  //   console.log(e.target);
+  async function handleProteinChange(e) {
+    let { name, id } = e.target;
+    console.log(e.target.id);
 
-  //   if (!id === proteinState) {
-  //     setProteinState(id);
-  //     setInputs({
-  //       ...inputs,
-  //       [name]: { id: proteinState },
-  //     });
-  //   }
-  // }
+    setProteinState(id), handleSubmit(name);
+  }
+
+  function handleSubmit(name, value) {
+    console.log(name);
+    console.log(inputs);
+    setInputs(
+      {
+        ...inputs,
+        [name]: value,
+      },
+      console.log(inputs)
+    );
+  }
 
   function handleChange(e) {
     let { name, index, id, type, value } = e.target;
     console.log(e.target);
-    // console.log(inputs.protein);
-    // console.log(proteinState);
+    console.log(toppingState);
 
     // protein logic
     if (name === "protein") {
-      console.log("protein");
-      console.log(proteinState);
-      console.log(id);
-      // if protein let's:
-      // 1. Check proteinstate, if the same, do nothing.
-      // 2. if different, setProteinState, and then setInputs state
-      if (id != proteinState) {
-        console.log("not same");
-        setProteinState(id);
-        setInputs({
-          ...inputs,
-          [name]: { id: proteinState },
-        });
-      }
+      value = { id: id };
+      handleSubmit(name, value);
     }
-    if (type === "text") {
+    // text logic
+    else if (type === "text") {
       setInputs({
         ...inputs,
         [name]: value,
       });
     }
-
     // all other logic
-    if (type === "multi") {
+    else {
       // let's see if we can make this one for all three!
       // will need to pass the name as a template literal
       // will need to find a regex way of capitalizing the topping name for the others
       if (name === "topping") {
-        const updatedCheckedToppingState = toppingState.map((item, index) => {
-          if (index === position) {
+        console.log(inputs.topping);
+        const updatedCheckedToppingState = toppingState.map((item, i) => {
+          if (i === index) {
             if (item === null) {
               return id;
             } else {
@@ -148,6 +149,7 @@ export default function createForm(initial = {}) {
         );
       }
     }
+    console.log(inputs);
   }
 
   // CURRENT ISSUE TODO:
@@ -156,40 +158,60 @@ export default function createForm(initial = {}) {
   // It seems that handleToppingChange is updating our position or location of whatever item is in the array, forcing a refresh loop.
   // let's look into why the position, or the item keeps refreshing it should only be called once, and update and RETURN maybe? maybe we need to return to exit the loop?
 
-  function handleToppingChange(e) {
-    let { index, id, name, type, value } = e.target;
-    const updatedCheckedToppingState = toppingState.map(
-      (item, index) => {
-        if (index === position) {
-          if (item === null) {
-            return id;
-          } else {
-            return null;
-          }
-        } else {
-          return item;
-        }
-      }
-      // (index === position ? !item : item)
-      // index === position ? id : null
-    );
-    // console.log(toppingState);
-    toppingSetState(updatedCheckedToppingState);
+  function handleToppingChange(index, id) {
+    // let { id, index, name, value } = e.target;
+    let position = index;
+    let type = "topping";
+    // console.log(e.target);
 
-    console.log(toppingState);
-    const removedNullArray = removeNull(toppingState);
-    // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
-    setInputs(
-      {
-        ...inputs,
-        ["topping"]: removedNullArray,
-      }
-      // console.log(inputs)
-    );
+    // idea instead. INSTEAD of simply having a preset array of null, but the length of our number or toppings, we could instead have a blank array, and add / remove items if they exist in the array or not. if they exist, we remove, if not, we add.
+    (async () => {
+      const updatedCheckedToppingState = await toppingState.map(
+        (item, index) => {
+          // console.log(item);
+          // console.log(index);
+          // console.log(position);
+          if (index === position) {
+            if (item === null) {
+              return id;
+            } else {
+              return null;
+            }
+          } else {
+            return item;
+          }
+        }
+        // (index === position ? !item : item)
+        // index === position ? id : null
+      );
+      // console.log(toppingState);
+      await toppingSetState(updatedCheckedToppingState);
+      const removedNullArray = await removeNull(toppingState);
+      console.log(removedNullArray);
+      await updateState(removedNullArray, type);
+    })();
+
+    // setInputs({
+    //   ...inputs,
+    //   ["topping"]: removedNullArray,
+    // });
+    // console.log(inputs);
   }
 
+  function updateState(array, type) {
+    console.log(`update ${type}`);
+    console.log(array);
+    setInputs({
+      ...inputs,
+      [type]: array,
+    });
+  }
+
+  // console.log(toppingState);
+  // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
+
   function resetForm() {
-    setInputs(initial);
+    setInputs({ initial }, handleSubmit);
   }
 
   // function handleChange(e) {
@@ -213,7 +235,7 @@ export default function createForm(initial = {}) {
     condimentState,
     resetForm,
     handleToppingChange,
-    // handleProteinChange,
+    handleProteinChange,
     // clearForm,
   };
 }

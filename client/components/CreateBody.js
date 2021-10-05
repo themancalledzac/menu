@@ -96,7 +96,6 @@ export default function CreateBody() {
 
   const {
     inputs,
-    proteinState,
     toppingState,
     cheeseState,
     condimentState,
@@ -183,12 +182,19 @@ export default function CreateBody() {
   // loading
   if (loading) return <p>Loading...</p>;
 
+  let proteinState = inputs.protein.id;
+  let toppingSt = inputs.topping;
+  console.log(toppingSt);
+
   // Here we have the Panel Accordion logic
   const [expanded, setExpanded] = React.useState("panel1");
   const handleAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  const proteinAccordion = () => {
+    setExpanded("panel2");
+  };
   // Our Checkbox Logic ------------------------------------------
 
   // // Protein Logic
@@ -447,14 +453,13 @@ export default function CreateBody() {
                     <Grid item xs={2}>
                       <Checkbox
                         checked={toppingState[index]}
-                        onChange={handleToppingChange}
+                        onChange={() => handleToppingChange(index, id)}
+                        position={index}
                         index={index}
                         id={id}
                         name='topping'
-                        type='multi'
                         value={price}
                       />
-                      {id}
                     </Grid>
                     <SelectionComponent
                       key={id}
@@ -492,7 +497,6 @@ export default function CreateBody() {
                         index={index}
                         id={id}
                         name='cheese'
-                        type='multi'
                         value={price}
                       />
                     </Grid>
@@ -532,7 +536,6 @@ export default function CreateBody() {
                         index={index}
                         id={id}
                         name='condiment'
-                        type='multi'
                         value={price}
                       />
                     </Grid>
