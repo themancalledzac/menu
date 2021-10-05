@@ -101,7 +101,6 @@ export default function CreateBody() {
     condimentState,
     handleChange,
     handleToppingChange,
-    handleProteinChange,
   } = createForm({
     name: "",
     description: "",
@@ -184,7 +183,7 @@ export default function CreateBody() {
 
   let proteinState = inputs.protein.id;
   let toppingSt = inputs.topping;
-  console.log(toppingSt);
+  // console.log(toppingSt);
 
   // Here we have the Panel Accordion logic
   const [expanded, setExpanded] = React.useState("panel1");
@@ -453,7 +452,7 @@ export default function CreateBody() {
                     <Grid item xs={2}>
                       <Checkbox
                         checked={toppingState[index]}
-                        onChange={() => handleToppingChange(index, id)}
+                        onChange={() => handleToppingChange(index, id, name)}
                         position={index}
                         index={index}
                         id={id}

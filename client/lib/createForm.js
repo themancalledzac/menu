@@ -22,25 +22,18 @@ export default function createForm(initial = {}) {
   );
   const initialValues = Object.values(initial).join("");
 
-  useEffect(() => {
-    // function that runs when we change our inputs]
-    console.log(toppingState);
-    // console.log(inputs);
-    // console.log(initialValues);
-  }, [toppingState]);
+  // useEffect(() => {
+  //   // function that runs when we change our inputs]
+  //   console.log(toppingState);
+  //   // console.log(inputs);
+  //   // console.log(initialValues);
+  // }, [toppingState]);
   useEffect(() => {
     console.log(inputs);
   }, [inputs]);
-  useEffect(() => {
-    console.log(proteinState);
-  }, [proteinState]);
-
-  async function handleProteinChange(e) {
-    let { name, id } = e.target;
-    console.log(e.target.id);
-
-    setProteinState(id), handleSubmit(name);
-  }
+  // useEffect(() => {
+  //   console.log(proteinState);
+  // }, [proteinState]);
 
   function handleSubmit(name, value) {
     console.log(name);
@@ -54,10 +47,31 @@ export default function createForm(initial = {}) {
     );
   }
 
+  function ifExists(id, array) {
+    return array.some(function (el) {
+      return el.id === id;
+      console.log("success");
+    });
+  }
+
+  function ifExistsFilter(id, array) {
+    let newArray = array.filter((el) => el.id !== id);
+    console.log(newArray);
+    return newArray;
+  }
+
+  function addItem(id, array) {
+    let obj = { id: id };
+    console.log(obj);
+    console.log(array);
+    let newArray = array.concat(obj);
+    console.log(newArray);
+    return newArray;
+  }
+
   function handleChange(e) {
     let { name, index, id, type, value } = e.target;
     console.log(e.target);
-    console.log(toppingState);
 
     // protein logic
     if (name === "protein") {
@@ -70,35 +84,42 @@ export default function createForm(initial = {}) {
         ...inputs,
         [name]: value,
       });
+    } else if (name === "topping") {
+      console.log("topping selecteddddd");
     }
     // all other logic
     else {
+      console.log("else selected");
       // let's see if we can make this one for all three!
       // will need to pass the name as a template literal
       // will need to find a regex way of capitalizing the topping name for the others
       if (name === "topping") {
-        console.log(inputs.topping);
-        const updatedCheckedToppingState = toppingState.map((item, i) => {
-          if (i === index) {
-            if (item === null) {
-              return id;
-            } else {
-              return null;
-            }
-          } else {
-            return item;
-          }
-        });
-        toppingSetState(updatedCheckedToppingState);
-        const removedNullArray = removeNull(toppingState);
+        console.log("topping selected");
+        let toppingState = inputs.topping;
+        ifExists(id, toppingState);
+        // console.log(ifExists(index, toppingState));
 
-        setInputs(
-          {
-            ...inputs,
-            [name]: removedNullArray,
-          },
-          console.log(inputs)
-        );
+        // const updatedCheckedToppingState = toppingState.map((item, i) => {
+        //   if (i === index) {
+        //     if (item === null) {
+        //       return id;
+        //     } else {
+        //       return null;
+        //     }
+        //   } else {
+        //     return item;
+        //   }
+        // });
+        // toppingSetState(updatedCheckedToppingState);
+        // const removedNullArray = removeNull(toppingState);
+
+        // setInputs(
+        //   {
+        //     ...inputs,
+        //     [name]: removedNullArray,
+        //   },
+        //   console.log(inputs)
+        // );
       }
       if (name === "cheese") {
         const updatedCheckedCheeseState = cheeseState.map((item, index) => {
@@ -158,38 +179,50 @@ export default function createForm(initial = {}) {
   // It seems that handleToppingChange is updating our position or location of whatever item is in the array, forcing a refresh loop.
   // let's look into why the position, or the item keeps refreshing it should only be called once, and update and RETURN maybe? maybe we need to return to exit the loop?
 
-  function handleToppingChange(index, id) {
+  function handleToppingChange(index, id, name) {
     // let { id, index, name, value } = e.target;
-    let position = index;
-    let type = "topping";
+    let toppingState = inputs.topping;
+    console.log(toppingState);
+    ifExists(id, toppingState)
+      ? setInputs(
+          {
+            ...inputs,
+            ["topping"]: ifExistsFilter(id, toppingState),
+          },
+          console.log(`Updated topping State: Removed ${id} from state.`)
+        )
+      : setInputs({
+          ...inputs,
+          ["topping"]: addItem(id, toppingState),
+        });
     // console.log(e.target);
 
     // idea instead. INSTEAD of simply having a preset array of null, but the length of our number or toppings, we could instead have a blank array, and add / remove items if they exist in the array or not. if they exist, we remove, if not, we add.
-    (async () => {
-      const updatedCheckedToppingState = await toppingState.map(
-        (item, index) => {
-          // console.log(item);
-          // console.log(index);
-          // console.log(position);
-          if (index === position) {
-            if (item === null) {
-              return id;
-            } else {
-              return null;
-            }
-          } else {
-            return item;
-          }
-        }
-        // (index === position ? !item : item)
-        // index === position ? id : null
-      );
-      // console.log(toppingState);
-      await toppingSetState(updatedCheckedToppingState);
-      const removedNullArray = await removeNull(toppingState);
-      console.log(removedNullArray);
-      await updateState(removedNullArray, type);
-    })();
+    // (async () => {
+    //   const updatedCheckedToppingState = await toppingState.map(
+    //     (item, index) => {
+    //       // console.log(item);
+    //       // console.log(index);
+    //       // console.log(position);
+    //       if (index === position) {
+    //         if (item === null) {
+    //           return id;
+    //         } else {
+    //           return null;
+    //         }
+    //       } else {
+    //         return item;
+    //       }
+    //     }
+    //     // (index === position ? !item : item)
+    //     // index === position ? id : null
+    //   );
+    //   // console.log(toppingState);
+    //   await toppingSetState(updatedCheckedToppingState);
+    //   const removedNullArray = await removeNull(toppingState);
+    //   console.log(removedNullArray);
+    //   await updateState(removedNullArray, type);
+    // })();
 
     // setInputs({
     //   ...inputs,
@@ -235,7 +268,6 @@ export default function createForm(initial = {}) {
     condimentState,
     resetForm,
     handleToppingChange,
-    handleProteinChange,
     // clearForm,
   };
 }
