@@ -20,20 +20,10 @@ export default function createForm(initial = {}) {
   const [condimentState, condimentSetState] = useState(
     new Array(data.allCheeses.length).fill(null)
   );
-  const initialValues = Object.values(initial).join("");
 
-  // useEffect(() => {
-  //   // function that runs when we change our inputs]
-  //   console.log(toppingState);
-  //   // console.log(inputs);
-  //   // console.log(initialValues);
-  // }, [toppingState]);
   useEffect(() => {
     console.log(inputs);
   }, [inputs]);
-  // useEffect(() => {
-  //   console.log(proteinState);
-  // }, [proteinState]);
 
   function handleSubmit(name, value) {
     console.log(name);
@@ -84,43 +74,9 @@ export default function createForm(initial = {}) {
         ...inputs,
         [name]: value,
       });
-    } else if (name === "topping") {
-      console.log("topping selecteddddd");
     }
     // all other logic
     else {
-      console.log("else selected");
-      // let's see if we can make this one for all three!
-      // will need to pass the name as a template literal
-      // will need to find a regex way of capitalizing the topping name for the others
-      if (name === "topping") {
-        console.log("topping selected");
-        let toppingState = inputs.topping;
-        ifExists(id, toppingState);
-        // console.log(ifExists(index, toppingState));
-
-        // const updatedCheckedToppingState = toppingState.map((item, i) => {
-        //   if (i === index) {
-        //     if (item === null) {
-        //       return id;
-        //     } else {
-        //       return null;
-        //     }
-        //   } else {
-        //     return item;
-        //   }
-        // });
-        // toppingSetState(updatedCheckedToppingState);
-        // const removedNullArray = removeNull(toppingState);
-
-        // setInputs(
-        //   {
-        //     ...inputs,
-        //     [name]: removedNullArray,
-        //   },
-        //   console.log(inputs)
-        // );
-      }
       if (name === "cheese") {
         const updatedCheckedCheeseState = cheeseState.map((item, index) => {
           if (index === position) {
@@ -195,50 +151,9 @@ export default function createForm(initial = {}) {
           ...inputs,
           ["topping"]: addItem(id, toppingState),
         });
-    // console.log(e.target);
-
-    // idea instead. INSTEAD of simply having a preset array of null, but the length of our number or toppings, we could instead have a blank array, and add / remove items if they exist in the array or not. if they exist, we remove, if not, we add.
-    // (async () => {
-    //   const updatedCheckedToppingState = await toppingState.map(
-    //     (item, index) => {
-    //       // console.log(item);
-    //       // console.log(index);
-    //       // console.log(position);
-    //       if (index === position) {
-    //         if (item === null) {
-    //           return id;
-    //         } else {
-    //           return null;
-    //         }
-    //       } else {
-    //         return item;
-    //       }
-    //     }
-    //     // (index === position ? !item : item)
-    //     // index === position ? id : null
-    //   );
-    //   // console.log(toppingState);
-    //   await toppingSetState(updatedCheckedToppingState);
-    //   const removedNullArray = await removeNull(toppingState);
-    //   console.log(removedNullArray);
-    //   await updateState(removedNullArray, type);
-    // })();
-
-    // setInputs({
-    //   ...inputs,
-    //   ["topping"]: removedNullArray,
-    // });
-    // console.log(inputs);
   }
 
-  function updateState(array, type) {
-    console.log(`update ${type}`);
-    console.log(array);
-    setInputs({
-      ...inputs,
-      [type]: array,
-    });
-  }
+  function handleCheeseChange(id) {}
 
   // console.log(toppingState);
   // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
@@ -246,18 +161,6 @@ export default function createForm(initial = {}) {
   function resetForm() {
     setInputs({ initial }, handleSubmit);
   }
-
-  // function handleChange(e) {
-  //   let { id, name, price } = e.target;
-
-  //   setInputs({
-  //     //copy the existing state
-  //     ...inputs,
-  //     // using a variable for what we are targeting
-  //     [name]: value,
-  //     [price]: (price += price),
-  //   });
-  // }
 
   return {
     inputs,
@@ -268,7 +171,7 @@ export default function createForm(initial = {}) {
     condimentState,
     resetForm,
     handleToppingChange,
-    // clearForm,
+    ifExists,
   };
 }
 

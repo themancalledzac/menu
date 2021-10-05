@@ -1,32 +1,26 @@
-export default function handleToppingChange(position, id) {
-  const updatedCheckedToppingState = toppingChecked.map(
-    (item, index) => {
-      if (index === position) {
-        if (item === null) {
-          return id;
-        } else {
-          return null;
-        }
-      } else {
-        return item;
-      }
-    }
-    // (index === position ? !item : item)
-    // index === position ? id : null
-  );
+// future me will figure out how to export this and import it properly!
 
-  setToppingChecked(updatedCheckedToppingState);
-  console.log(toppingChecked);
+import createForm from "../../lib/createForm";
 
-  const totalPrice = updatedCheckedToppingState.reduce(
-    (sum, currentState, index) => {
-      if (currentState === true) {
-        return sum + data.allToppings[index].price;
-      }
-      return sum;
-    },
-    0
-  );
+const { inputs } = createForm();
 
-  //   setTotal(totalPrice);
+export default function handleToppingChange(id) {
+  // let { id, index, name, value } = e.target;
+  let toppingState = inputs.topping;
+  console.log(toppingState);
+  ifExists(id, toppingState)
+    ? setInputs(
+        {
+          ...inputs,
+          ["topping"]: ifExistsFilter(id, toppingState),
+        },
+        console.log(`Updated topping State: Removed ${id} from state.`)
+      )
+    : setInputs({
+        ...inputs,
+        ["topping"]: addItem(id, toppingState),
+      });
+  return {
+    handleToppingChange,
+  };
 }

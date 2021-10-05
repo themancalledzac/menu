@@ -101,6 +101,7 @@ export default function CreateBody() {
     condimentState,
     handleChange,
     handleToppingChange,
+    ifExists,
   } = createForm({
     name: "",
     description: "",
@@ -451,7 +452,7 @@ export default function CreateBody() {
                   <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
-                        checked={toppingState[index]}
+                        checked={ifExists(id, inputs.topping)}
                         onChange={() => handleToppingChange(index, id, name)}
                         position={index}
                         index={index}
