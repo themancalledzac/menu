@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { ALL_PRODUCTS_QUERY } from "../components/graph_ql_queries/ALL_PRODUCTS_QUERY";
+import removeNull from "./removeNull";
 
 // loading
 
@@ -9,7 +10,7 @@ export default function createForm(initial = {}) {
   if (loading) return <p>Loading...</p>;
   // create a state object for our inputs
   const [inputs, setInputs] = useState(initial);
-  const [proteinState, setProteinState] = useState(null);
+  const [proteinState, setProteinState] = useState("61367bfe4b1b1b9fdf6e7787");
   const [toppingState, toppingSetState] = useState(
     new Array(data.allToppings.length).fill(null)
   );
@@ -23,24 +24,51 @@ export default function createForm(initial = {}) {
 
   useEffect(() => {
     // function that runs when we change our inputs
+    // console.log(inputs);
+    // console.log(initialValues);
   }, [initialValues]);
 
+  // function handleProteinChange(e) {
+  //   let { name, id } = e.target;
+  //   console.log(e.target);
+
+  //   if (!id === proteinState) {
+  //     setProteinState(id);
+  //     setInputs({
+  //       ...inputs,
+  //       [name]: { id: proteinState },
+  //     });
+  //   }
+  // }
+
   function handleChange(e) {
-    let { value, name, index, id, type } = e.target;
+    let { name, index, id, type, value } = e.target;
+    console.log(e.target);
+    // console.log(inputs.protein);
+    // console.log(proteinState);
 
     // protein logic
-    if (type === "protein") {
+    if (name === "protein") {
+      console.log("protein");
+      console.log(proteinState);
+      console.log(id);
       // if protein let's:
       // 1. Check proteinstate, if the same, do nothing.
       // 2. if different, setProteinState, and then setInputs state
-      if (!id === proteinState) {
+      if (id != proteinState) {
+        console.log("not same");
         setProteinState(id);
         setInputs({
           ...inputs,
           [name]: { id: proteinState },
-        }),
-          console.log(inputs);
+        });
       }
+    }
+    if (type === "text") {
+      setInputs({
+        ...inputs,
+        [name]: value,
+      });
     }
 
     // all other logic
@@ -122,6 +150,44 @@ export default function createForm(initial = {}) {
     }
   }
 
+  // CURRENT ISSUE TODO:
+  // ------------------------ TODO: --------------------------------
+  //
+  // It seems that handleToppingChange is updating our position or location of whatever item is in the array, forcing a refresh loop.
+  // let's look into why the position, or the item keeps refreshing it should only be called once, and update and RETURN maybe? maybe we need to return to exit the loop?
+
+  function handleToppingChange(e) {
+    let { index, id, name, type, value } = e.target;
+    const updatedCheckedToppingState = toppingState.map(
+      (item, index) => {
+        if (index === position) {
+          if (item === null) {
+            return id;
+          } else {
+            return null;
+          }
+        } else {
+          return item;
+        }
+      }
+      // (index === position ? !item : item)
+      // index === position ? id : null
+    );
+    // console.log(toppingState);
+    toppingSetState(updatedCheckedToppingState);
+
+    console.log(toppingState);
+    const removedNullArray = removeNull(toppingState);
+    // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
+    setInputs(
+      {
+        ...inputs,
+        ["topping"]: removedNullArray,
+      }
+      // console.log(inputs)
+    );
+  }
+
   function resetForm() {
     setInputs(initial);
   }
@@ -141,6 +207,14 @@ export default function createForm(initial = {}) {
   return {
     inputs,
     handleChange,
+    proteinState,
+    toppingState,
+    cheeseState,
+    condimentState,
+    resetForm,
+    handleToppingChange,
+    // handleProteinChange,
+    // clearForm,
   };
 }
 

@@ -94,7 +94,16 @@ export default function CreateBody() {
   ------------------------------------------------------
   */
 
-  const { inputs, handleChange, clearForm, resetForm } = createForm({
+  const {
+    inputs,
+    proteinState,
+    toppingState,
+    cheeseState,
+    condimentState,
+    handleChange,
+    handleToppingChange,
+    handleProteinChange,
+  } = createForm({
     name: "",
     description: "",
     protein: {
@@ -182,169 +191,169 @@ export default function CreateBody() {
 
   // Our Checkbox Logic ------------------------------------------
 
-  // Protein Logic
-  const [proteinState, setProteinState] = React.useState(null);
-  const handleProtein = (id) => (event, newExpanded) => {
-    setProteinState(id);
-    // const handleProtein = (id) => {
-    //   const proteinFinal = (id) => {
-    //     if (id === proteinState) {
-    //       return null;
-    //     } else {
-    //       return id;
-    //     }
-    //   };
-    //   setProteinState(proteinFinal);
+  // // Protein Logic
+  // const [proteinState, setProteinState] = React.useState(null);
+  // const handleProtein = (id) => (event, newExpanded) => {
+  //   setProteinState(id);
+  //   // const handleProtein = (id) => {
+  //   //   const proteinFinal = (id) => {
+  //   //     if (id === proteinState) {
+  //   //       return null;
+  //   //     } else {
+  //   //       return id;
+  //   //     }
+  //   //   };
+  //   //   setProteinState(proteinFinal);
 
-    expanded === "panel1" && setExpanded("panel2");
+  //   expanded === "panel1" && setExpanded("panel2");
 
-    setCurrentValues(
-      {
-        ...currentValues,
-        ["protein"]: { id: proteinState },
-      },
-      console.log(currentValues)
-    );
-  };
+  //   setCurrentValues(
+  //     {
+  //       ...currentValues,
+  //       ["protein"]: { id: proteinState },
+  //     },
+  //     console.log(currentValues)
+  //   );
+  // };
 
-  // Topping Logic
-  const [toppingChecked, setToppingChecked] = React.useState(
-    new Array(data.allToppings.length).fill(null)
-  );
-  const handleToppingChange = (position, id) => {
-    const updatedCheckedToppingState = toppingChecked.map(
-      (item, index) => {
-        if (index === position) {
-          if (item === null) {
-            return id;
-          } else {
-            return null;
-          }
-        } else {
-          return item;
-        }
-      }
-      // (index === position ? !item : item)
-      // index === position ? id : null
-    );
-    console.log(toppingChecked);
+  // // Topping Logic
+  // const [handleChange, setToppingChecked] = React.useState(
+  //   new Array(data.allToppings.length).fill(null)
+  // );
+  // const handleToppingChange = (position, id) => {
+  //   const updatedCheckedToppingState = toppingChecked.map(
+  //     (item, index) => {
+  //       if (index === position) {
+  //         if (item === null) {
+  //           return id;
+  //         } else {
+  //           return null;
+  //         }
+  //       } else {
+  //         return item;
+  //       }
+  //     }
+  //     // (index === position ? !item : item)
+  //     // index === position ? id : null
+  //   );
+  //   console.log(toppingChecked);
 
-    setToppingChecked(updatedCheckedToppingState);
-    console.log(toppingChecked);
-    const removedNullArray = removeNull(toppingChecked);
-    // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
-    setCurrentValues(
-      {
-        ...currentValues,
-        ["topping"]: removedNullArray,
-      },
-      console.log(currentValues)
-    );
+  //   setToppingChecked(updatedCheckedToppingState);
+  //   console.log(toppingChecked);
+  //   const removedNullArray = removeNull(toppingChecked);
+  //   // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
+  //   setCurrentValues(
+  //     {
+  //       ...currentValues,
+  //       ["topping"]: removedNullArray,
+  //     },
+  //     console.log(currentValues)
+  //   );
 
-    const totalPrice = updatedCheckedToppingState.reduce(
-      (sum, currentState, index) => {
-        if (currentState === true) {
-          return sum + data.allToppings[index].price;
-        }
-        return sum;
-      },
-      0
-    );
+  //   const totalPrice = updatedCheckedToppingState.reduce(
+  //     (sum, currentState, index) => {
+  //       if (currentState === true) {
+  //         return sum + data.allToppings[index].price;
+  //       }
+  //       return sum;
+  //     },
+  //     0
+  //   );
 
-    //   setTotal(totalPrice);
-  };
+  //   //   setTotal(totalPrice);
+  // };
 
-  // Cheese Logic
-  const [cheeseChecked, setCheeseChecked] = React.useState(
-    new Array(data.allCheeses.length).fill(null)
-  );
+  // // Cheese Logic
+  // const [cheeseChecked, setCheeseChecked] = React.useState(
+  //   new Array(data.allCheeses.length).fill(null)
+  // );
 
-  const handleCheeseChange = (position, id) => {
-    const updatedCheckedCheeseState = cheeseChecked.map(
-      (item, index) => {
-        if (index === position) {
-          if (item === null) {
-            return id;
-          } else {
-            return null;
-          }
-        } else {
-          return item;
-        }
-      }
-      // (index === position ? !item : item)
-      // index === position ? id : null
-    );
+  // const handleCheeseChange = (position, id) => {
+  //   const updatedCheckedCheeseState = cheeseChecked.map(
+  //     (item, index) => {
+  //       if (index === position) {
+  //         if (item === null) {
+  //           return id;
+  //         } else {
+  //           return null;
+  //         }
+  //       } else {
+  //         return item;
+  //       }
+  //     }
+  //     // (index === position ? !item : item)
+  //     // index === position ? id : null
+  //   );
 
-    setCheeseChecked(updatedCheckedCheeseState);
-    console.log(cheeseChecked);
-    const removedNullArray = removeNull(cheeseChecked);
-    setCurrentValues(
-      {
-        ...currentValues,
-        ["cheese"]: removedNullArray,
-      },
-      console.log(currentValues)
-    );
+  //   setCheeseChecked(updatedCheckedCheeseState);
+  //   console.log(cheeseChecked);
+  //   const removedNullArray = removeNull(cheeseChecked);
+  //   setCurrentValues(
+  //     {
+  //       ...currentValues,
+  //       ["cheese"]: removedNullArray,
+  //     },
+  //     console.log(currentValues)
+  //   );
 
-    const totalPrice = updatedCheckedCheeseState.reduce(
-      (sum, currentState, index) => {
-        if (currentState === true) {
-          return sum + data.allCheeses[index].price;
-        }
-        return sum;
-      },
-      0
-    );
+  //   const totalPrice = updatedCheckedCheeseState.reduce(
+  //     (sum, currentState, index) => {
+  //       if (currentState === true) {
+  //         return sum + data.allCheeses[index].price;
+  //       }
+  //       return sum;
+  //     },
+  //     0
+  //   );
 
-    //   setTotal(totalPrice);
-  };
+  //   //   setTotal(totalPrice);
+  // };
 
-  // Condiment Logic
-  const [condimentChecked, setCondimentChecked] = React.useState(
-    new Array(data.allCondiments.length).fill(null)
-  );
+  // // Condiment Logic
+  // const [condimentChecked, setCondimentChecked] = React.useState(
+  //   new Array(data.allCondiments.length).fill(null)
+  // );
 
-  const handleCondimentChange = (position, id) => {
-    const updatedCheckedCondimentState = condimentChecked.map(
-      (item, index) => {
-        if (index === position) {
-          if (item === null) {
-            return id;
-          } else {
-            return null;
-          }
-        } else {
-          return item;
-        }
-      }
-      // (index === position ? !item : item)
-      // index === position ? id : null
-    );
+  // const handleCondimentChange = (position, id) => {
+  //   const updatedCheckedCondimentState = condimentChecked.map(
+  //     (item, index) => {
+  //       if (index === position) {
+  //         if (item === null) {
+  //           return id;
+  //         } else {
+  //           return null;
+  //         }
+  //       } else {
+  //         return item;
+  //       }
+  //     }
+  //     // (index === position ? !item : item)
+  //     // index === position ? id : null
+  //   );
 
-    setCondimentChecked(updatedCheckedCondimentState);
-    console.log(condimentChecked);
-    const removedNullArray = removeNull(condimentChecked);
-    setCurrentValues(
-      {
-        ...currentValues,
-        ["condiment"]: removedNullArray,
-      },
-      console.log(currentValues)
-    );
+  //   setCondimentChecked(updatedCheckedCondimentState);
+  //   console.log(condimentChecked);
+  //   const removedNullArray = removeNull(condimentChecked);
+  //   setCurrentValues(
+  //     {
+  //       ...currentValues,
+  //       ["condiment"]: removedNullArray,
+  //     },
+  //     console.log(currentValues)
+  //   );
 
-    const totalPrice = updatedCheckedCondimentState.reduce(
-      (sum, currentState, index) => {
-        if (currentState === true) {
-          return sum + data.allCondiments[index].price;
-        }
-        return sum;
-      },
-      0
-    );
+  //   const totalPrice = updatedCheckedCondimentState.reduce(
+  //     (sum, currentState, index) => {
+  //       if (currentState === true) {
+  //         return sum + data.allCondiments[index].price;
+  //       }
+  //       return sum;
+  //     },
+  //     0
+  //   );
 
-    //   setTotal(totalPrice);
-  };
+  //   //   setTotal(totalPrice);
+  // };
 
   // function handleChange(e) {
   //   let { value, name } = e.target;
@@ -353,9 +362,6 @@ export default function CreateBody() {
   //     [name]: value,
   //   });
   // }
-
-  // Total Cost Logic
-  const [total, setTotal] = useState(0);
 
   return (
     <div>
@@ -401,12 +407,12 @@ export default function CreateBody() {
                   <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
-                        checked={proteinState === `${id}`}
+                        checked={proteinState === id}
                         onChange={handleChange}
-                        type='protein'
+                        type='checkbox'
+                        value={proteinState}
                         id={id}
                         name='protein'
-                        value={price}
                       />
                     </Grid>
                     <SelectionComponent
@@ -440,14 +446,15 @@ export default function CreateBody() {
                   <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
-                        checked={toppingChecked[index]}
-                        onChange={handleChange}
+                        checked={toppingState[index]}
+                        onChange={handleToppingChange}
                         index={index}
                         id={id}
                         name='topping'
                         type='multi'
                         value={price}
                       />
+                      {id}
                     </Grid>
                     <SelectionComponent
                       key={id}
@@ -480,7 +487,7 @@ export default function CreateBody() {
                   <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
-                        checked={cheeseChecked[index]}
+                        checked={cheeseState[index]}
                         onChange={handleChange}
                         index={index}
                         id={id}
@@ -520,7 +527,7 @@ export default function CreateBody() {
                   <ItemContainerGrid container spacing={2} key={id}>
                     <Grid item xs={2}>
                       <Checkbox
-                        checked={condimentChecked[index]}
+                        checked={condimentState[index]}
                         onChange={handleChange}
                         index={index}
                         id={id}
