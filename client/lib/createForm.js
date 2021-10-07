@@ -9,23 +9,21 @@ export default function createForm(initial = {}) {
   const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);
   if (loading) return <p>Loading...</p>;
   // create a state object for our inputs
+
   const [inputs, setInputs] = useState(initial);
-  const [proteinState, setProteinState] = useState("61367bfe4b1b1b9fdf6e7787");
-  const [toppingState, toppingSetState] = useState(
-    new Array(data.allToppings.length).fill(null)
-  );
-  const [cheeseState, cheeseSetState] = useState(
-    new Array(data.allCheeses.length).fill(null)
-  );
-  const [condimentState, condimentSetState] = useState(
-    new Array(data.allCheeses.length).fill(null)
-  );
+  let initialPrice = inputs.protein.price;
+
+  const FormComponent = inputs;
+  // early-out when nothing to render
+  if (!FormComponent) return null;
+
+  // const initialValues = Object.values(initial).join("");
 
   useEffect(() => {
-    console.log(inputs);
+    // this function runs when the things we are watching change
   }, [inputs]);
 
-  function handleSubmit(name, value) {
+  function handleSubmit(name, value, price) {
     console.log(name);
     console.log(inputs);
     setInputs(
@@ -43,6 +41,30 @@ export default function createForm(initial = {}) {
     });
   }
 
+  function handlePrice(operator, type, value) {
+    // let totalPrice = inputs.price;
+    let oldPrice = parseInt(inputs.protein.price);
+    let newValue = parseInt(value);
+    let plusPrice = (inputs.price += newValue);
+    console.log(value);
+    console.log(newValue);
+    console.log(inputs.price);
+    console.log(plusPrice);
+    let minusPrice = (inputs.price -= oldPrice);
+    console.log(parseInt(newValue));
+    if (operator === "add") {
+      setInputs({
+        ...inputs,
+        price: parseInt(plusPrice),
+      });
+    } else if (operator === "sub") {
+      setInputs({
+        ...inputs,
+        price: parseInt(minusPrice),
+      });
+    }
+  }
+
   function ifExistsFilter(id, array) {
     let newArray = array.filter((el) => el.id !== id);
     console.log(newArray);
@@ -58,14 +80,22 @@ export default function createForm(initial = {}) {
     return newArray;
   }
 
-  function handleChange(e) {
+  async function handleChange(e) {
     let { name, index, id, type, value } = e.target;
     console.log(e.target);
 
     // protein logic
     if (name === "protein") {
-      value = { id: id };
-      handleSubmit(name, value);
+      let proteinState = inputs.protein.id;
+      let proteinPrice = parseInt(inputs.protein.price);
+      let newPrice = parseInt(value);
+      if (proteinState != id) {
+        let val = { id: id, price: value };
+        await handlePrice("sub", proteinPrice, "protein");
+        await handleSubmit(name, val);
+        await handlePrice("add", newPrice);
+        // console.log(inputs);
+      }
     }
     // text logic
     else if (type === "text") {
@@ -74,68 +104,9 @@ export default function createForm(initial = {}) {
         [name]: value,
       });
     }
-    // all other logic
-    else {
-      if (name === "cheese") {
-        const updatedCheckedCheeseState = cheeseState.map((item, index) => {
-          if (index === position) {
-            if (item === null) {
-              return id;
-            } else {
-              return null;
-            }
-          } else {
-            return item;
-          }
-        });
-        cheeseSetState(updatedCheckedCheeseState);
-        const removedNullArray = removeNull(cheeseState);
-
-        setInputs(
-          {
-            ...inputs,
-            [name]: removedNullArray,
-          },
-          console.log(inputs)
-        );
-      }
-      if (name === "condiment") {
-        const updatedCheckedCondimentState = condimentState.map(
-          (item, index) => {
-            if (index === position) {
-              if (item === null) {
-                return id;
-              } else {
-                return null;
-              }
-            } else {
-              return item;
-            }
-          }
-        );
-        condimentSetState(updatedCheckedCondimentState);
-        const removedNullArray = removeNull(condimentState);
-
-        setInputs(
-          {
-            ...inputs,
-            [name]: removedNullArray,
-          },
-          console.log(inputs)
-        );
-      }
-    }
-    console.log(inputs);
   }
 
-  // CURRENT ISSUE TODO:
-  // ------------------------ TODO: --------------------------------
-  //
-  // It seems that handleToppingChange is updating our position or location of whatever item is in the array, forcing a refresh loop.
-  // let's look into why the position, or the item keeps refreshing it should only be called once, and update and RETURN maybe? maybe we need to return to exit the loop?
-
   function handleToppingChange(id) {
-    // let { id, index, name, value } = e.target;
     let toppingState = inputs.topping;
     console.log(toppingState);
     ifExists(id, toppingState)
@@ -153,7 +124,6 @@ export default function createForm(initial = {}) {
   }
 
   function handleCheeseChange(id) {
-    // let { id, index, name, value } = e.target;
     let cheeseState = inputs.cheese;
     console.log(cheeseState);
     ifExists(id, cheeseState)
@@ -171,7 +141,6 @@ export default function createForm(initial = {}) {
   }
 
   function handleCondimentChange(id) {
-    // let { id, index, name, value } = e.target;
     let condimentState = inputs.condiment;
     console.log(condimentState);
     ifExists(id, condimentState)
@@ -188,25 +157,6 @@ export default function createForm(initial = {}) {
         });
   }
 
-  // function handleCheeseChange(index, id, name) {
-  //   let cheeseState = inputs.cheese;
-  //   ifExists(id, cheeseState)
-  //     ? setInputs(
-  //         {
-  //           ...inputs,
-  //           ["cheese"]: ifExistsFilter(id, cheeseState),
-  //         },
-  //         console.log(`Updated cheese: Removed ${id} from state`)
-  //       )
-  //     : setInputs({
-  //         ...inputs,
-  //         ["cheese"]: addItem(id, cheeseState),
-  //       });
-  // }
-
-  // console.log(toppingState);
-  // const testing = removedNullArray.map((value) => ({ ["id"]: value }));
-
   function resetForm() {
     setInputs({ initial }, handleSubmit);
   }
@@ -214,10 +164,6 @@ export default function createForm(initial = {}) {
   return {
     inputs,
     handleChange,
-    proteinState,
-    toppingState,
-    cheeseState,
-    condimentState,
     resetForm,
     handleToppingChange,
     handleCheeseChange,
@@ -225,5 +171,3 @@ export default function createForm(initial = {}) {
     ifExists,
   };
 }
-
-// this 'handleChange' only occur

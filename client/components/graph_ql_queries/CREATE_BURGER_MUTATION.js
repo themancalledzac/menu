@@ -23,6 +23,7 @@ export const CREATE_BURGER_MUTATION = gql`
       id
       name
       description
+      price
       protein {
         id
       }
