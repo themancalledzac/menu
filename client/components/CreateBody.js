@@ -55,6 +55,7 @@ export default function CreateBody() {
 
   const {
     inputs,
+    cost,
     handleChange,
     handleToppingChange,
     handleCheeseChange,
@@ -63,29 +64,24 @@ export default function CreateBody() {
   } = createForm({
     name: "",
     description: "",
-    price: 500,
+    price: 440,
     protein: {
       id: "61367bfe4b1b1b9fdf6e7787",
-      price: 500,
     },
     topping: [
       {
         id: "61367bfc4b1b1b9fdf6e776f",
-        price: 20,
       },
       {
         id: "61367bfc4b1b1b9fdf6e7772",
-        price: 20,
       },
       {
         id: "61367bfc4b1b1b9fdf6e7776",
-        price: 20,
       },
     ],
     cheese: [
       {
-        id: "61367bff4b1b1b9fdf6e779a",
-        price: 20,
+        id: "61367bff4b1b1b9fdf6e7798",
       },
     ],
     condiment: [],
@@ -142,10 +138,9 @@ export default function CreateBody() {
               onChange={handleChange}
             />
             {inputs.price}
-            {typeof inputs.price}
-            <br></br>
-            {inputs.protein.price}
-            {typeof inputs.protein.price}
+            {inputs.protein.id}
+            ---
+            {cost}
           </Header>
           <div>
             <Accordion
@@ -204,7 +199,7 @@ export default function CreateBody() {
                       <Grid item xs={2}>
                         <Checkbox
                           checked={ifExists(id, inputs.topping)}
-                          onChange={() => handleToppingChange(id)}
+                          onChange={() => handleToppingChange(id, price)}
                           position={index}
                           index={index}
                           id={id}
