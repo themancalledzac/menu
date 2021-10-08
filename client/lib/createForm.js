@@ -39,12 +39,14 @@ export default function createForm(initial = {}) {
     });
   }
 
-  function updatePrice(newValue, oldValue) {
+  function updatePrice(newValue, oldValue, type) {
     let currentV = inputs.price;
     let oldV = parseInt(oldValue);
     let newV = parseInt(newValue);
     let newTotal = currentV + newV - oldV;
-    setPrevProtCost(newV);
+    if (type === "protein") {
+      setPrevProtCost(newV);
+    }
     return parseInt(newTotal);
   }
 
@@ -80,7 +82,7 @@ export default function createForm(initial = {}) {
         // find and subtract initial protein cost
         let oldPrice = parseInt(prevProtCost);
         const proteinValue = parseInt(value);
-        const newPrice = await updatePrice(proteinValue, oldPrice);
+        const newPrice = await updatePrice(proteinValue, oldPrice, "protein");
         let val = { id: id };
         await handleSubmit(name, val, newPrice);
         // console.log(inputs);
@@ -96,33 +98,35 @@ export default function createForm(initial = {}) {
     console.log(inputs);
   }
 
-  function handleToppingChange(id, price) {
+  async function handleToppingChange(id, price) {
     let toppingState = inputs.topping;
     console.log(toppingState);
-    // const numValue = parseInt(price);
-    // let currentToppingPrice = parseInt(calculateTotal("topping"));
-    // const plusPrice = updatePrice(numValue, oldPrice);
-    // console.log("our initital cost of all toppings");
-    // console.log(typeof oldPrice);
-    // console.log(oldPrice);
-    // console.log("our new total price for the burger after toppings included");
-    // console.log(typeof newPrice);
-    // console.log(newPrice);
-    // minusCost = removeToppingCost(id);
-    ifExists(id, toppingState)
-      ? setInputs(
-          {
-            ...inputs,
-            // price: newPrice,
-            ["topping"]: ifExistsFilter(id, toppingState),
-          },
-          console.log(`Updated topping State: Removed ${id} from state.`)
-        )
-      : setInputs({
+
+    // TODO:
+    // if our topping already exists, do two things:
+    //-- first, we need to remove the price.
+    //-- -- so we call updatePrice, with our initial parameter being 0 for the 'new price being added', and our oldPrice is the price we passed to handleToppingChange.
+    //--  second is updating our ifExistsFilter in our setInputs
+    // if our topping doesn't exist,:
+    // -- first we call updatePrice, with initial parameter being our price we passed, and second parameter being 0.
+    if (ifExists(id, toppingState)) {
+      let newPrice = await updatePrice(0, price);
+      setInputs(
+        {
           ...inputs,
-          // price: newPrice,
-          ["topping"]: addItem(id, toppingState),
-        });
+          price: newPrice,
+          ["topping"]: ifExistsFilter(id, toppingState),
+        },
+        console.log(`Updated topping State: Removed ${id} from state.`)
+      );
+    } else {
+      let newPrice = await updatePrice(price, 0);
+      setInputs({
+        ...inputs,
+        price: newPrice,
+        ["topping"]: addItem(id, toppingState),
+      });
+    }
   }
 
   function handleCheeseChange(id) {

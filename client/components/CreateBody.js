@@ -138,7 +138,6 @@ export default function CreateBody() {
               onChange={handleChange}
             />
             {inputs.price}
-            {inputs.protein.id}
             ---
             {cost}
           </Header>
