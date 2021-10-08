@@ -13,12 +13,6 @@ export default function createForm(initial = {}) {
   const [inputs, setInputs] = useState(initial);
   let initialPrice = inputs.protein.price;
 
-  const FormComponent = inputs;
-  // early-out when nothing to render
-  if (!FormComponent) return null;
-
-  // const initialValues = Object.values(initial).join("");
-
   useEffect(() => {
     // this function runs when the things we are watching change
   }, [inputs]);
@@ -26,13 +20,13 @@ export default function createForm(initial = {}) {
   function handleSubmit(name, value, price) {
     console.log(name);
     console.log(inputs);
-    setInputs(
-      {
-        ...inputs,
-        [name]: value,
-      },
-      console.log(inputs)
-    );
+    setInputs({
+      ...inputs,
+      price: price,
+      [name]: value,
+    });
+
+    console.log(inputs);
   }
 
   function ifExists(id, array) {
@@ -41,28 +35,39 @@ export default function createForm(initial = {}) {
     });
   }
 
-  function handlePrice(operator, type, value) {
-    // let totalPrice = inputs.price;
-    let oldPrice = parseInt(inputs.protein.price);
-    let newValue = parseInt(value);
-    let plusPrice = (inputs.price += newValue);
-    console.log(value);
-    console.log(newValue);
-    console.log(inputs.price);
-    console.log(plusPrice);
-    let minusPrice = (inputs.price -= oldPrice);
-    console.log(parseInt(newValue));
-    if (operator === "add") {
-      setInputs({
-        ...inputs,
-        price: parseInt(plusPrice),
-      });
-    } else if (operator === "sub") {
-      setInputs({
-        ...inputs,
-        price: parseInt(minusPrice),
-      });
-    }
+  function updatePrice(newValue, oldValue) {
+    let currentV = inputs.price;
+    let oldV = oldValue;
+    let newV = newValue;
+    console.log("current total Cost:");
+    console.log(typeof currentV);
+    console.log(currentV);
+    console.log("New incoming value:");
+    console.log(typeof newV);
+    console.log(newV);
+    console.log("Previous Value:");
+    console.log(typeof oldV);
+    console.log(oldV);
+    let price = inputs.price;
+    return (price += newValue - parseInt(oldValue));
+    // let plusPrice = (inputs.price += newValue);
+    // console.log(value);
+    // console.log(newValue);
+    // console.log(inputs.price);
+    // console.log(plusPrice);
+    // let minusPrice = (inputs.price -= oldPrice);
+    // console.log(parseInt(newValue));
+    // if (operator === "add") {
+    //   setInputs({
+    //     ...inputs,
+    //     price: parseInt(plusPrice),
+    //   });
+    // } else if (operator === "sub") {
+    //   setInputs({
+    //     ...inputs,
+    //     price: parseInt(minusPrice),
+    //   });
+    // }
   }
 
   function ifExistsFilter(id, array) {
@@ -86,14 +91,15 @@ export default function createForm(initial = {}) {
 
     // protein logic
     if (name === "protein") {
-      let proteinState = inputs.protein.id;
-      let proteinPrice = parseInt(inputs.protein.price);
-      let newPrice = parseInt(value);
-      if (proteinState != id) {
+      let proteinId = inputs.protein.id;
+      if (proteinId != id) {
+        let oldPrice = parseInt(inputs.protein.price);
+        console.log(
+          "before calling our updatePrice function, our old price is: "
+        );
+        const newPrice = await updatePrice(value, oldPrice);
         let val = { id: id, price: value };
-        await handlePrice("sub", proteinPrice, "protein");
-        await handleSubmit(name, val);
-        await handlePrice("add", newPrice);
+        await handleSubmit(name, val, newPrice);
         // console.log(inputs);
       }
     }

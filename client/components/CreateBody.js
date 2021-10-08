@@ -143,6 +143,9 @@ export default function CreateBody() {
             />
             {inputs.price}
             {typeof inputs.price}
+            <br></br>
+            {inputs.protein.price}
+            {typeof inputs.protein.price}
           </Header>
           <div>
             <Accordion
