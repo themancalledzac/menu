@@ -5,6 +5,7 @@ export const CREATE_BURGER_MUTATION = gql`
   mutation CREATE_BURGER_MUTATION(
     $name: String
     $description: String
+    $price: Int
     $protein: ProteinWhereUniqueInput
     $topping: [ToppingWhereUniqueInput]
     $cheese: [CheeseWhereUniqueInput]
@@ -14,6 +15,7 @@ export const CREATE_BURGER_MUTATION = gql`
       data: {
         name: $name
         description: $description
+        price: $price
         protein: { connect: $protein }
         topping: { connect: $topping }
         cheese: { connect: $cheese }

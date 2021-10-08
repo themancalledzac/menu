@@ -43,15 +43,6 @@ export default function createForm(initial = {}) {
     let currentV = inputs.price;
     let oldV = parseInt(oldValue);
     let newV = parseInt(newValue);
-    console.log("current total Cost:");
-    console.log(typeof currentV);
-    console.log(currentV);
-    console.log("New incoming value:");
-    console.log(typeof newV);
-    console.log(newV);
-    console.log("Previous Value:");
-    console.log(typeof oldV);
-    console.log(oldV);
     let newTotal = currentV + newV - oldV;
     setPrevProtCost(newV);
     return parseInt(newTotal);
