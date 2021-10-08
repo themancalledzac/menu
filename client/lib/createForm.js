@@ -39,35 +39,17 @@ export default function createForm(initial = {}) {
     let currentV = inputs.price;
     let oldV = oldValue;
     let newV = newValue;
-    console.log("current total Cost:");
-    console.log(typeof currentV);
-    console.log(currentV);
-    console.log("New incoming value:");
-    console.log(typeof newV);
-    console.log(newV);
-    console.log("Previous Value:");
-    console.log(typeof oldV);
-    console.log(oldV);
+    // console.log("current total Cost:");
+    // console.log(typeof currentV);
+    // console.log(currentV);
+    // console.log("New incoming value:");
+    // console.log(typeof newV);
+    // console.log(newV);
+    // console.log("Previous Value:");
+    // console.log(typeof oldV);
+    // console.log(oldV);
     let price = inputs.price;
-    return (price += newValue - parseInt(oldValue));
-    // let plusPrice = (inputs.price += newValue);
-    // console.log(value);
-    // console.log(newValue);
-    // console.log(inputs.price);
-    // console.log(plusPrice);
-    // let minusPrice = (inputs.price -= oldPrice);
-    // console.log(parseInt(newValue));
-    // if (operator === "add") {
-    //   setInputs({
-    //     ...inputs,
-    //     price: parseInt(plusPrice),
-    //   });
-    // } else if (operator === "sub") {
-    //   setInputs({
-    //     ...inputs,
-    //     price: parseInt(minusPrice),
-    //   });
-    // }
+    return parseInt((price += newValue - parseInt(oldValue)));
   }
 
   function ifExistsFilter(id, array) {
@@ -97,8 +79,9 @@ export default function createForm(initial = {}) {
         console.log(
           "before calling our updatePrice function, our old price is: "
         );
-        const newPrice = await updatePrice(value, oldPrice);
-        let val = { id: id, price: value };
+        const numValue = parseInt(value);
+        const newPrice = await updatePrice(numValue, oldPrice);
+        let val = { id: id, price: numValue };
         await handleSubmit(name, val, newPrice);
         // console.log(inputs);
       }
