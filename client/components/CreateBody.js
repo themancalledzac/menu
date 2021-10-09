@@ -84,7 +84,11 @@ export default function CreateBody() {
         id: "61367bff4b1b1b9fdf6e7798",
       },
     ],
-    condiment: [],
+    condiment: [
+      {
+        id: "61367c004b1b1b9fdf6e77a1",
+      },
+    ],
   });
 
   const [createBurger, { createLoading, createError, createData }] =
@@ -198,11 +202,10 @@ export default function CreateBody() {
                       <Grid item xs={2}>
                         <Checkbox
                           checked={ifExists(id, inputs.topping)}
-                          onChange={() => handleToppingChange(id, price)}
-                          position={index}
-                          index={index}
+                          onChange={() =>
+                            handleToppingChange(id, price, "topping")
+                          }
                           id={id}
-                          name='topping'
                           value={price}
                         />
                       </Grid>
@@ -238,10 +241,11 @@ export default function CreateBody() {
                       <Grid item xs={2}>
                         <Checkbox
                           checked={ifExists(id, inputs.cheese)}
-                          onChange={() => handleCheeseChange(id)}
+                          onChange={() =>
+                            handleToppingChange(id, price, "cheese")
+                          }
                           index={index}
                           id={id}
-                          name='cheese'
                           value={price}
                         />
                       </Grid>
@@ -277,10 +281,10 @@ export default function CreateBody() {
                       <Grid item xs={2}>
                         <Checkbox
                           checked={ifExists(id, inputs.condiment)}
-                          onChange={() => handleCondimentChange(id)}
-                          index={index}
+                          onChange={() =>
+                            handleToppingChange(id, price, "condiment")
+                          }
                           id={id}
-                          name='condiment'
                           value={price}
                         />
                       </Grid>

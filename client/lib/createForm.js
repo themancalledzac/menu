@@ -98,9 +98,17 @@ export default function createForm(initial = {}) {
     console.log(inputs);
   }
 
-  async function handleToppingChange(id, price) {
-    let toppingState = inputs.topping;
-    console.log(toppingState);
+  async function handleToppingChange(id, price, type) {
+    let state = inputs;
+    if (type === "topping") {
+      state = inputs.topping;
+    } else if (type === "cheese") {
+      state = inputs.cheese;
+    } else if (type === "condiment") {
+      state = inputs.condiment;
+    }
+    console.log(type);
+    console.log(state);
 
     // TODO:
     // if our topping already exists, do two things:
@@ -109,22 +117,22 @@ export default function createForm(initial = {}) {
     //--  second is updating our ifExistsFilter in our setInputs
     // if our topping doesn't exist,:
     // -- first we call updatePrice, with initial parameter being our price we passed, and second parameter being 0.
-    if (ifExists(id, toppingState)) {
+    if (ifExists(id, state)) {
       let newPrice = await updatePrice(0, price);
       setInputs(
         {
           ...inputs,
           price: newPrice,
-          ["topping"]: ifExistsFilter(id, toppingState),
+          [type]: ifExistsFilter(id, state),
         },
-        console.log(`Updated topping State: Removed ${id} from state.`)
+        console.log(`Updated ${type} State: Removed ${id} from state.`)
       );
     } else {
       let newPrice = await updatePrice(price, 0);
       setInputs({
         ...inputs,
         price: newPrice,
-        ["topping"]: addItem(id, toppingState),
+        [type]: addItem(id, state),
       });
     }
   }
