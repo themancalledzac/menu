@@ -107,16 +107,7 @@ export default function createForm(initial = {}) {
     } else if (type === "condiment") {
       state = inputs.condiment;
     }
-    console.log(type);
-    console.log(state);
 
-    // TODO:
-    // if our topping already exists, do two things:
-    //-- first, we need to remove the price.
-    //-- -- so we call updatePrice, with our initial parameter being 0 for the 'new price being added', and our oldPrice is the price we passed to handleToppingChange.
-    //--  second is updating our ifExistsFilter in our setInputs
-    // if our topping doesn't exist,:
-    // -- first we call updatePrice, with initial parameter being our price we passed, and second parameter being 0.
     if (ifExists(id, state)) {
       let newPrice = await updatePrice(0, price);
       setInputs(
@@ -137,40 +128,6 @@ export default function createForm(initial = {}) {
     }
   }
 
-  function handleCheeseChange(id) {
-    let cheeseState = inputs.cheese;
-    console.log(cheeseState);
-    ifExists(id, cheeseState)
-      ? setInputs(
-          {
-            ...inputs,
-            ["cheese"]: ifExistsFilter(id, cheeseState),
-          },
-          console.log(`Updated cheese State: Removed ${id} from state.`)
-        )
-      : setInputs({
-          ...inputs,
-          ["cheese"]: addItem(id, cheeseState),
-        });
-  }
-
-  function handleCondimentChange(id) {
-    let condimentState = inputs.condiment;
-    console.log(condimentState);
-    ifExists(id, condimentState)
-      ? setInputs(
-          {
-            ...inputs,
-            ["condiment"]: ifExistsFilter(id, condimentState),
-          },
-          console.log(`Updated condiment State: Removed ${id} from state.`)
-        )
-      : setInputs({
-          ...inputs,
-          ["condiment"]: addItem(id, condimentState),
-        });
-  }
-
   function resetForm() {
     setInputs({ initial }, handleSubmit);
   }
@@ -181,8 +138,6 @@ export default function createForm(initial = {}) {
     handleChange,
     resetForm,
     handleToppingChange,
-    handleCheeseChange,
-    handleCondimentChange,
     ifExists,
   };
 }

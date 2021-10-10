@@ -53,43 +53,42 @@ export default function CreateBody() {
   ------------------------------------------------------
   */
 
-  const {
-    inputs,
-    cost,
-    handleChange,
-    handleToppingChange,
-    handleCheeseChange,
-    handleCondimentChange,
-    ifExists,
-  } = createForm({
-    name: "",
-    description: "",
-    price: 440,
-    protein: {
-      id: "61367bfe4b1b1b9fdf6e7787",
-    },
-    topping: [
-      {
-        id: "61367bfc4b1b1b9fdf6e776f",
+  const { inputs, cost, handleChange, handleToppingChange, ifExists } =
+    createForm({
+      name: "",
+      description: "",
+      price: 440,
+      protein: {
+        id: "61367bfe4b1b1b9fdf6e7787",
       },
-      {
-        id: "61367bfc4b1b1b9fdf6e7772",
-      },
-      {
-        id: "61367bfc4b1b1b9fdf6e7776",
-      },
-    ],
-    cheese: [
-      {
-        id: "61367bff4b1b1b9fdf6e7798",
-      },
-    ],
-    condiment: [
-      {
-        id: "61367c004b1b1b9fdf6e77a1",
-      },
-    ],
-  });
+      topping: [
+        {
+          id: "61367bfc4b1b1b9fdf6e776f",
+        },
+        {
+          id: "61367bfc4b1b1b9fdf6e7772",
+        },
+        {
+          id: "61367bfc4b1b1b9fdf6e7776",
+        },
+      ],
+      cheese: [
+        {
+          id: "61367bff4b1b1b9fdf6e7798",
+        },
+      ],
+      condiment: [
+        {
+          id: "61367c004b1b1b9fdf6e77a1",
+        },
+      ],
+    });
+
+  // Here we have the Panel Accordion logic
+  const [expanded, setExpanded] = React.useState("panel1");
+  const handleAccordion = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   const [createBurger, { createLoading, createError, createData }] =
     useMutation(CREATE_BURGER_MUTATION, {
@@ -107,12 +106,6 @@ export default function CreateBody() {
   // console.log(inputs.protein);
   // console.log(inputs.protein.id);
   let proteinState = inputs.protein.id;
-
-  // Here we have the Panel Accordion logic
-  const [expanded, setExpanded] = React.useState("panel1");
-  const handleAccordion = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
 
   return (
     <div>
@@ -160,16 +153,18 @@ export default function CreateBody() {
                 {data.allProteins.map(
                   ({ name, id, description, price, stock }) => (
                     <ItemContainerGrid container spacing={2} key={id}>
-                      <Grid item xs={2}>
-                        <Checkbox
-                          checked={proteinState === id}
-                          onChange={handleChange}
-                          type='checkbox'
-                          value={price}
-                          id={id}
-                          name='protein'
-                        />
-                      </Grid>
+                      {{ stock } && (
+                        <Grid item xs={2}>
+                          <Checkbox
+                            checked={proteinState === id}
+                            onChange={handleChange}
+                            type='checkbox'
+                            value={price}
+                            id={id}
+                            name='protein'
+                          />
+                        </Grid>
+                      )}
                       <SelectionComponent
                         key={id}
                         name={name}

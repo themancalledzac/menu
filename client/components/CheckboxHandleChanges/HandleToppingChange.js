@@ -4,23 +4,32 @@ import createForm from "../../lib/createForm";
 
 const { inputs } = createForm();
 
-export default function handleToppingChange(id) {
-  // let { id, index, name, value } = e.target;
-  let toppingState = inputs.topping;
-  console.log(toppingState);
-  ifExists(id, toppingState)
-    ? setInputs(
-        {
-          ...inputs,
-          ["topping"]: ifExistsFilter(id, toppingState),
-        },
-        console.log(`Updated topping State: Removed ${id} from state.`)
-      )
-    : setInputs({
+export default async function handleToppingChange(id, price, type) {
+  let state = inputs;
+  if (type === "topping") {
+    state = inputs.topping;
+  } else if (type === "cheese") {
+    state = inputs.cheese;
+  } else if (type === "condiment") {
+    state = inputs.condiment;
+  }
+
+  if (ifExists(id, state)) {
+    let newPrice = await updatePrice(0, price);
+    setInputs(
+      {
         ...inputs,
-        ["topping"]: addItem(id, toppingState),
-      });
-  return {
-    handleToppingChange,
-  };
+        price: newPrice,
+        [type]: ifExistsFilter(id, state),
+      },
+      console.log(`Updated ${type} State: Removed ${id} from state.`)
+    );
+  } else {
+    let newPrice = await updatePrice(price, 0);
+    setInputs({
+      ...inputs,
+      price: newPrice,
+      [type]: addItem(id, state),
+    });
+  }
 }

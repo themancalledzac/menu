@@ -18,7 +18,7 @@ export default function DropDownMenu() {
   };
 
   return (
-    <>
+    <div>
       <IconButton
         id='hamburger_menu'
         aria-controls='hamburger_menu'
@@ -66,6 +66,6 @@ export default function DropDownMenu() {
           </MenuItem>
         )}
       </Menu>
-    </>
+    </div>
   );
 }

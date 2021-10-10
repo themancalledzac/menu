@@ -55,14 +55,14 @@ export default function LargeHeader() {
           onClose={handleClose}
         >
           {user ? (
-            <>
+            <div>
               <MenuItem onClick={handleClose}>
                 <Link href='/profile'>Profile</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Link href='/signout'>Sign Out</Link>
               </MenuItem>
-            </>
+            </div>
           ) : (
             <MenuItem onClick={handleClose}>
               <Link href='/signin'>Sign In</Link>
