@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 
 export const ALL_CART_QUERY = gql`
   query ALL_CART_QUERY {
-    allBurgers {
+    allCartItems {
       id
       name
       price
