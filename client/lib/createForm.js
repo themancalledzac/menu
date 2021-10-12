@@ -50,11 +50,6 @@ export default function createForm(initial = {}) {
     return parseInt(newTotal);
   }
 
-  // function calculateTotal(type) {
-  //   array = inputs.topping;
-  //   return parseInt(array.reduce((n, { price }) => n + price, 0));
-  // }
-
   function ifExistsFilter(id, array) {
     let newArray = array.filter((el) => el.id !== id);
     console.log(newArray);

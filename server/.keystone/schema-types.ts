@@ -7,6 +7,13 @@ type Scalars = {
   readonly JSON: import('@keystone-next/types').JSONValue;
 };
 
+export type CartItemRelateToManyInput = {
+  readonly create?: ReadonlyArray<CartItemCreateInput | null> | null;
+  readonly connect?: ReadonlyArray<CartItemWhereUniqueInput | null> | null;
+  readonly disconnect?: ReadonlyArray<CartItemWhereUniqueInput | null> | null;
+  readonly disconnectAll?: Scalars['Boolean'] | null;
+};
+
 export type UserWhereInput = {
   readonly AND?: ReadonlyArray<UserWhereInput | null> | null;
   readonly OR?: ReadonlyArray<UserWhereInput | null> | null;
@@ -51,6 +58,9 @@ export type UserWhereInput = {
   readonly email_in?: ReadonlyArray<Scalars['String'] | null> | null;
   readonly email_not_in?: ReadonlyArray<Scalars['String'] | null> | null;
   readonly password_is_set?: Scalars['Boolean'] | null;
+  readonly cart_every?: CartItemWhereInput | null;
+  readonly cart_some?: CartItemWhereInput | null;
+  readonly cart_none?: CartItemWhereInput | null;
   readonly passwordResetToken_is_set?: Scalars['Boolean'] | null;
   readonly passwordResetIssuedAt?: Scalars['String'] | null;
   readonly passwordResetIssuedAt_not?: Scalars['String'] | null;
@@ -114,6 +124,8 @@ export type SortUsersBy =
   | 'name_DESC'
   | 'email_ASC'
   | 'email_DESC'
+  | 'cart_ASC'
+  | 'cart_DESC'
   | 'passwordResetIssuedAt_ASC'
   | 'passwordResetIssuedAt_DESC'
   | 'passwordResetRedeemedAt_ASC'
@@ -127,6 +139,7 @@ export type UserUpdateInput = {
   readonly name?: Scalars['String'] | null;
   readonly email?: Scalars['String'] | null;
   readonly password?: Scalars['String'] | null;
+  readonly cart?: CartItemRelateToManyInput | null;
   readonly passwordResetToken?: Scalars['String'] | null;
   readonly passwordResetIssuedAt?: Scalars['String'] | null;
   readonly passwordResetRedeemedAt?: Scalars['String'] | null;
@@ -144,6 +157,7 @@ export type UserCreateInput = {
   readonly name?: Scalars['String'] | null;
   readonly email?: Scalars['String'] | null;
   readonly password?: Scalars['String'] | null;
+  readonly cart?: CartItemRelateToManyInput | null;
   readonly passwordResetToken?: Scalars['String'] | null;
   readonly passwordResetIssuedAt?: Scalars['String'] | null;
   readonly passwordResetRedeemedAt?: Scalars['String'] | null;
@@ -721,6 +735,147 @@ export type CondimentsCreateInput = {
   readonly data?: CondimentCreateInput | null;
 };
 
+export type BurgerRelateToOneInput = {
+  readonly create?: BurgerCreateInput | null;
+  readonly connect?: BurgerWhereUniqueInput | null;
+  readonly disconnect?: BurgerWhereUniqueInput | null;
+  readonly disconnectAll?: Scalars['Boolean'] | null;
+};
+
+export type UserRelateToOneInput = {
+  readonly create?: UserCreateInput | null;
+  readonly connect?: UserWhereUniqueInput | null;
+  readonly disconnect?: UserWhereUniqueInput | null;
+  readonly disconnectAll?: Scalars['Boolean'] | null;
+};
+
+export type CartItemWhereInput = {
+  readonly AND?: ReadonlyArray<CartItemWhereInput | null> | null;
+  readonly OR?: ReadonlyArray<CartItemWhereInput | null> | null;
+  readonly id?: Scalars['ID'] | null;
+  readonly id_not?: Scalars['ID'] | null;
+  readonly id_in?: ReadonlyArray<Scalars['ID'] | null> | null;
+  readonly id_not_in?: ReadonlyArray<Scalars['ID'] | null> | null;
+  readonly name?: Scalars['String'] | null;
+  readonly name_not?: Scalars['String'] | null;
+  readonly name_contains?: Scalars['String'] | null;
+  readonly name_not_contains?: Scalars['String'] | null;
+  readonly name_starts_with?: Scalars['String'] | null;
+  readonly name_not_starts_with?: Scalars['String'] | null;
+  readonly name_ends_with?: Scalars['String'] | null;
+  readonly name_not_ends_with?: Scalars['String'] | null;
+  readonly name_i?: Scalars['String'] | null;
+  readonly name_not_i?: Scalars['String'] | null;
+  readonly name_contains_i?: Scalars['String'] | null;
+  readonly name_not_contains_i?: Scalars['String'] | null;
+  readonly name_starts_with_i?: Scalars['String'] | null;
+  readonly name_not_starts_with_i?: Scalars['String'] | null;
+  readonly name_ends_with_i?: Scalars['String'] | null;
+  readonly name_not_ends_with_i?: Scalars['String'] | null;
+  readonly name_in?: ReadonlyArray<Scalars['String'] | null> | null;
+  readonly name_not_in?: ReadonlyArray<Scalars['String'] | null> | null;
+  readonly description?: Scalars['String'] | null;
+  readonly description_not?: Scalars['String'] | null;
+  readonly description_contains?: Scalars['String'] | null;
+  readonly description_not_contains?: Scalars['String'] | null;
+  readonly description_starts_with?: Scalars['String'] | null;
+  readonly description_not_starts_with?: Scalars['String'] | null;
+  readonly description_ends_with?: Scalars['String'] | null;
+  readonly description_not_ends_with?: Scalars['String'] | null;
+  readonly description_i?: Scalars['String'] | null;
+  readonly description_not_i?: Scalars['String'] | null;
+  readonly description_contains_i?: Scalars['String'] | null;
+  readonly description_not_contains_i?: Scalars['String'] | null;
+  readonly description_starts_with_i?: Scalars['String'] | null;
+  readonly description_not_starts_with_i?: Scalars['String'] | null;
+  readonly description_ends_with_i?: Scalars['String'] | null;
+  readonly description_not_ends_with_i?: Scalars['String'] | null;
+  readonly description_in?: ReadonlyArray<Scalars['String'] | null> | null;
+  readonly description_not_in?: ReadonlyArray<Scalars['String'] | null> | null;
+  readonly price?: Scalars['Int'] | null;
+  readonly price_not?: Scalars['Int'] | null;
+  readonly price_lt?: Scalars['Int'] | null;
+  readonly price_lte?: Scalars['Int'] | null;
+  readonly price_gt?: Scalars['Int'] | null;
+  readonly price_gte?: Scalars['Int'] | null;
+  readonly price_in?: ReadonlyArray<Scalars['Int'] | null> | null;
+  readonly price_not_in?: ReadonlyArray<Scalars['Int'] | null> | null;
+  readonly protein?: ProteinWhereInput | null;
+  readonly protein_is_null?: Scalars['Boolean'] | null;
+  readonly topping_every?: ToppingWhereInput | null;
+  readonly topping_some?: ToppingWhereInput | null;
+  readonly topping_none?: ToppingWhereInput | null;
+  readonly cheese_every?: CheeseWhereInput | null;
+  readonly cheese_some?: CheeseWhereInput | null;
+  readonly cheese_none?: CheeseWhereInput | null;
+  readonly condiment_every?: CondimentWhereInput | null;
+  readonly condiment_some?: CondimentWhereInput | null;
+  readonly condiment_none?: CondimentWhereInput | null;
+  readonly burger?: BurgerWhereInput | null;
+  readonly burger_is_null?: Scalars['Boolean'] | null;
+  readonly user?: UserWhereInput | null;
+  readonly user_is_null?: Scalars['Boolean'] | null;
+};
+
+export type CartItemWhereUniqueInput = {
+  readonly id: Scalars['ID'];
+};
+
+export type SortCartItemsBy =
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'description_ASC'
+  | 'description_DESC'
+  | 'price_ASC'
+  | 'price_DESC'
+  | 'protein_ASC'
+  | 'protein_DESC'
+  | 'topping_ASC'
+  | 'topping_DESC'
+  | 'cheese_ASC'
+  | 'cheese_DESC'
+  | 'condiment_ASC'
+  | 'condiment_DESC'
+  | 'burger_ASC'
+  | 'burger_DESC'
+  | 'user_ASC'
+  | 'user_DESC';
+
+export type CartItemUpdateInput = {
+  readonly name?: Scalars['String'] | null;
+  readonly description?: Scalars['String'] | null;
+  readonly price?: Scalars['Int'] | null;
+  readonly protein?: ProteinRelateToOneInput | null;
+  readonly topping?: ToppingRelateToManyInput | null;
+  readonly cheese?: CheeseRelateToManyInput | null;
+  readonly condiment?: CondimentRelateToManyInput | null;
+  readonly burger?: BurgerRelateToOneInput | null;
+  readonly user?: UserRelateToOneInput | null;
+};
+
+export type CartItemsUpdateInput = {
+  readonly id: Scalars['ID'];
+  readonly data?: CartItemUpdateInput | null;
+};
+
+export type CartItemCreateInput = {
+  readonly name?: Scalars['String'] | null;
+  readonly description?: Scalars['String'] | null;
+  readonly price?: Scalars['Int'] | null;
+  readonly protein?: ProteinRelateToOneInput | null;
+  readonly topping?: ToppingRelateToManyInput | null;
+  readonly cheese?: CheeseRelateToManyInput | null;
+  readonly condiment?: CondimentRelateToManyInput | null;
+  readonly burger?: BurgerRelateToOneInput | null;
+  readonly user?: UserRelateToOneInput | null;
+};
+
+export type CartItemsCreateInput = {
+  readonly data?: CartItemCreateInput | null;
+};
+
 export type _ksListsMetaInput = {
   readonly key?: Scalars['String'] | null;
   readonly auxiliary?: Scalars['Boolean'] | null;
@@ -761,6 +916,7 @@ export type UserListTypeInfo = {
     | 'name'
     | 'email'
     | 'password'
+    | 'cart'
     | 'passwordResetToken'
     | 'passwordResetIssuedAt'
     | 'passwordResetRedeemedAt'
@@ -772,6 +928,7 @@ export type UserListTypeInfo = {
     readonly name?: string | null;
     readonly email?: string | null;
     readonly password?: string | null;
+    readonly cart?: string | null;
     readonly passwordResetToken?: string | null;
     readonly passwordResetIssuedAt?: Date | null;
     readonly passwordResetRedeemedAt?: Date | null;
@@ -991,6 +1148,56 @@ export type CondimentListFn = (
   CondimentListTypeInfo['fields']
 >;
 
+export type CartItemListTypeInfo = {
+  key: 'CartItem';
+  fields:
+    | 'id'
+    | 'name'
+    | 'description'
+    | 'price'
+    | 'protein'
+    | 'topping'
+    | 'cheese'
+    | 'condiment'
+    | 'burger'
+    | 'user';
+  backing: {
+    readonly id: string;
+    readonly name?: string | null;
+    readonly description?: string | null;
+    readonly price?: number | null;
+    readonly protein?: string | null;
+    readonly topping?: string | null;
+    readonly cheese?: string | null;
+    readonly condiment?: string | null;
+    readonly burger?: string | null;
+    readonly user?: string | null;
+  };
+  inputs: {
+    where: CartItemWhereInput;
+    create: CartItemCreateInput;
+    update: CartItemUpdateInput;
+  };
+  args: {
+    listQuery: {
+      readonly where?: CartItemWhereInput | null;
+      readonly sortBy?: ReadonlyArray<SortCartItemsBy> | null;
+      readonly first?: Scalars['Int'] | null;
+      readonly skip?: Scalars['Int'] | null;
+    };
+  };
+};
+
+export type CartItemListFn = (
+  listConfig: import('@keystone-next/keystone/schema').ListConfig<
+    CartItemListTypeInfo,
+    CartItemListTypeInfo['fields']
+  >
+) => import('@keystone-next/keystone/schema').ListConfig<
+  CartItemListTypeInfo,
+  CartItemListTypeInfo['fields']
+>;
+
 export type KeystoneListsTypeInfo = {
   readonly User: UserListTypeInfo;
   readonly Burger: BurgerListTypeInfo;
@@ -998,4 +1205,5 @@ export type KeystoneListsTypeInfo = {
   readonly Topping: ToppingListTypeInfo;
   readonly Cheese: CheeseListTypeInfo;
   readonly Condiment: CondimentListTypeInfo;
+  readonly CartItem: CartItemListTypeInfo;
 };

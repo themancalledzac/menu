@@ -39,6 +39,9 @@ export default function Home() {
           Condiment: _allCondimentsMeta {
             count
           }
+          CartItem: _allCartItemsMeta {
+            count
+          }
         }
       `}
     />

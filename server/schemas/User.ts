@@ -7,14 +7,14 @@ export const User = list({
     email: text({ isRequired: true, isUnique: true }),
     password: password(),
     // TODO: create cart schema for connection
-    // cart: relationship({
-    //   ref: "CartItem.user",
-    //   many: true,
-    //   ui: {
-    //     createView: { fieldMode: "hidden" },
-    //     itemView: { fieldMode: "read" },
-    //   },
-    // }),
+    cart: relationship({
+      ref: "CartItem.user",
+      many: true,
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+      },
+    }),
   },
 });
 
