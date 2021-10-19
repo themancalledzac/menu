@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { array } from "prop-types";
 import { useEffect, useState } from "react";
 import { ALL_PRODUCTS_QUERY } from "../components/graph_ql_queries/ALL_PRODUCTS_QUERY";
+import { useUser } from "../components/graph_ql_queries/User";
 import removeNull from "./removeNull";
 
 // loading
@@ -9,16 +10,32 @@ import removeNull from "./removeNull";
 export default function createForm(initial = {}) {
   // const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);
   // // create a state object for our inputs
-  //   if (loading) return <p>Loading...</p>;
 
   const [inputs, setInputs] = useState(initial);
   const [cost, setCosts] = useState(inputs.price);
   const [prevProtCost, setPrevProtCost] = useState(250);
-  let initialPrice = inputs.protein.price;
+  const user = useUser();
+  // let initialPrice = inputs.protein.price;
 
   useEffect(() => {
     // this function runs when the things we are watching change
   }, [inputs]);
+
+  function setUser() {
+    user
+      ? setInputs({
+          ...inputs,
+          user: {
+            id: user.id,
+          },
+        })
+      : setInputs({
+          ...inputs,
+          user: {
+            id: "616f37887692a0d6fb1478ce",
+          },
+        });
+  }
 
   function handleSubmit(name, value, price) {
     console.log(name);
@@ -63,6 +80,17 @@ export default function createForm(initial = {}) {
     let newArray = array.concat(obj);
     console.log(newArray);
     return newArray;
+  }
+
+  async function addUser(user) {
+    let val = { id: user.id };
+    await setInputs(
+      {
+        ...inputs,
+        user: val,
+      },
+      console.log(inputs)
+    );
   }
 
   async function handleChange(e) {
@@ -134,5 +162,7 @@ export default function createForm(initial = {}) {
     resetForm,
     handleToppingChange,
     ifExists,
+    addUser,
+    setUser,
   };
 }

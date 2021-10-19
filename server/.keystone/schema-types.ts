@@ -735,13 +735,6 @@ export type CondimentsCreateInput = {
   readonly data?: CondimentCreateInput | null;
 };
 
-export type BurgerRelateToOneInput = {
-  readonly create?: BurgerCreateInput | null;
-  readonly connect?: BurgerWhereUniqueInput | null;
-  readonly disconnect?: BurgerWhereUniqueInput | null;
-  readonly disconnectAll?: Scalars['Boolean'] | null;
-};
-
 export type UserRelateToOneInput = {
   readonly create?: UserCreateInput | null;
   readonly connect?: UserWhereUniqueInput | null;
@@ -811,8 +804,6 @@ export type CartItemWhereInput = {
   readonly condiment_every?: CondimentWhereInput | null;
   readonly condiment_some?: CondimentWhereInput | null;
   readonly condiment_none?: CondimentWhereInput | null;
-  readonly burger?: BurgerWhereInput | null;
-  readonly burger_is_null?: Scalars['Boolean'] | null;
   readonly user?: UserWhereInput | null;
   readonly user_is_null?: Scalars['Boolean'] | null;
 };
@@ -838,8 +829,6 @@ export type SortCartItemsBy =
   | 'cheese_DESC'
   | 'condiment_ASC'
   | 'condiment_DESC'
-  | 'burger_ASC'
-  | 'burger_DESC'
   | 'user_ASC'
   | 'user_DESC';
 
@@ -851,7 +840,6 @@ export type CartItemUpdateInput = {
   readonly topping?: ToppingRelateToManyInput | null;
   readonly cheese?: CheeseRelateToManyInput | null;
   readonly condiment?: CondimentRelateToManyInput | null;
-  readonly burger?: BurgerRelateToOneInput | null;
   readonly user?: UserRelateToOneInput | null;
 };
 
@@ -868,7 +856,6 @@ export type CartItemCreateInput = {
   readonly topping?: ToppingRelateToManyInput | null;
   readonly cheese?: CheeseRelateToManyInput | null;
   readonly condiment?: CondimentRelateToManyInput | null;
-  readonly burger?: BurgerRelateToOneInput | null;
   readonly user?: UserRelateToOneInput | null;
 };
 
@@ -1159,7 +1146,6 @@ export type CartItemListTypeInfo = {
     | 'topping'
     | 'cheese'
     | 'condiment'
-    | 'burger'
     | 'user';
   backing: {
     readonly id: string;
@@ -1170,7 +1156,6 @@ export type CartItemListTypeInfo = {
     readonly topping?: string | null;
     readonly cheese?: string | null;
     readonly condiment?: string | null;
-    readonly burger?: string | null;
     readonly user?: string | null;
   };
   inputs: {

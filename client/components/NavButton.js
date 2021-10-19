@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useUser } from "./User";
+import { useUser } from "./graph_ql_queries/User";
 
 // const NavStyled = styled.ul`
 //   margin: 0;

@@ -12,7 +12,7 @@ export const CREATE_CART_ITEM_MUTATION = gql`
     $condiment: [CondimentWhereUniqueInput]
     $user: UserWhereUniqueInput
   ) {
-    createBurger(
+    createCartItem(
       data: {
         name: $name
         description: $description

@@ -3,10 +3,12 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import { useUser } from "./User";
+import { useUser } from "./graph_ql_queries/User";
 
 export default function LargeHeader() {
   const user = useUser();
+  // console.log(user);
+  // user && console.log(user.id);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {

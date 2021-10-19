@@ -8,6 +8,8 @@ import Grid from "@mui/material/Grid";
 import Checkbox from "@mui/material/Checkbox";
 import { ALL_PRODUCTS_QUERY } from "./graph_ql_queries/ALL_PRODUCTS_QUERY";
 import { CREATE_BURGER_MUTATION } from "./graph_ql_queries/CREATE_BURGER_MUTATION";
+import { CREATE_CART_ITEM_MUTATION } from "./graph_ql_queries/CREATE_CART_ITEM_MUTATION";
+import { useUser } from "./graph_ql_queries/User";
 // Will import these later when I figure out how to export everything from file to file
 // import handleToppingChange from "./CheckboxHandleChanges/HandleToppingChange";
 // import handleCheeseChange from "./CheckboxHandleChanges/HandleCheeseChange";
@@ -53,7 +55,7 @@ export default function CreateBody() {
   ------------------------------------------------------
   */
 
-  const { inputs, cost, handleChange, handleToppingChange, ifExists } =
+  const { inputs, cost, handleChange, handleToppingChange, setUser, ifExists } =
     createForm({
       name: "",
       description: "",
@@ -91,20 +93,21 @@ export default function CreateBody() {
   };
 
   const [createBurger, { createLoading, createError, createData }] =
-    useMutation(CREATE_BURGER_MUTATION, {
+    useMutation(CREATE_CART_ITEM_MUTATION, {
       variables: inputs,
       refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
     });
-  if (createLoading) return <p>Loading...</p>;
 
   // use hook to fetch data
   const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);
-  // loading
-  if (loading) return <p>Loading...</p>;
 
-  // console.log(inputs);
-  // console.log(inputs.protein);
-  // console.log(inputs.protein.id);
+  // const { userData, userError, userLoading } = useQuery(CURRENT_USER_QUERY);
+
+  // // if (userLoading) return <p>Loading...</p>;
+  // // const { authenticatedItem } = userData;
+  // // console.log(authenticatedItem);
+
+  if (loading || createLoading) return <p>Loading...</p>;
   let proteinState = inputs.protein.id;
 
   return (
@@ -306,6 +309,7 @@ export default function CreateBody() {
                   onClick={async (e) => {
                     e.preventDefault();
                     // submit input fields to the backend.
+                    await setUser();
                     await createBurger();
                   }}
                 >

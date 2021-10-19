@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
-import { useUser } from "./User";
+import { useUser } from "./graph_ql_queries/User";
 
 export default function DropDownMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);

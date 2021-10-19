@@ -808,13 +808,6 @@ input CondimentsCreateInput {
   data: CondimentCreateInput
 }
 
-input BurgerRelateToOneInput {
-  create: BurgerCreateInput
-  connect: BurgerWhereUniqueInput
-  disconnect: BurgerWhereUniqueInput
-  disconnectAll: Boolean
-}
-
 input UserRelateToOneInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
@@ -835,7 +828,6 @@ type CartItem {
   _cheeseMeta(where: CheeseWhereInput, search: String, sortBy: [SortCheesesBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
   condiment(where: CondimentWhereInput, search: String, sortBy: [SortCondimentsBy!], orderBy: String, first: Int, skip: Int): [Condiment!]!
   _condimentMeta(where: CondimentWhereInput, search: String, sortBy: [SortCondimentsBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
-  burger: Burger
   user: User
 }
 
@@ -919,8 +911,6 @@ input CartItemWhereInput {
 
   """ condition must be false for all nodes """
   condiment_none: CondimentWhereInput
-  burger: BurgerWhereInput
-  burger_is_null: Boolean
   user: UserWhereInput
   user_is_null: Boolean
 }
@@ -946,8 +936,6 @@ enum SortCartItemsBy {
   cheese_DESC
   condiment_ASC
   condiment_DESC
-  burger_ASC
-  burger_DESC
   user_ASC
   user_DESC
 }
@@ -960,7 +948,6 @@ input CartItemUpdateInput {
   topping: ToppingRelateToManyInput
   cheese: CheeseRelateToManyInput
   condiment: CondimentRelateToManyInput
-  burger: BurgerRelateToOneInput
   user: UserRelateToOneInput
 }
 
@@ -977,7 +964,6 @@ input CartItemCreateInput {
   topping: ToppingRelateToManyInput
   cheese: CheeseRelateToManyInput
   condiment: CondimentRelateToManyInput
-  burger: BurgerRelateToOneInput
   user: UserRelateToOneInput
 }
 

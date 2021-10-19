@@ -2,13 +2,8 @@ import { integer, relationship, text } from '@keystone-next/fields';
 import { list } from "@keystone-next/keystone/schema";
 
 export const CartItem = list({
-    ui: {
-        listView: {
-            initialColumns: ['burger', 'user'],
-        },
-    },
     fields: {
-            name: text({ isRequired: true }),
+    name: text(),
     description: text({ 
     ui: {
       displayMode: 'textarea',
