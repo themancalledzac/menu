@@ -4,6 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
 import { useUser } from "./graph_ql_queries/User";
+import SignOut from "./signout";
 
 export default function DropDownMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -61,9 +62,14 @@ export default function DropDownMenu() {
             <Link href='/signin'>Sign In</Link>
           </MenuItem>
         ) : (
-          <MenuItem onClick={handleClose}>
-            <Link href='/profile'>Profile</Link>
-          </MenuItem>
+          <>
+            <MenuItem onClick={handleClose}>
+              <Link href='/profile'>Profile</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <SignOut />
+            </MenuItem>
+          </>
         )}
       </Menu>
     </div>

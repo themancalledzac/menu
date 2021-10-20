@@ -152,7 +152,7 @@ export default function createForm(initial = {}) {
   }
 
   function resetForm() {
-    setInputs({ initial }, handleSubmit);
+    setInputs({ initial }), handleSubmit, console.log(initial);
   }
 
   return {

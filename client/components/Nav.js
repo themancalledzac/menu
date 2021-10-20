@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useUser } from "./graph_ql_queries/User";
+import SignOut from "./signout";
 
 // const NavStyles = styled.ul`
 //   margin: 0;
@@ -32,10 +33,18 @@ export default function Nav() {
       {/* Here we do a <user && (
           // all of our links that only work when a user is logged in, or if user exists
       // ) */}
-      <Link href='/favorites'>Burgers</Link>
-      <Link href='/cart'>Cart</Link>
-      {user.id}
-      {!user && <Link href='/signin'>Sign In</Link>}
+      {user && (
+        <>
+          <Link href='/favorites'>Burgers</Link>
+          <Link href='/cart'>Cart</Link>
+          <SignOut />
+        </>
+      )}
+      {!user && (
+        <>
+          <Link href='/signin'>Sign In</Link>
+        </>
+      )}
     </ul>
   );
 }

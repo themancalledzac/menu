@@ -4,6 +4,7 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { useUser } from "./graph_ql_queries/User";
+import SignOut from "./signout";
 
 export default function LargeHeader() {
   const user = useUser();
@@ -62,7 +63,7 @@ export default function LargeHeader() {
                 <Link href='/profile'>Profile</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link href='/signout'>Sign Out</Link>
+                <SignOut />
               </MenuItem>
             </div>
           ) : (
