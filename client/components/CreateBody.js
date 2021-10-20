@@ -101,12 +101,6 @@ export default function CreateBody() {
   // use hook to fetch data
   const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);
 
-  // const { userData, userError, userLoading } = useQuery(CURRENT_USER_QUERY);
-
-  // // if (userLoading) return <p>Loading...</p>;
-  // // const { authenticatedItem } = userData;
-  // // console.log(authenticatedItem);
-
   if (loading || createLoading) return <p>Loading...</p>;
   let proteinState = inputs.protein.id;
 

@@ -111,8 +111,8 @@ export default function createForm(initial = {}) {
         // console.log(inputs);
       }
     }
-    // text logic
-    else if (type === "text") {
+    // text and signin logic
+    else {
       setInputs({
         ...inputs,
         [name]: value,

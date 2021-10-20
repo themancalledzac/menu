@@ -15,8 +15,6 @@ const signIn = () => {
         <p>hello there</p>
       </div>
       <SignIn />
-      <SignUp />
-      <RequestReset />
     </div>
   );
 };
