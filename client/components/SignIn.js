@@ -3,8 +3,10 @@ import { useMutation } from "@apollo/client";
 import createForm from "../lib/createForm";
 import { SIGNIN_MUTATION } from "./graph_ql_queries/SIGNIN_MUTATION";
 import { CURRENT_USER_QUERY } from "./graph_ql_queries/User";
+import { useRouter } from "next/router";
 
 export default function SignIn() {
+  const router = useRouter();
   const { inputs, handleChange, resetForm } = createForm({
     email: "",
     password: "",
@@ -21,6 +23,7 @@ export default function SignIn() {
     console.log(inputs);
     const res = await signin();
     console.log(res);
+    router.push("/");
     resetForm();
   }
   const error =
