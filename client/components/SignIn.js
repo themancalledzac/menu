@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useMutation } from "@apollo/client";
 import createForm from "../lib/createForm";
 import { SIGNIN_MUTATION } from "./graph_ql_queries/SIGNIN_MUTATION";
@@ -59,6 +60,8 @@ export default function SignIn() {
           <button type='submit'>Sign In!</button>
         </fieldset>
       </form>
+      <h3>Not a user yet? Sign up!</h3>
+      <Link href='/signup'>Sign Up!</Link>
     </div>
   );
 }
