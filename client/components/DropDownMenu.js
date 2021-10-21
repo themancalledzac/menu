@@ -62,14 +62,14 @@ export default function DropDownMenu() {
             <Link href='/signin'>Sign In</Link>
           </MenuItem>
         ) : (
-          <>
+          <div>
             <MenuItem onClick={handleClose}>
               <Link href='/profile'>Profile</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <SignOut />
             </MenuItem>
-          </>
+          </div>
         )}
       </Menu>
     </div>

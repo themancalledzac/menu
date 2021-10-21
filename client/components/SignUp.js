@@ -3,6 +3,7 @@ import { inputClasses } from "@mui/material";
 import createForm from "../lib/createForm";
 import signIn from "../pages/signIn";
 import { SIGNUP_MUTATION } from "./graph_ql_queries/SIGNUP_MUTATION";
+import { SIGNIN_MUTATION } from "./graph_ql_queries/SIGNIN_MUTATION";
 import { CURRENT_USER_QUERY } from "./graph_ql_queries/User";
 
 export default function SignUp() {
@@ -12,9 +13,14 @@ export default function SignUp() {
     password: "",
   });
 
-  const [signup, { data, loading, error }] = useMutation(SIGNUP_MUTATION, {
+  const [signup, { data, loading }] = useMutation(SIGNUP_MUTATION, {
     variables: inputs,
     // refetch the currently logged in user
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
+
+  const [signin, { signinData, loadingData }] = useMutation(SIGNIN_MUTATION, {
+    variables: inputs,
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
 
@@ -23,7 +29,8 @@ export default function SignUp() {
     console.log(inputs);
     const res = await signup().catch(console.error);
     console.log(res);
-    console.log({ data, loading, error });
+    const rest = await signin();
+    console.log({ data, loading });
     resetForm();
   }
 

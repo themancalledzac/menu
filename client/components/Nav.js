@@ -34,16 +34,16 @@ export default function Nav() {
           // all of our links that only work when a user is logged in, or if user exists
       // ) */}
       {user && (
-        <>
+        <div>
           <Link href='/favorites'>Burgers</Link>
           <Link href='/cart'>Cart</Link>
           <SignOut />
-        </>
+        </div>
       )}
       {!user && (
-        <>
+        <div>
           <Link href='/signin'>Sign In</Link>
-        </>
+        </div>
       )}
     </ul>
   );

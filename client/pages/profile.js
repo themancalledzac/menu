@@ -12,7 +12,7 @@ export default function Profile() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <>
+    <div>
       <h1>Profile</h1>
       <hr></hr>
       <h3>{authenticatedItem.name}</h3>
@@ -20,6 +20,6 @@ export default function Profile() {
       <h4>{authenticatedItem.email}</h4>
       <hr></hr>
       <h4>{authenticatedItem.id}</h4>
-    </>
+    </div>
   );
 }
