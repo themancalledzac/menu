@@ -5,8 +5,10 @@ import { Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
 import { useUser } from "./graph_ql_queries/User";
 import SignOut from "./signout";
+import { useRouter } from "next/router";
 
 export default function DropDownMenu() {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const user = useUser();
@@ -17,6 +19,10 @@ export default function DropDownMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function refreshPage() {
+    router.push("/");
+  }
 
   return (
     <div>
@@ -66,7 +72,11 @@ export default function DropDownMenu() {
             <MenuItem onClick={handleClose}>
               <Link href='/profile'>Profile</Link>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem
+              onClick={() => {
+                handleClose(), refreshPage();
+              }}
+            >
               <SignOut />
             </MenuItem>
           </div>
