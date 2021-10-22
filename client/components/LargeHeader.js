@@ -5,8 +5,11 @@ import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { useUser } from "./graph_ql_queries/User";
 import SignOut from "./signout";
+import { useRouter } from "next/router";
 
 export default function LargeHeader() {
+  const router = useRouter();
+
   const user = useUser();
   // console.log(user);
   // user && console.log(user.id);
@@ -16,9 +19,14 @@ export default function LargeHeader() {
     setAnchorEl(event.currentTarget);
   };
 
+  function refreshPage() {
+    router.push("/");
+  }
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <>
       <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
@@ -62,7 +70,11 @@ export default function LargeHeader() {
               <MenuItem onClick={handleClose}>
                 <Link href='/profile'>Profile</Link>
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem
+                onClick={() => {
+                  handleClose(), refreshPage();
+                }}
+              >
                 <SignOut />
               </MenuItem>
             </div>

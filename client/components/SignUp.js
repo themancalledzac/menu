@@ -19,18 +19,11 @@ export default function SignUp() {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
 
-  const [signin, { signinData, loadingData }] = useMutation(SIGNIN_MUTATION, {
-    variables: inputs,
-    refetchQueries: [{ query: CURRENT_USER_QUERY }],
-  });
-
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(inputs);
     const res = await signup().catch(console.error);
     console.log(res);
-    const rest = await signin();
-    console.log({ data, loading });
     resetForm();
   }
 
